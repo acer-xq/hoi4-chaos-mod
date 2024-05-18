@@ -1,0 +1,4184 @@
+﻿focus_tree = {
+	id = chaos_focus
+	
+	country = {
+		factor = 0
+		modifier = { tag = BRA add = 1000 }
+	}
+	
+	reset_on_civilwar = no
+
+	initial_show_position = {
+		focus = chaos_army_effort
+	}
+
+	continuous_focus_position = { x = 55 y = 1450 }
+
+	### GENERIC ###
+
+	focus = {
+		id = chaos_army_effort
+		icon = GFX_goal_generic_allies_build_infantry
+		x = 1
+		y = 0
+		cost = 10
+		search_filters = {  FOCUS_FILTER_RESEARCH }
+		available_if_capitulated = yes
+		ai_will_do = {
+			factor = 2
+			modifier = {
+				factor = 15
+				ai_wants_divisions > ROOT.num_armies
+			}
+		}
+		completion_reward = {
+			custom_effect_tooltip = chaos_army_effort_tt1
+			custom_effect_tooltip = chaos_army_effort_tt2
+			custom_effect_tooltip = chaos_army_effort_tt3
+			hidden_effect = {
+				set_temp_variable_to_random = { var = r1 min = 0 max = 26 integer = yes }
+				army_experience = var:r1
+
+				set_temp_variable_to_random = { var = r1 min = 1 max = 3 integer = yes }
+				set_temp_variable_to_random = { var = r2 min = 0.25 max = 0.6 }
+				meta_effect = {
+					text = {
+						add_doctrine_cost_reduction = {
+							name = land_doc_bonus
+							cost_reduction = [REDUC]
+							uses = [USES]
+							category = land_doctrine
+						}
+					}
+					USES = "[?r1|.0]"
+					REDUC = "[?r2|.2]"
+				}
+
+				set_temp_variable_to_random = { var = iters min = 0 max = 2 integer = yes }
+				if = {
+					limit = { check_variable = { iters > 0 } }
+					create_chaos_division_template = yes
+					spawn_chaos_divisions = yes
+				}
+				set_temp_variable_to_random = { var = iters min = 0 max = 3 integer = yes }
+				if = {
+					limit = { check_variable = { iters > 0 } }
+					create_chaos_division_template = yes
+					spawn_chaos_divisions = yes
+				}
+				set_temp_variable_to_random = { var = iters min = 1 max = 4 integer = yes }
+				create_chaos_division_template = yes
+				spawn_chaos_divisions = yes
+			}
+		}
+	}
+
+	focus = {
+		id = chaos_equipment_effort
+		icon = GFX_goal_generic_small_arms
+		prerequisite = { focus = chaos_army_effort }
+		x = -1
+		y = 1
+		relative_position_id = chaos_army_effort
+		cost = 10
+
+		search_filters = {  FOCUS_FILTER_RESEARCH }
+		
+		available_if_capitulated = yes
+
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 5
+				has_equipment = {
+					infantry_equipment < 0
+				}
+			}
+			modifier = {
+				factor = 5
+				has_equipment = {
+					artillery_equipment < 0
+				}
+			}
+		}
+		completion_reward = {
+			set_variable_to_random = { var = r1 min = 100 max = 7500 integer = yes }
+			set_variable_to_random = { var = r2 min = 15 max = 400 integer = yes }
+	
+			custom_effect_tooltip = chaos_equipment_effort_tt1
+			hidden_effect = {
+				add_equipment_to_stockpile = {
+					type = infantry_equipment
+					amount = r1
+					producer = ROOT
+				}
+				add_equipment_to_stockpile = {
+					type = artillery_equipment
+					amount = r2
+					producer = ROOT
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = chaos_motorization_effort
+		icon = GFX_goal_generic_army_motorized
+		prerequisite = { focus = chaos_army_effort }
+		x = 1
+		y = 1
+		relative_position_id = chaos_army_effort
+		cost = 10
+
+		search_filters = {  FOCUS_FILTER_RESEARCH }
+		
+		available_if_capitulated = yes
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 5
+				NOT = { has_tech = motorised_infantry }
+			}
+			modifier = {
+				factor = 5
+				has_equipment = {
+					motorized_equipment < 0
+				}
+			}
+			modifier = {
+				factor = 5
+				has_equipment = {
+					train_equipment < 0
+				}
+			}
+		}
+		completion_reward = {
+			if = {
+				limit = { has_tech = motorised_infantry }
+				add_equipment_to_stockpile = {
+					type = motorized_equipment
+					amount = 500
+					producer = ROOT
+				}
+			}
+			else = {
+				add_tech_bonus = {
+					name = motorized_bonus
+					bonus = 3.0
+					technology = motorised_infantry
+				}
+			}
+			add_equipment_to_stockpile = {
+				type = train_equipment_1
+				amount = 15
+				producer = ROOT
+			}
+		}
+	}
+
+	focus = {
+		id = chaos_doctrine_effort
+		icon = GFX_goal_generic_army_doctrines
+		prerequisite = { focus = chaos_army_effort }
+		x = 0
+		y = 2
+		relative_position_id = chaos_army_effort
+		cost = 10
+
+		search_filters = {  FOCUS_FILTER_RESEARCH }
+		
+		available_if_capitulated = yes
+
+		completion_reward = {
+
+			custom_effect_tooltip = chaos_doctrine_effort_tt
+			hidden_effect = {
+				set_variable_to_random = { var = r1 min = 0 max = 31 integer = yes }
+				army_experience = var:r1
+			}
+			
+			random_list = {
+				1 = { add_ideas = { chaos_land_doctrine_1 } }
+				1 = { add_ideas = { chaos_land_doctrine_2 } }
+				1 = { add_ideas = { chaos_land_doctrine_3 } }
+			}
+		}
+	}
+
+	focus = {
+		id = chaos_equipment_effort_2
+		icon = GFX_goal_generic_army_artillery
+		prerequisite = { focus = chaos_equipment_effort }
+		x = 0
+		y = 2
+		relative_position_id = chaos_equipment_effort
+		cost = 10
+
+		search_filters = {  FOCUS_FILTER_RESEARCH }
+		
+		available_if_capitulated = yes
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 5
+				has_equipment = {
+					support_equipment < 0
+				}
+			}
+			modifier = {
+				factor = 5
+				has_equipment = {
+					anti_air_equipment < 0
+				}
+			}
+		}
+		completion_reward = {
+
+			set_variable_to_random = { var = r1 min = 50 max = 800 integer = yes }
+			set_variable_to_random = { var = r2 min = 50 max = 650 integer = yes }
+	
+			custom_effect_tooltip = chaos_equipment_effort_2_tt1
+			hidden_effect = {
+				add_equipment_to_stockpile = {
+					type = support_equipment
+					amount = r1
+					producer = ROOT
+				}
+				add_equipment_to_stockpile = {
+					type = anti_air_equipment
+					amount = r2
+					producer = ROOT
+				}
+			}
+
+			add_tech_bonus = {
+				name = infantry_artillery_bonus
+				bonus = 1.0
+				uses = 1
+				category = infantry_weapons
+				category = artillery
+				category = support_tech
+			}
+		}
+	}
+
+	focus = {
+		id = chaos_mechanization_effort
+		icon = GFX_goal_generic_build_tank
+		prerequisite = { focus = chaos_motorization_effort }
+		x = 0
+		y = 2
+		relative_position_id = chaos_motorization_effort
+		cost = 10
+		
+		search_filters = {  FOCUS_FILTER_RESEARCH }
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = motorized_bonus
+				ahead_reduction = 2
+				uses = 1
+				category = motorized_equipment
+			}
+
+			add_ideas = { chaos_production }
+			custom_effect_tooltip = chaos_mechanization_effort_tt1
+		}
+	}
+
+	focus = {
+		id = chaos_doctrine_effort_2
+		icon = GFX_goal_generic_army_doctrines
+		prerequisite = { focus = chaos_doctrine_effort }
+		x = 0
+		y = 2
+		relative_position_id = chaos_doctrine_effort
+		cost = 10
+
+		search_filters = {  FOCUS_FILTER_RESEARCH }
+		
+		available_if_capitulated = yes
+
+		completion_reward = {
+			custom_effect_tooltip = chaos_doctrine_effort_2_tt1
+			hidden_effect = {
+				set_variable_to_random = { var = r1 min = 5 max = 36 integer = yes }
+				army_experience = var:r1
+			}
+
+			custom_effect_tooltip = chaos_army_effort_tt2
+			hidden_effect = {
+				set_temp_variable_to_random = { var = r1 min = 1 max = 3 integer = yes }
+				set_temp_variable_to_random = { var = r2 min = 0.25 max = 0.6 }
+				meta_effect = {
+					text = {
+						add_doctrine_cost_reduction = {
+							name = land_doc_bonus
+							cost_reduction = [REDUC]
+							uses = [USES]
+							category = land_doctrine
+						}
+					}
+					USES = "[?r1|.0]"
+					REDUC = "[?r2|.2]"
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = chaos_equipment_effort_3
+		icon = GFX_goal_generic_army_artillery2
+		prerequisite = { focus = chaos_equipment_effort_2 }
+		x = 0
+		y = 2
+		relative_position_id = chaos_equipment_effort_2
+		cost = 10
+
+		search_filters = {  FOCUS_FILTER_RESEARCH }
+		
+		available_if_capitulated = yes
+		ai_will_do = {
+			factor = 2
+		}
+		completion_reward = {
+
+			random_list = {
+				1= { 
+					add_ideas = chaos_support_equipment_discount 
+					custom_effect_tooltip = chaos_equipment_effort_3_tt1
+					hidden_effect = {	
+						set_variable_to_random = { var = r1 min = 100 max = 1000 integer = yes }
+						add_equipment_to_stockpile = {
+							type = support_equipment
+							amount = r1
+							producer = ROOT
+						}
+					}
+				}
+				1= { 
+					add_ideas = chaos_infantry_equipment_discount
+					custom_effect_tooltip = chaos_equipment_effort_3_tt2
+					hidden_effect = {	
+						set_variable_to_random = { var = r1 min = 1000 max = 10000 integer = yes }
+						add_equipment_to_stockpile = {
+							type = infantry_equipment
+							amount = r1
+							producer = ROOT
+						}
+					}
+				}
+				1= { 
+					add_ideas = chaos_artillery_equipment_discount
+					custom_effect_tooltip = chaos_equipment_effort_3_tt3
+					hidden_effect = {	
+						set_variable_to_random = { var = r1 min = 100 max = 1000 integer = yes }
+						add_equipment_to_stockpile = {
+							type = artillery_equipment
+							amount = r1
+							producer = ROOT
+						}
+					}
+				}
+			}
+
+			add_tech_bonus = {
+				name = infantry_artillery_bonus
+				ahead_reduction = 1.5
+				uses = 1
+				category = infantry_weapons
+				category = artillery
+				category = support_tech
+				category = cat_anti_air
+			}
+		}
+	}
+
+	focus = {
+		id = chaos_armor_effort
+		icon = GFX_goal_generic_army_tanks
+		prerequisite = { focus = chaos_mechanization_effort }
+		x = 0
+		y = 2
+		relative_position_id = chaos_mechanization_effort
+		cost = 10
+
+		search_filters = {  FOCUS_FILTER_RESEARCH }
+		
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = armor_bonus
+				bonus = 1.0
+				uses = 1
+				category = armor
+			}
+
+			random_army_leader = {
+				add_unit_leader_trait = panzer_leader
+				add_unit_leader_trait = panzer_expert
+			}
+		}
+	}
+
+	focus = {
+		id = chaos_special_forces
+		icon = GFX_goal_generic_special_forces
+		prerequisite = { focus = chaos_equipment_effort_3 }
+		prerequisite = { focus = chaos_doctrine_effort_2 }
+		prerequisite = { focus = chaos_armor_effort }
+		x = 1
+		y = 1
+		relative_position_id = chaos_equipment_effort_3
+		cost = 10
+
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		
+		available_if_capitulated = yes
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 3
+				OR = {
+					has_army_size = {
+						size > 0
+						type = mountaineers
+					}
+					has_army_size = {
+						size > 0
+						type = marine
+					}
+					has_army_size = {
+						size > 0
+						type = paratrooper
+					}
+				}
+			}
+		}
+		completion_reward = {
+			effect_tooltip = {
+				add_ideas = chaos_special_forces
+			}
+			hidden_effect = {	
+				if = {
+					limit = { has_idea = chaos_land_doctrine_1 }
+					swap_ideas = {
+						remove_idea = chaos_land_doctrine_1
+						add_idea = chaos_land_doctrine_1_sf
+					}
+				}
+				else_if = {
+					limit = { has_idea = chaos_land_doctrine_2 }
+					swap_ideas = {
+						remove_idea = chaos_land_doctrine_2
+						add_idea = chaos_land_doctrine_2_sf
+					}
+				}
+				else_if = {
+					limit = { has_idea = chaos_land_doctrine_3 }
+					swap_ideas = {
+						remove_idea = chaos_land_doctrine_3
+						add_idea = chaos_land_doctrine_3_sf
+					}
+				}
+			}
+			add_tech_bonus = {
+				name = special_forces_bonus
+				bonus = 1.5
+				uses = 2
+				category = cat_special_forces_generic
+			}
+		}
+	}
+
+	### GERMANY ###
+
+	focus = {
+		id = chaos_GER_rhineland
+		icon = GFX_goal_generic_military_sphere
+		x = 9
+		y = 0
+		cost = 5
+
+		available = { }
+
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 5
+				OR = {
+					has_government = fascism
+					has_government = communism
+					threat > 45
+				}
+			}
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			add_political_power = 150
+			add_popularity = { ideology = fascism popularity = 0.05 }
+
+			capital_scope = {
+				if = {
+					limit = { is_coastal = yes }
+					set_temp_variable = { countm = 2 }
+					set_temp_variable = { countd = 1 }
+					create_factories = yes
+				}
+				else = {
+					set_temp_variable = { countm = 3 }
+					create_factories = yes
+				}
+			}
+
+			if = {
+				limit = {
+					any_controlled_state = {
+						is_demilitarized_zone = yes
+					}
+				}
+				every_state = {
+					limit = {
+						CONTROLLER = { tag = ROOT }
+						is_demilitarized_zone = yes
+					}
+					set_demilitarized_zone = no
+				}
+			}
+		}		
+	}
+
+	focus = {
+		id = chaos_GER_bulwark_against_bolshevism
+		icon = GFX_focus_ger_bulwark_against_bolshevism
+		prerequisite = { focus = chaos_GER_rhineland  }
+		available = {
+		}
+		x = -4
+		y = 1
+		relative_position_id = chaos_GER_rhineland
+		cost = 5
+		ai_will_do = {
+			factor = 1
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			add_ideas = GER_bulwark_against_bolshevism
+			custom_effect_tooltip = GER_bulwark_against_bolshevism_tt
+			SOV = { 
+				add_opinion_modifier = { target = ROOT modifier = small_decrease } 
+			}
+		}
+	}
+
+	focus = {
+		id = chaos_GER_anti_comitern_pact
+		icon = GFX_goal_anti_comintern_pact
+		prerequisite = { focus = chaos_GER_bulwark_against_bolshevism  }
+		x = 0
+		y = 1
+		relative_position_id = chaos_GER_bulwark_against_bolshevism
+		cost = 10
+		available = {
+			is_subject = no
+			num_of_factories > 30
+			has_political_power > 250
+		}
+		bypass = {
+			SOU = {
+				NOT = {
+					has_government = communism
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				is_in_faction = yes
+				AND = {
+					var:faction_leader = {
+						has_government = ROOT
+					}
+					num_of_factories < 50
+				}
+			}
+			modifier = {
+				factor = 8
+				num_of_factories > 89
+			}
+		}
+		completion_reward = {
+			add_political_power = -250
+			set_rule = {
+				desc = TAG_my_rule_description
+				can_create_factions = yes
+			}
+			meta_effect = {
+				text = {
+					create_faction = "[ADJ] Anti-Comintern Pact"
+				}
+				ADJ = "[?ROOT.GetAdjective]"
+			}
+			SOU = { add_opinion_modifier = { target = ROOT modifier = pact_against_us } }
+			custom_effect_tooltip = chaos_GER_anti_comitern_pact_tt
+			set_temp_variable = { f = num_of_factories }
+			every_other_country = {
+				limit = {
+					is_on_same_continent_as_PREV = yes
+					has_same_ideology = yes
+					NOT = { tag = SOU }
+					NOT = { is_in_faction_with = SOU }
+					is_subject = no
+					num_of_factories > 14
+					num_of_factories < f
+				}
+				country_event = { id = chaos_focus.1 days = 2 random_hours = 12 }
+			}
+		}
+	}
+
+	focus = {
+		id = chaos_GER_the_great_red_menace
+		icon = GFX_focus_ger_great_red_menace
+		prerequisite = { focus = chaos_GER_anti_comitern_pact }
+		available = {
+		}
+		cancel_if_invalid = yes
+		x = 0
+		y = 1
+		relative_position_id = chaos_GER_anti_comitern_pact
+		cost = 5
+		ai_will_do = {
+			factor = 2
+		}
+		
+		completion_reward = {
+			add_named_threat = { threat = 1 name = GER_the_great_red_menace }
+			swap_ideas = {
+				remove_idea = GER_bulwark_against_bolshevism
+				add_idea = chaos_red_menace
+			}
+			SOV = {
+				add_opinion_modifier = { target = ROOT modifier = embargo } 
+			}
+		}
+	}
+
+	focus = {
+		id = chaos_GER_ussr_war_goal
+		icon = GFX_goal_generic_war_with_comintern
+		prerequisite = { focus = chaos_GER_the_great_red_menace }
+		available_if_capitulated = no
+		will_lead_to_war_with = SOV
+
+		cancel = {
+			is_subject = yes
+			NOT = { country_exists = SOU }
+		}
+		
+		available = {
+			is_subject = no
+		}
+		x = 0
+		y = 1
+		relative_position_id = chaos_GER_the_great_red_menace
+		cost = 5
+		bypass = {
+			has_war_with = SOU
+		}
+		ai_will_do = {
+			factor = 2
+			modifier = {
+				factor = 0
+				has_army_manpower = { size < 250000 }
+			}
+			modifier = {
+				factor = 0
+				date < 1939.1.1
+			}
+		}	
+		completion_reward = {
+			add_threat = 2
+			IF = {
+				limit = { SOU = { has_civil_war = no } }
+				create_wargoal = {
+					type = annex_everything
+					target = SOV
+					expire = 0
+				}
+			}
+			ELSE = {
+				every_country = {
+					limit = { original_tag = SOU }
+					ROOT = {
+						create_wargoal = {
+							type = annex_everything
+							target = PREV
+							expire = 0
+						}
+					}
+				}
+			}
+			random_core_state = {
+				set_temp_variable = { countc = 1 }
+				set_temp_variable = { countm = 1 }
+				create_factories = yes
+			}
+		}
+	}
+
+	focus = {
+		id = chaos_GER_anschluss
+		icon = GFX_goal_anschluss
+		prerequisite = { focus = chaos_GER_rhineland }
+		available_if_capitulated = no
+		available = {
+			is_subject = no
+			has_army_manpower = { size > 100000 }
+			any_neighbor_country = {
+				hidden_trigger = { is_ai = yes }
+				strength_ratio = { tag = ROOT ratio < 0.4 }
+			}
+		}
+		cancel = {
+			OR = {
+				is_subject = yes
+			}
+		}
+		cancel_if_invalid = no
+		x = 0
+		y = 1
+		relative_position_id = chaos_GER_rhineland
+		cost = 10
+		ai_will_do = {
+			factor = 3
+			modifier = {
+				factor = 0
+				has_government = democratic
+				num_of_factories < 50
+			}
+		}
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		completion_reward = {
+			army_experience = 10
+			random_neighbor_country = {
+				limit = {
+					strength_ratio = { tag = ROOT ratio < 0.4 }
+					#is_ai = no
+				}
+				country_event = {
+					id = chaos_focus.2
+					days = 1
+				}
+			}
+			add_popularity = { ideology = fascism popularity = 0.05 }
+		}
+	}
+
+	focus = {
+		id = chaos_GER_demand_memel
+		icon = GFX_goal_generic_forceful_treaty
+		prerequisite = { focus = chaos_GER_anschluss }
+		available = { 
+			is_subject = no
+		}
+		x = 2
+		y = 1
+		relative_position_id = chaos_GER_anschluss
+		cost = 10
+		bypass = {
+			188 = { is_owned_by = ROOT }
+		}
+		ai_will_do = {
+			factor = 2
+			modifier = {
+				factor = 12
+				NOT = { has_government = democratic }
+				any_neighbor_country = {
+					strength_ratio = { tag = ROOT ratio > 0.6 }
+					strength_ratio = { tag = ROOT ratio < 1.2 }
+				}
+			}
+		}	
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		completion_reward = {
+			188 = { add_claim_by = ROOT }
+			188 = {
+				owner = {
+					country_event = { id = chaos_focus.5 }
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = chaos_GER_danzig_or_war
+		icon = GFX_goal_generic_demand_territory
+		prerequisite = { focus = chaos_GER_demand_memel }
+		mutually_exclusive = { focus = chaos_GER_poland_friend }
+		will_lead_to_war_with = POL
+		available = {
+			is_subject = no
+			has_army_manpower = { size > 250000 }
+			hidden_trigger = {
+				any_neighbor_country = {
+					strength_ratio = { tag = ROOT ratio > 0.6 }
+					strength_ratio = { tag = ROOT ratio < 1.2 }
+				}
+			}
+		}
+		bypass = {
+		}
+		cancel_if_invalid = no
+		x = 0
+		y = 3
+		relative_position_id = chaos_GER_demand_memel
+		cost = 10
+		ai_will_do = {
+			factor = 6
+			modifier = {
+				factor = 0.2
+				has_government = democratic
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					any_neighbor_country = {
+						has_war_with = ROOT
+						NOT = { has_capitulated = yes }
+						strength_ratio = {
+							tag = ROOT
+							ratio > 0.75
+						}
+					}
+				}
+			}
+		}	
+		completion_reward = {
+			add_named_threat = { threat = 5 name = chaos_GER_danzig_or_war }
+			random_other_country = {
+				limit = {
+					is_on_same_continent_as_PREV = yes
+					strength_ratio = {
+						tag = ROOT
+						ratio > 0.6
+					}
+					strength_ratio = {
+						tag = ROOT
+						ratio < 1.2
+					}
+				}
+				country_event = { id = chaos_focus.7 days = 1 }
+				random_core_state = {
+					add_core_of = ROOT
+				}
+				
+			}
+		}
+	}
+	
+	focus = {
+		id = chaos_GER_czech_friend
+		icon = GFX_goal_generic_improve_relations
+		prerequisite = { focus = chaos_GER_anschluss }
+		mutually_exclusive = { focus = chaos_GER_demand_sudetenland }
+		available = { 
+			has_army_manpower = { size > 124999 }
+			NOT = { has_war_with = CZE }
+			CZE = {
+				exists = yes
+				OR = {
+					NOT = { is_in_faction = yes }
+					is_in_faction_with = ROOT
+				}
+			}
+		}
+		bypass = {
+			CZE = { exists = no }
+		}
+		cancel = {
+			OR = {
+				NOT = { country_exists = CZE }
+				has_war_with = CZE
+			}
+		}
+		cancel_if_invalid = no
+		x = -2
+		y = 1
+		relative_position_id = chaos_GER_anschluss
+		cost = 10
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				CZE = {
+					has_opinion = {
+						target = ROOT
+						value < 0
+					}
+				}
+			}
+			modifier = {
+				factor = 5
+				CZE = {
+					has_opinion = {
+						target = ROOT
+						value > 20
+					}
+				}
+			}
+			modifier = {
+				factor = 4
+				has_government = democratic
+			}
+		}		
+		completion_reward = {
+			CZE = {
+				add_opinion_modifier = { target = ROOT modifier = GER_cze_diplomatic_focus }
+				if = {
+					limit = {
+						ROOT = {
+							has_government = fascism
+						}
+					}
+					add_timed_idea = { idea = fascist_influence days = 1095 }
+				}
+				if = {
+					limit = {
+						ROOT = {
+							has_government = communism
+						}
+					}
+					add_timed_idea = { idea = communist_influence days = 1095 }
+				}
+				if = {
+					limit = {
+						ROOT = {
+							has_government = democratic
+						}
+					}
+					add_timed_idea = { idea = democratic_influence days = 1095 }
+				}
+			}
+		}
+	}
+	
+	focus = {
+		id = chaos_GER_demand_sudetenland
+		icon = GFX_goal_demand_sudetenland
+		prerequisite = { focus = chaos_GER_anschluss }
+		mutually_exclusive = { focus = chaos_GER_czech_friend }
+		available = {
+			is_subject = no
+			has_army_manpower = { size > 200000 }		
+			NOT = {
+				AND = {
+					69 = { CONTROLLER = { is_in_faction_with = ROOT } }
+					has_war = yes
+				}
+			}
+		}
+		bypass = {
+			OR = {
+				69 = { 
+					CONTROLLER = {
+						OR = {
+							has_war_with = ROOT
+							is_puppet_of = ROOT
+						}
+					}
+				}
+				ROOT = { controls_state = 69 }
+			}
+		}
+		cancel = {
+			is_puppet = yes
+		}
+		cancel_if_invalid = yes
+		x = 0
+		y = 1
+		relative_position_id = chaos_GER_anschluss
+		cost = 10
+		ai_will_do = {
+			factor = 2
+			modifier = {
+				factor = 0.1
+				has_government = democratic
+				num_of_factories < 75
+			}
+			modifier = {
+				factor = 8
+				69 = {
+					CONTROLLER = {
+						strength_ratio = {
+							tag = ROOT
+							ratio < 0.5
+						}
+					}
+				}
+			}
+		}	
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		completion_reward = {
+			69 = {
+				controller = {
+					if = {
+						limit = { THIS = { is_subject = yes } }
+						OWNER = { country_event = { id = chaos_focus.6 days = 1 } }
+					}
+					else = {
+						country_event = { id = chaos_focus.6 days = 1 }
+					}
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = chaos_GER_coal_liquidization
+		icon = GFX_goal_generic_oil_refinery
+		prerequisite = { focus = chaos_GER_demand_sudetenland }
+		x = 0
+		y = 1
+		relative_position_id = chaos_GER_demand_sudetenland
+		cost = 5
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				check_variable = { var:resource_imported@rubber > 0 }
+				factor = 4
+			}
+		}
+		available = {
+			num_of_controlled_states > 0
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 3.0
+				uses = 1
+				category = synth_resources
+			}
+			random_controlled_state = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = synthetic_refinery
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = chaos_GER_end_of_czechoslovakia
+		icon = GFX_goal_generic_territory_or_war
+		prerequisite = { focus = chaos_GER_coal_liquidization }
+		will_lead_to_war_with = CZE
+		available = { 
+			is_subject = no
+			has_army_manpower = { size > 250000 }
+			NOT = { has_war_with = CZE }
+		}
+
+		bypass = {
+			OR = {
+				CZE = { is_puppet_of = GER }
+				CZE = { is_in_faction_with = GER }
+				has_war_with = CZE
+				NOT = { country_exists = CZE }
+				any_other_country = {
+					is_in_faction_with = GER
+					CZE = {
+						is_puppet_of = PREV
+					}
+				}
+			}
+		}
+
+		x = 0
+		y = 1
+		relative_position_id = chaos_GER_coal_liquidization
+		cost = 10
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 3
+				strength_ratio = {
+					tag = CZE
+					ratio > 1.0
+				}
+			}
+		}
+
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		completion_reward = {
+			create_wargoal = {
+				target = CZE
+				type = annex_everything
+			}
+		}
+	}
+
+	focus = {
+		id = chaos_GER_italy_ally
+		icon = GFX_goal_generic_major_alliance
+		prerequisite = { focus = chaos_GER_end_of_czechoslovakia focus = chaos_GER_czech_friend }
+		available = {
+			NOT = { has_war_with = ITA }
+		}
+
+		x = 0
+		y = 3
+		relative_position_id = chaos_GER_czech_friend
+		cost = 5
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				has_government = democratic
+				ITA = { has_government = fascism }
+			}
+		}
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			ITA = {
+				add_opinion_modifier = { target = ROOT modifier = huge_increase }
+			}
+		}
+	}
+
+	focus = {
+		id = chaos_GER_poland_friend
+		icon = GFX_goal_generic_improve_relations
+		prerequisite = { focus = chaos_GER_end_of_czechoslovakia }
+		mutually_exclusive = { focus = chaos_GER_danzig_or_war }
+		available = {
+			NOT = { has_global_flag = sov_yes_pact }
+			NOT = { has_war_with = POL }
+			POL = {
+				custom_trigger_tooltip = {
+					tooltip = chaos_GER_alone_or_peace_faction_tt
+					is_alone_or_in_faction_at_peace_with_GER = yes
+				}
+			}
+		}
+		bypass = {
+			is_in_faction_with = POL
+			is_alone_or_in_faction_at_peace_with_GER = no
+		}
+		x = 0
+		y = 1
+		relative_position_id = chaos_GER_end_of_czechoslovakia
+		cost = 5
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 4
+				has_government = democratic
+			}
+		}	
+		completion_reward = {
+			POL = {
+				add_opinion_modifier = { target = ROOT modifier = GER_pol_diplomacy_focus }
+				if = {
+					limit = {
+						ROOT = {
+							has_government = fascism
+						}
+					}
+					add_timed_idea = { idea = fascist_influence days = 1095 }
+				}
+				if = {
+					limit = {
+						ROOT = {
+							has_government = communism
+						}
+					}
+					add_timed_idea = { idea = communist_influence days = 1095 }
+				}
+				if = {
+					limit = {
+						ROOT = {
+							has_government = democratic
+						}
+					}
+					add_timed_idea = { idea = democratic_influence days = 1095 }
+				}
+				if = {
+					limit = {
+						ROOT = {
+							has_government = neutrality
+						}
+					}
+					add_timed_idea = { idea = neutrality_influence days = 1095 }
+				}
+				country_event = { id = generic.1 }
+			}
+		}
+	}
+
+	focus = {
+		id = chaos_GER_war_with_france
+		icon = GFX_goal_generic_major_war
+		prerequisite = { focus = chaos_GER_poland_friend  focus = chaos_GER_danzig_or_war }
+		will_lead_to_war_with = FRA
+		available = {
+			is_subject = no			
+			NOT = { is_in_faction_with = FRA }
+		}
+		relative_position_id = chaos_GER_poland_friend
+		x = 1
+		y = 1
+		cost = 10
+		bypass = {
+			OR = {
+				NOT = { country_exists = FRA }
+				has_war_with = FRA
+			}
+		}
+		ai_will_do = {
+			factor = 3
+			modifier = {
+				factor = 0.1
+				strength_ratio = {
+					tag = FRA
+					ratio < 0.8
+				}
+			}
+		}
+		completion_reward = {
+			add_named_threat = { threat = 2.5 name = chaos_GER_war_with_france_threat }
+ 			create_wargoal = {
+ 				type = take_state_focus
+ 				target = FRA
+ 				expire = 0
+ 				generator = { 28 }
+ 			}
+			random_core_state = {	
+				set_temp_variable = { countc = 1 }
+				set_temp_variable = { countm = 1 }
+				create_factories = yes
+			}
+		}
+	}	
+
+	focus = {
+		id = chaos_GER_operation_tannenbaum
+		icon = GFX_goal_generic_occupy_states_ongoing_war
+		prerequisite = { focus = chaos_GER_war_with_france }
+		available = {
+			is_subject = no
+			NOT = { is_in_faction_with = SWI }
+		}
+		bypass = {
+			NOT = { country_exists = SWI }
+			has_war_with = SWI
+		}
+		cancel_if_invalid = yes
+		will_lead_to_war_with = SWI
+		x = 0
+		y = 1
+		relative_position_id = chaos_GER_war_with_france
+		cost = 5
+		ai_will_do = {
+			factor = 1
+		}
+		
+		completion_reward = {
+			create_wargoal = {
+				type = annex_everything
+				target = SWI
+				expire = 0
+			}
+		}
+	}
+
+	focus = {
+		id = chaos_GER_grosraumwirtschaft
+		icon = GFX_goal_generic_construct_infrastructure
+		prerequisite = { focus = chaos_GER_rhineland }
+		x = 4
+		y = 1
+		relative_position_id = chaos_GER_rhineland
+		cost = 5
+		
+		ai_will_do = {
+			factor = 1
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			add_ideas = GER_grosraumwirtschaft
+		}
+	}
+
+
+	focus = {
+		id = chaos_GER_reverse_the_brain_drain
+		icon = GFX_focus_research
+		prerequisite = { focus = chaos_GER_grosraumwirtschaft }
+		available = {
+			is_subject = no
+		}
+		x = 0
+		y = 1
+		relative_position_id = chaos_GER_grosraumwirtschaft
+		cost = 10
+		ai_will_do = {
+			factor = 4
+			modifier = {
+				factor = 12
+				amount_research_slots < 4
+			}
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		completion_reward = {
+			add_research_slot = 1
+		}
+	}
+
+	focus = {
+		id = chaos_GER_trade_interdiction
+		icon = GFX_goal_generic_wolf_pack
+		prerequisite = { focus = chaos_GER_reverse_the_brain_drain }
+		available = {
+			any_state = {
+				is_coastal = yes
+			}
+		}
+		x = 0
+		y = 1
+		relative_position_id = chaos_GER_reverse_the_brain_drain
+		cost = 10
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				all_state = {
+					NOT = { is_coastal = yes }
+				}
+			}
+			modifier = {
+				factor = 0.5
+				has_navy_size = { size < 1 }
+			}
+		}
+			
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		completion_reward = {
+			add_ideas = GER_modular_construction
+			add_doctrine_cost_reduction = {
+				name = ti_bonus
+				name = GER_trade_interdiction
+				cost_reduction = 0.25
+				uses = 2
+				category = trade_interdiction_tree
+			}
+		}
+	}
+
+
+	### UK ###
+
+	focus = {
+		id = chaos_ENG_steady_as_she_goes
+		icon = GFX_goal_support_democracy
+		x = 20
+		y = 0
+		cost = 5
+		ai_will_do = {
+			factor = 3
+			modifier = {
+				factor = 0.5
+				NOT = { has_government = democratic }
+			}
+			modifier = {
+				factor = 3
+				has_stability < 0.55
+			}
+		}
+		available = { 
+		}
+		cancel_if_invalid = yes
+		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY}	
+		completion_reward = {
+			add_popularity = { ideology = democratic popularity = 0.05 }
+			add_timed_idea = { idea = ENG_steady_as_she_goes_idea days = 365 }
+		}
+	}
+
+	focus = {
+		id = chaos_ENG_service_focus 
+		prerequisite = { focus = chaos_ENG_steady_as_she_goes }
+		icon = GFX_goal_generic_position_armies
+		x = -4
+		y = 1
+		relative_position_id = chaos_ENG_steady_as_she_goes
+		cost = 5
+		available_if_capitulated = yes
+		completion_reward = {
+			army_experience = 10
+			navy_experience = 25
+			air_experience = 25
+			add_ideas = ENG_service_overseas_idea
+		}
+	}
+
+	focus = {
+		id = chaos_ENG_colonial_focus 
+		prerequisite = { focus = chaos_ENG_service_focus }
+		available = {
+			num_subjects > 0
+		}
+		icon = GFX_focus_research2
+		x = 0
+		y = 1
+		relative_position_id = chaos_ENG_service_focus
+		cost = 10
+		ai_will_do = {
+			factor = 3
+		}
+		available_if_capitulated = yes
+		search_filters = {FOCUS_FILTER_RESEARCH}
+		completion_reward = {
+			add_popularity = { ideology = democratic popularity = 0.05 }
+			swap_ideas = {
+				remove_idea = ENG_service_overseas_idea
+				add_idea = chaos_colonial_elite
+			}
+		}
+	}
+
+	focus = {
+		id = chaos_ENG_subject_development_a_focus 
+		prerequisite = { focus = chaos_ENG_colonial_focus }
+		available = {
+			num_subjects > 0
+		}
+		icon = GFX_goal_generic_construct_civ_factory
+		x = -1
+		y = 1
+		relative_position_id = chaos_ENG_colonial_focus
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = {FOCUS_FILTER_INDUSTRY}
+		completion_reward = {
+			random_subject_country = {
+				add_opinion_modifier = { target = ROOT modifier = aided_industry }
+				add_autonomy_ratio = { value = -0.1 }
+				random_owned_controlled_state = {
+					set_temp_variable = { count = 2 }
+					create_civs = yes
+				}
+				random_owned_controlled_state = {
+					set_temp_variable = { count = 1 }
+					create_civs = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = chaos_ENG_subject_development_b_focus 
+		prerequisite = { focus = chaos_ENG_colonial_focus }
+		available = {
+			num_subjects > 0
+		}
+		icon = GFX_goal_generic_construct_mil_factory
+		x = 1
+		y = 1
+		relative_position_id = chaos_ENG_colonial_focus
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = {FOCUS_FILTER_INDUSTRY}
+		completion_reward = {
+			random_subject_country = {
+				add_opinion_modifier = { target = ROOT modifier = aided_industry }
+				add_autonomy_ratio = { value = -0.1 }
+				random_owned_controlled_state = {
+					set_temp_variable = { count = 2 }
+					create_mils = yes
+				}
+				random_owned_controlled_state = {
+					set_temp_variable = { count = 1 }
+					create_mils = yes
+				}
+				if = {
+					limit = {
+						any_owned_state = {
+							is_coastal = yes
+						}
+					}
+					random_owned_state = {
+						limit = {
+							is_coastal = yes
+						}
+						set_temp_variable = { count = 1 }
+						create_docks = yes
+					}
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = chaos_ENG_subject_development_c_focus 
+		prerequisite = { focus = chaos_ENG_subject_development_a_focus focus = chaos_ENG_subject_development_b_focus }
+		available = {
+			num_subjects > 1
+		}
+		icon = GFX_goal_generic_construction
+		x = 1
+		y = 1
+		relative_position_id = chaos_ENG_subject_development_a_focus
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = {FOCUS_FILTER_INDUSTRY}
+		ai_will_do = {
+			factor = 2
+			modifier = {
+				factor = 6
+				num_subjects > 3
+			}
+		}
+		completion_reward = {
+			add_stability = -0.1
+			every_subject_country = {
+				effect_tooltip = {
+					set_temp_variable = { countc = 1 }
+					set_temp_variable = { countm = 1 }
+					create_factories = yes
+				}
+				hidden_effect = {	
+					random_owned_controlled_state = {
+						set_temp_variable = { countc = 1 }
+						set_temp_variable = { countm = 1 }
+						create_factories = yes
+					}
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = chaos_ENG_imperial_federation 
+		prerequisite = { focus = chaos_ENG_subject_development_c_focus }
+		prerequisite = { focus = chaos_ENG_imperial_conscription }
+		available = {
+			num_subjects > 1
+			has_political_power > 299
+		}
+		icon = GFX_focus_eng_imperial_federation
+		x = 2
+		y = 1
+		relative_position_id = chaos_ENG_subject_development_c_focus
+		cost = 20
+		ai_will_do = {
+			factor = 2
+			modifier = {
+				factor = 5
+				num_subjects > 2
+			}
+			modifier = {
+				factor = 20
+				num_subjects > 5
+			}
+		}
+		available_if_capitulated = yes
+		search_filters = {FOCUS_FILTER_INDUSTRY}
+		completion_reward = {
+			add_political_power = -300
+			every_subject_country = {
+				random_list = {
+					1 = {
+						custom_effect_tooltip = chaos_ENG_imperial_federation_tt
+						hidden_effect = {
+							every_unit_leader = {
+								set_nationality = ROOT
+							}
+							ROOT = {
+								annex_country = {
+									target = PREV
+									transfer_troops = yes
+								}
+							}
+							every_core_state = {
+								add_core_of = ROOT
+							}
+						}
+					}
+					3 = {
+						ROOT = {
+							add_stability = -0.025
+						}
+					}
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = chaos_ENG_shadow_scheme_focus
+		prerequisite = { focus = chaos_ENG_steady_as_she_goes }
+		available = {
+			OR = {
+				threat > 0.05
+				has_war = yes
+				NOT = { has_government = democratic }
+			}
+		}
+		continue_if_invalid = yes
+		available_if_capitulated = yes
+		icon = GFX_goal_generic_construct_mil_factory
+		x = 3
+		y = 1
+		relative_position_id = chaos_ENG_steady_as_she_goes
+		cost = 10
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 3
+				check_variable = { var:arms_factory_goal < num_of_military_factories }
+			}
+		}
+		search_filters = {FOCUS_FILTER_INDUSTRY}	
+		completion_reward = {
+			custom_effect_tooltip = shadow_scheme_focus_tt
+			add_ideas = wartime_industry_focus	
+		}
+	}
+
+	focus = {
+		id = chaos_ENG_general_rearmament_focus
+		prerequisite = { focus = chaos_ENG_shadow_scheme_focus }
+		available = {
+			OR = {
+				threat > 0.1 
+				has_war = yes
+				NOT = { has_government = democratic }
+			}
+		}
+
+		continue_if_invalid = yes
+
+		icon = GFX_goal_generic_consumer_goods
+		x = 0
+		y = 1
+		relative_position_id = chaos_ENG_shadow_scheme_focus
+		cost = 5
+		ai_will_do = {
+			factor = 1
+		}
+		search_filters = {FOCUS_FILTER_INDUSTRY}	
+		completion_reward = {
+			add_popularity = { ideology = democratic popularity = 0.05 }
+			add_ideas = british_austerity_idea
+		}
+	}
+
+	focus = {
+		id = chaos_ENG_air_rearmament_focus
+		prerequisite = { focus = chaos_ENG_general_rearmament_focus }
+		icon = GFX_goal_generic_air_doctrine
+		x = 0
+		y = 1
+		relative_position_id = chaos_ENG_general_rearmament_focus
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+
+		completion_reward = {
+			air_experience = 25
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = air_base
+						size > 1
+					}
+				}
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes
+				}
+				set_state_flag = air_rearmament_focus_2AirBase
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = air_base
+						size > 1
+					}
+				}
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes
+				}			
+				set_state_flag = air_rearmament_focus_2AirBase
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = air_base
+						size > 1
+					}
+				}
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes
+				}			
+				set_state_flag = air_rearmament_focus_2AirBase
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = air_base
+						size > 1
+					}
+				}
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes
+				}			
+				set_state_flag = air_rearmament_focus_2AirBase
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = air_base
+						size > 1
+					}
+				}
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes
+				}			
+				set_state_flag = air_rearmament_focus_2AirBase
+			}
+
+		}
+	}
+
+	focus = {
+		id = chaos_ENG_fighter_command_focus
+		prerequisite = { focus = chaos_ENG_air_rearmament_focus }
+		icon = GFX_goal_generic_air_fighter
+		x = -1
+		y = 2
+		relative_position_id = chaos_ENG_air_rearmament_focus
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+
+		available_if_capitulated = yes
+		search_filters = {FOCUS_FILTER_RESEARCH}
+		completion_reward = {
+			if = {
+				limit = {
+					NOT = { has_dlc = "By Blood Alone" }
+				}
+				air_experience = 25
+				add_tech_bonus = {
+					name = fighter_command_focus
+					bonus = 1.0
+					uses = 2
+					category = light_fighter
+					category = cat_heavy_fighter
+				}
+			}
+			else_if = {
+				limit = {
+					has_dlc = "By Blood Alone"
+				}
+				air_experience = 25
+				add_tech_bonus = {
+					name = fighter_command_focus
+					bonus = 1.0
+					uses = 1
+					category = light_fighter
+					category = cat_heavy_fighter
+				}
+				add_doctrine_cost_reduction = {
+					name = ENG_fighter_command_focus #land_doc_bonus
+					cost_reduction = 0.5
+					uses = 1
+					category = air_doctrine
+				}
+			}
+		}
+	}
+	focus = {
+		id = chaos_ENG_bomber_command_focus
+		prerequisite = { focus = chaos_ENG_air_rearmament_focus }
+		icon = GFX_goal_generic_air_bomber
+		x = 0
+		y = 1
+		relative_position_id = chaos_ENG_air_rearmament_focus
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+
+		available_if_capitulated = yes
+		search_filters = {FOCUS_FILTER_RESEARCH}
+		completion_reward = {
+			if = {
+				limit = {
+					NOT = { has_dlc = "By Blood Alone" }
+				}
+				air_experience = 25
+				add_tech_bonus = {
+					name = bomber_command_focus
+					bonus = 1.0
+					uses = 2
+					category = cat_strategic_bomber
+					category = tactical_bomber
+				}
+			}
+			else_if = {
+				limit = {
+					has_dlc = "By Blood Alone"
+				}
+				air_experience = 25
+				add_tech_bonus = {
+					name = bomber_command_focus
+					bonus = 1.0
+					uses = 1
+					category = cat_strategic_bomber
+					category = tactical_bomber
+				}
+				add_doctrine_cost_reduction = {
+					name = ENG_bomber_command_focus #land_doc_bonus
+					cost_reduction = 0.5
+					uses = 1
+					category = air_doctrine
+				}
+			}
+		}
+	}
+	focus = {
+		id = chaos_ENG_coastal_command_focus
+		prerequisite = { focus = chaos_ENG_air_rearmament_focus }
+		icon = GFX_goal_generic_air_naval_bomber
+		x = 1
+		y = 2
+		relative_position_id = chaos_ENG_air_rearmament_focus
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+
+		available_if_capitulated = yes
+		search_filters = {FOCUS_FILTER_RESEARCH}
+		completion_reward = {
+			if = {
+				limit = {
+					NOT = { has_dlc = "By Blood Alone" }
+				}
+				air_experience = 25
+				add_tech_bonus = {
+					name = coastal_command_focus
+					bonus = 1.0
+					uses = 2
+					category = naval_bomber
+					category = cas_bomber
+				}
+			}
+			else_if = {
+				limit = {
+					has_dlc = "By Blood Alone"
+				}
+				air_experience = 25
+				add_tech_bonus = {
+					name = coastal_command_focus
+					bonus = 1.0
+					uses = 1
+					category = naval_bomber
+					category = cas_bomber
+				}
+				add_doctrine_cost_reduction = {
+					name = ENG_coastal_command_focus #land_doc_bonus
+					cost_reduction = 0.5
+					uses = 1
+					category = air_doctrine
+				}
+			}
+		}
+	}
+	focus = {
+		id = chaos_ENG_aircraft_production_focus
+		prerequisite = { focus = chaos_ENG_fighter_command_focus focus = chaos_ENG_bomber_command_focus focus = chaos_ENG_coastal_command_focus }
+		icon = GFX_goal_generic_air_production
+		x = 1
+		y = 1
+		relative_position_id = chaos_ENG_fighter_command_focus
+		cost = 10
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 4
+				has_deployed_air_force_size = {
+					size > 200
+				}
+			}
+		}
+
+		available_if_capitulated = yes
+		search_filters = {FOCUS_FILTER_INDUSTRY}
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = british_austerity_idea
+				add_idea = chaos_aircraft_production_group
+			}
+		}
+	}
+	focus = {
+		id = chaos_ENG_jet_focus
+		prerequisite = { focus = chaos_ENG_aircraft_production_focus }
+		icon = GFX_goal_generic_build_airforce
+		x = 0
+		y = 1
+		relative_position_id = chaos_ENG_aircraft_production_focus
+		cost = 10
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 4
+				has_deployed_air_force_size = {
+					size > 500
+				}
+				date > 1943.1.1
+			}
+		}
+
+		available_if_capitulated = yes
+		search_filters = {FOCUS_FILTER_RESEARCH}
+		completion_reward = {
+			add_tech_bonus = {
+				name = uk_jet_focus
+				bonus = 1.0
+				uses = 4
+				category = jet_technology
+			}
+		}
+	}
+	focus = {
+		id = chaos_ENG_motion_of_no_confidence
+		prerequisite = { focus = chaos_ENG_steady_as_she_goes }
+		available = {
+		}
+		continue_if_invalid = yes
+		icon = GFX_focus_eng_motion_of_no_confidence
+		x = 0
+		y = 1
+		relative_position_id = chaos_ENG_steady_as_she_goes
+		cost = 10
+		ai_will_do = {
+			factor = 2
+			modifier = {
+				factor = 15
+				any_character = {
+					is_country_leader = yes
+					has_trait = the_absentee_president
+				}
+			}
+		}
+
+		completion_reward = {
+			retire_country_leader = yes
+			add_stability = -0.10
+			custom_effect_tooltip = ENG_no_further_appeasement_tt
+			hidden_effect = {
+				set_rule = { can_declare_war_on_same_ideology = yes }
+				set_rule = { can_puppet = yes }
+			}
+			set_rule = { can_send_volunteers = yes }
+		}
+	}
+	focus = {
+		id = chaos_ENG_pre_empt_spanish_alignment
+		prerequisite = { focus = chaos_ENG_motion_of_no_confidence }
+		available = {
+			is_subject = no
+			SPA = {
+				exists = yes
+				NOT = { is_in_faction_with = ENG }
+				NOT = {  }
+				NOT = { has_government = democratic }
+			}
+			num_divisions > 15
+			has_global_flag = scw_over
+		}
+		bypass = {
+			has_war_with = ENG
+			NOT = {
+				country_exists = SPA
+			}
+			has_global_flag = scw_over
+		}
+		icon = GFX_goal_generic_more_territorial_claims
+		x = 0
+		y = 1
+		relative_position_id = chaos_ENG_motion_of_no_confidence
+		cost = 5
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				has_war = yes
+			}
+		}	
+		completion_reward = {
+			ROOT = {
+				create_wargoal = {
+					type = puppet_wargoal_focus
+					target = SPA
+					expire = 0
+				}
+			}
+		}
+	}
+	focus = {
+		id = chaos_ENG_secure_the_oil_imports
+		prerequisite = { focus = chaos_ENG_motion_of_no_confidence }
+		available = { 
+			is_subject = no
+			num_of_factories > 49
+			has_army_size = {
+				size > 0
+				type = armor
+			}
+			has_navy_size = {
+				size > 0
+			}
+			has_deployed_air_force_size = {
+				size > 0
+			}
+		}
+		will_lead_to_war_with = IRQ
+		will_lead_to_war_with = PER
+		will_lead_to_war_with = VEN
+		continue_if_invalid = yes
+		icon = GFX_goal_generic_occupy_states_ongoing_war
+		x = -2
+		y = 1
+		relative_position_id = chaos_ENG_motion_of_no_confidence
+		cost = 10
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 5
+				num_of_factories > 100
+			}
+		}	
+		completion_reward = {
+			create_wargoal = {
+				target = IRQ
+				type = puppet_wargoal_focus
+				expire = 0
+			}
+			create_wargoal = {
+				target = PER
+				type = puppet_wargoal_focus
+				expire = 0
+			}
+			create_wargoal = {
+				target = VEN
+				type = puppet_wargoal_focus
+				expire = 0
+			}
+			add_state_claim = 489
+			add_state_claim = 307
+			add_state_claim = 291
+			add_state_claim = 413
+		}
+	}
+	focus = {
+		id = chaos_ENG_imperial_conscription
+		prerequisite = { focus = chaos_ENG_pre_empt_spanish_alignment }	
+		available = {
+
+		}
+		icon = GFX_focus_generic_commonwealth_build_infantry
+		x = 0
+		y = 2
+		relative_position_id = chaos_ENG_pre_empt_spanish_alignment
+		cost = 10
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 4
+				num_occupied_states > 10
+			}
+		}
+		search_filters = {FOCUS_FILTER_MANPOWER}	
+		completion_reward = {
+			add_ideas = ENG_imperial_conscription_idea
+			every_country = {
+				limit = {
+					is_subject_of = ROOT
+				}
+				add_ideas = ENG_imperial_conscription_subject_idea
+			}
+		}
+	}
+	focus = {
+		id = chaos_ENG_crush_the_dream
+		prerequisite = { focus = chaos_ENG_imperial_conscription }
+		available = {
+			is_subject = no
+			NOT = { is_in_faction_with = USA }
+		}
+		will_lead_to_war_with = USA
+		icon = GFX_focus_eng_crush_the_dream
+		x = 0
+		y = 1
+		relative_position_id = chaos_ENG_imperial_conscription
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}	
+		completion_reward = {
+			add_threat = 2
+			create_wargoal = {
+				type = puppet_wargoal_focus
+				target = USA
+				expire = 0
+			}
+			random_core_state = {
+				set_temp_variable = { countc = 1 }
+				set_temp_variable = { countm = 1 }
+				create_factories = yes
+			}
+		}
+	}
+
+
+	### FRANCE ###
+
+	focus = {
+		id = chaos_FRA_begin_rearmament
+		icon = GFX_goal_generic_construct_mil_factory
+		x = 30
+		y = 0
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}
+		available = {
+			has_war_support > 0.12
+		}	
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			add_war_support = 0.025
+			set_temp_variable = { count = 2 }
+			random_owned_state = {
+				limit = {
+					is_controlled_by = ROOT
+					is_core_of = ROOT
+				}
+				create_mils = yes
+			}
+			set_temp_variable = { count = 1 }
+			random_owned_state = {
+				limit = {
+					is_controlled_by = ROOT
+					is_core_of = ROOT
+				}
+				create_mils = yes
+			}
+		}
+	}
+	focus = {
+		id = chaos_FRA_defensive_focus
+		icon = GFX_goal_generic_defence
+		prerequisite = { focus = chaos_FRA_begin_rearmament }
+		mutually_exclusive = { focus = chaos_FRA_aggressive_focus }
+		x = -1
+		y = 1
+		cost = 5
+		available_if_capitulated = yes
+		relative_position_id = chaos_FRA_begin_rearmament
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			army_experience = 25
+			add_advisor_role = {
+				character = ROOT.country_leader
+				advisor = {
+					slot = army_chief
+					cost = 35
+					idea_token = "[?ROOT.GetName]_offense"
+					traits = {
+						army_chief_offensive_2
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = chaos_FRA_fusiliers_marine
+		icon = GFX_goal_generic_amphibious_assault
+		prerequisite = { focus = chaos_FRA_defensive_focus }
+		mutually_exclusive = { focus = chaos_FRA_firepower_kills }
+		x = 0
+		y = 1
+		relative_position_id = chaos_FRA_defensive_focus
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		completion_reward = {
+			add_ideas = { special_forces }
+			add_tech_bonus = {
+				name = FRA_fusiliers_marine
+				category = tp_tech
+				category = marine_tech
+				uses = 2
+				bonus = 1
+			}
+		}
+	}
+	focus = {
+		id = chaos_FRA_fortification_focus
+		icon = GFX_goal_generic_construction2
+		prerequisite = { focus = chaos_FRA_fusiliers_marine }
+		x = 0
+		y = 1
+		relative_position_id = chaos_FRA_fusiliers_marine
+		cost = 10
+		available_if_capitulated = yes
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = special_forces
+				add_idea = chaos_fortification_focus
+			}
+			add_tech_bonus = {
+				category = artillery
+				category = cat_anti_tank
+				category = cat_anti_air
+				category = engineers_tech
+				uses = 4
+				bonus = 1.5
+			}
+		}
+	}
+	focus = {
+		id = chaos_FRA_firepower_kills
+		icon = GFX_goal_generic_army_artillery
+		prerequisite = { focus = chaos_FRA_defensive_focus }
+		mutually_exclusive = { focus = chaos_FRA_fusiliers_marine }
+		x = -2
+		y = 1
+		relative_position_id = chaos_FRA_defensive_focus
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		completion_reward = {
+			add_ideas = { FRA_firepower }
+		}
+	}
+	focus = {
+		id = chaos_FRA_infantry_focus
+		icon = GFX_goal_generic_allies_build_infantry
+		prerequisite = { focus = chaos_FRA_firepower_kills }
+		x = 0
+		y = 1
+		relative_position_id = chaos_FRA_firepower_kills
+		cost = 10
+		available_if_capitulated = yes
+		completion_reward = {
+			army_experience = 5
+			swap_ideas = {
+				remove_idea = FRA_firepower
+				add_idea = chaos_infantry_focus
+			}
+		}
+	}
+	focus = {
+		id = chaos_FRA_aggressive_focus
+		icon = GFX_goal_generic_major_war
+		prerequisite = { focus = chaos_FRA_begin_rearmament }
+		mutually_exclusive = { focus = chaos_FRA_defensive_focus }
+		x = 1
+		y = 1
+		cost = 5
+		relative_position_id = chaos_FRA_begin_rearmament
+		available_if_capitulated = yes
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			army_experience = 25
+			add_advisor_role = {
+				character = ROOT.country_leader
+				advisor = {
+					slot = army_chief
+					cost = 35
+					idea_token = "[?ROOT.GetName]_defense"
+					traits = {
+						army_chief_defensive_2
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = chaos_FRA_motorized_focus
+		icon = GFX_goal_generic_army_motorized
+		prerequisite = { focus = chaos_FRA_aggressive_focus }
+		mutually_exclusive = { focus = chaos_FRA_cas_focus }
+		x = 0
+		y = 1
+		relative_position_id = chaos_FRA_aggressive_focus
+		cost = 10
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 8
+				has_army_size = {
+					type = armor
+					size > 0
+				}
+			}
+		}
+		available_if_capitulated = yes
+
+		completion_reward = {
+			army_experience = 5
+			add_ideas = FRA_motorized_focus
+			add_tech_bonus = {
+				name = FRA_mechanized_focus
+				bonus = 1.0
+				uses = 1
+				category = cat_mechanized_equipment
+			}
+		}
+	}
+	focus = {
+		id = chaos_FRA_light_medium_armor
+		icon = GFX_goal_generic_army_tanks
+		prerequisite = { focus = chaos_FRA_motorized_focus }
+		x = 0
+		y = 1
+		relative_position_id = chaos_FRA_motorized_focus
+		cost = 10
+
+		available_if_capitulated = yes
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 8
+				has_army_size = {
+					type = armor
+					size > 0
+				}
+			}
+		}
+		completion_reward = {
+			army_experience = 5
+			swap_ideas = {
+				remove_idea = FRA_motorized_focus
+				add_idea = chaos_armour_focus
+			}
+			add_tech_bonus = {
+				name = FRA_light_medium_armor
+				bonus = 1.0
+				uses = 1
+				category = cat_light_armor
+				category = cat_medium_armor
+			}
+		}
+	}
+	focus = {
+		id = chaos_FRA_cas_focus
+		icon = GFX_goal_generic_CAS
+	 	prerequisite = { focus = chaos_FRA_aggressive_focus }
+		mutually_exclusive = { focus = chaos_FRA_motorized_focus }
+		x = 2
+		y = 1
+		relative_position_id = chaos_FRA_aggressive_focus
+		cost = 10
+		available_if_capitulated = yes
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 8
+				has_deployed_air_force_size = {
+					size > 200
+				}
+			}
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = FRA_cas_focus
+				bonus = 1.0
+				uses = 2
+				category = cas_bomber
+			}
+		}
+	}
+	focus = {
+		id = chaos_FRA_flying_artillery
+		icon = GFX_goal_poland_goal
+		prerequisite = { focus = chaos_FRA_cas_focus }
+		x = 0
+		y = 1
+		relative_position_id = chaos_FRA_cas_focus
+		cost = 10
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 8
+				has_deployed_air_force_size = {
+					size > 200
+				}
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		completion_reward = {
+			add_ideas = { FRA_flying_artillery }
+		}
+	}
+	focus = {
+		id = chaos_FRA_army_reform
+		icon = GFX_goal_generic_army_doctrines
+		prerequisite = { 
+			focus = chaos_FRA_light_medium_armor 
+			focus = chaos_FRA_infantry_focus 
+			focus = chaos_FRA_fortification_focus
+			focus = chaos_FRA_flying_artillery
+		}
+		x = 0
+		y = 1
+		relative_position_id = chaos_FRA_light_medium_armor
+		cost = 10
+		available_if_capitulated = yes
+		available = {
+
+		}
+		ai_will_do = {
+			factor = 3
+			modifier = {
+				factor = 1
+				land_doctrine_level > 8
+			}
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		completion_reward = {
+			army_experience = 10
+			add_ideas = { FRA_entrepeneurship }
+			add_doctrine_cost_reduction = {
+				name = FRA_army_reform
+				cost_reduction = 0.5
+				uses = 2
+				category = land_doctrine
+			}
+		}
+	}
+	focus = {
+		id = chaos_FRA_division_cuirassee
+		icon = GFX_focus_generic_army_tanks2
+		prerequisite = { 
+			focus = chaos_FRA_light_medium_armor 
+			focus = chaos_FRA_infantry_focus 
+			focus = chaos_FRA_fortification_focus
+			focus = chaos_FRA_flying_artillery
+		}
+		x = 0
+		y = 1
+		relative_position_id = chaos_FRA_fortification_focus
+		cost = 10
+		ai_will_do = {
+			factor = 3
+		}
+		available = {
+			if = {
+				limit = {
+					has_dlc = "No Step Back"
+				}
+				has_tech = basic_heavy_tank_chassis
+			}
+			else = {
+				has_tech = basic_heavy_tank
+			}
+		}
+		cancel_if_invalid = yes
+		completion_reward = {
+			division_template = {
+				name = "Division Cuirassée" 	
+				division_names_group = FRA_ARM_01
+
+				regiments = {	
+					heavy_armor = { x = 0 y = 0 }		
+					heavy_armor = { x = 0 y = 1 }		
+					heavy_armor = { x = 1 y = 0 }		
+					heavy_armor = { x = 1 y = 1 }		
+					motorized = { x = 2 y = 0 }			
+					motorized = { x = 2 y = 1 }
+					motorized = { x = 2 y = 2 }
+					motorized = { x = 3 y = 0 }
+					motorized = { x = 3 y = 1 }
+					motorized = { x = 3 y = 2 }
+				}
+				support = {
+					recon = { x = 0 y = 0 }      		
+					artillery = { x = 0 y = 1 }
+					engineer = { x = 0 y = 2 }
+				}
+			}
+			if = {
+				limit = {
+					has_dlc = "No Step Back"
+				}
+				hidden_effect = {
+					create_equipment_variant = {
+						name = "Basic Heavy Tank"
+						type = heavy_tank_chassis_1
+						parent_version = 1
+						modules = {
+							main_armament_slot = tank_heavy_machine_gun
+							engine_type_slot = tank_gasoline_engine
+							suspension_type_slot = tank_christie_suspension
+							armor_type_slot = tank_riveted_armor
+							turret_type_slot = tank_heavy_two_man_tank_turret
+							special_type_slot_1 = secondary_turret_hmg
+							special_type_slot_2 = armor_skirts
+						}
+						upgrades = {
+							tank_nsb_engine_upgrade = 2
+							tank_nsb_armor_upgrade = 2
+						}
+					}
+				}
+				capital_scope = {
+					create_unit = {
+						division = "name = \"1re Division Cuirassée\" division_template = \"Division Cuirassée\" start_experience_factor = 0.6 }"  
+						owner = ROOT
+					}
+					create_unit = {
+						division = "name = \"2me Division Cuirassée\" division_template = \"Division Cuirassée\" start_experience_factor = 0.6 }"  
+						owner = ROOT
+					}
+				}
+			}
+			else = {
+				capital_scope = {
+					create_unit = {
+						division = "name = \"1re Division Cuirassée\" division_template = \"Division Cuirassée\" start_experience_factor = 0.6"  
+						owner = ROOT
+					}
+					create_unit = {
+						division = "name = \"2me Division Cuirassée\" division_template = \"Division Cuirassée\" start_experience_factor = 0.6"  
+						owner = ROOT
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = chaos_FRA_devalue_the_franc
+		icon = GFX_focus_fra_devalue_the_franc
+		prerequisite = { focus = chaos_FRA_begin_rearmament }
+		x = 5
+		y = 1
+		relative_position_id = chaos_FRA_begin_rearmament
+		cost = 5
+			ai_will_do = {
+			factor = 1
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			add_timed_idea = {
+				idea = FRA_devalue_the_franc
+				days = 365
+			}
+		}
+	}
+	focus = {
+		id = chaos_FRA_agricultural_collectivization
+		icon = GFX_focus_prc_agrarian_socialism
+		prerequisite = { focus = chaos_FRA_devalue_the_franc }
+		x = 0
+		y = 1
+		relative_position_id = chaos_FRA_devalue_the_franc
+		cost = 5
+		ai_will_do = {
+			factor = 2
+			modifier = {
+				factor = 5
+				has_manpower < 50000
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		search_filters = { FOCUS_FILTER_MANPOWER }
+		completion_reward = {
+			add_popularity = { ideology = communism popularity = 0.1 }
+			add_ideas = { FRA_agricultural_collectivization }
+		}
+	}
+	focus = {
+		id = chaos_FRA_extra_research_slot_2
+		icon = GFX_focus_research
+		prerequisite = {  focus = chaos_FRA_agricultural_collectivization }
+		available = {
+			num_of_factories > 49
+		}
+		ai_will_do = {
+			factor = 5
+			modifier = {
+				factor = 4
+				amount_research_slots < 4
+			}
+		}
+		x = 0
+		y = 1
+		relative_position_id = chaos_FRA_agricultural_collectivization
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		completion_reward = {
+			add_research_slot = 1
+		}
+	}
+	focus = {
+		id = chaos_FRA_invest_in_the_colonies
+		icon = GFX_goal_generic_construct_civilian
+		prerequisite = { focus = chaos_FRA_extra_research_slot_2 }
+		x = 0
+		y = 1
+		relative_position_id = chaos_FRA_extra_research_slot_2
+		cost = 10
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.01
+				num_occupied_states < 5
+			}
+			modifier = {
+				factor = 4
+				num_occupied_states < 20
+			}
+			modifier = {
+				factor = 10
+				num_occupied_states > 19
+			}
+		}
+		available = {
+			any_owned_state = {
+				not = { is_core_of = ROOT }
+				is_controlled_by = ROOT
+			}
+		}
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			every_owned_state = {
+				limit = {
+					not = { is_core_of = ROOT }
+				}
+				add_compliance = 10
+			}
+		}
+	}
+	focus = {
+		id = chaos_FRA_egalite_liberte_solidarite
+		icon = GFX_focus_focus_fra_liberte_egalite_solidarite
+		will_lead_to_war_with = ITA
+		prerequisite = { focus = chaos_FRA_invest_in_the_colonies }
+		prerequisite = { focus = chaos_FRA_army_reform }
+		x = -2
+		y = 1
+		relative_position_id = chaos_FRA_invest_in_the_colonies
+		cost = 10
+		ai_will_do = {
+			factor = 4
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		completion_reward = {
+			add_popularity = { ideology = communism popularity = 0.05 }
+			effect_tooltip = {
+				add_ideas = FRA_egalite_liberte_solidarite
+			}
+			hidden_effect = {	
+				remove_ideas = FRA_agricultural_collectivization
+				remove_ideas = FRA_entrepeneurship
+				add_ideas = chaos_egalite
+			}
+
+			create_wargoal = {
+				target = ITA
+				type = topple_government
+				expire = 0
+			}
+		}
+	}
+
+	### YUGOSLAVIA ###
+
+	focus = {
+		id = chaos_YUG_industrialization_program
+		icon = GFX_goal_generic_construction
+		x = 15
+		y = 6
+		cost = 5
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 5
+				date < 1937.1.1
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 2
+				category = industry
+			}
+		}
+	}
+
+	focus = {
+		id = chaos_YUG_expand_the_mining_industry
+		icon = GFX_goal_generic_construct_civilian
+		prerequisite = { focus = chaos_YUG_industrialization_program }
+		x = 0
+		y = 1
+		relative_position_id = chaos_YUG_industrialization_program
+		cost = 10
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 2
+				date < 1937.1.1
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			add_ideas = YUG_idea_expanded_mining_industry
+		}
+	}
+
+	focus = {
+		id = chaos_YUG_rare_minerals_exploitation
+		icon = GFX_goal_generic_construction2
+		prerequisite = { focus = chaos_YUG_expand_the_mining_industry }
+		x = -3
+		y = 1
+		relative_position_id = chaos_YUG_expand_the_mining_industry
+		cost = 10
+		ai_will_do = {
+			factor = 2
+		}
+		available = {
+			any_controlled_state = {
+				is_core_of = ROOT
+				is_fully_controlled_by = ROOT
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			random_core_state = {
+				add_resource = {
+					type = tungsten
+					amount = 7
+				}
+			}
+
+			random_core_state = {
+				random_list = {
+					1 = {
+						add_resource = {
+							type = chromium
+							amount = 10
+						}
+					}
+					1 = {
+						add_resource = {
+							type = aluminium
+							amount = 6
+						}
+					}
+				}
+			}
+
+		}
+	}
+
+	focus = {
+		id = chaos_YUG_exploit_the_pannonian_deposits
+		icon = GFX_goal_generic_oil_refinery
+		prerequisite = { focus = chaos_YUG_rare_minerals_exploitation }
+		x = 0
+		y = 1
+		relative_position_id = chaos_YUG_rare_minerals_exploitation
+		cost = 10
+		ai_will_do = {
+			factor = 2
+		}
+		available = {
+			any_controlled_state = {
+				is_core_of = ROOT
+				is_fully_controlled_by = ROOT
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			random_core_state = {
+				add_resource = {
+					type = oil
+					amount = 8
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = chaos_YUG_develop_civilian_industry
+		icon = GFX_goal_generic_construct_civ_factory
+		prerequisite = { focus = chaos_YUG_expand_the_mining_industry }
+		mutually_exclusive = { focus = chaos_YUG_develop_military_industry }
+		x = -1
+		y = 1
+		relative_position_id = chaos_YUG_expand_the_mining_industry
+
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 6
+				date < 1937.1.1
+			}
+		}
+		available = {
+			any_controlled_state = {
+				is_core_of = ROOT
+				is_fully_controlled_by = ROOT
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					ROOT = { has_full_control_of_state = PREV }
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+				}
+				create_civs = yes
+			}
+
+			random_owned_controlled_state = {
+				limit = {
+					ROOT = { has_full_control_of_state = PREV }
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+				}
+				create_civs = yes
+			}
+
+			random_owned_controlled_state = {
+				limit = {
+					ROOT = { has_full_control_of_state = PREV }
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+				}
+				create_civs = yes
+			}
+		}
+	}
+	focus = {
+		id = chaos_YUG_develop_military_industry
+		icon = GFX_goal_generic_construct_mil_factory
+		prerequisite = { focus = chaos_YUG_expand_the_mining_industry }
+		mutually_exclusive = { focus = chaos_YUG_develop_civilian_industry }
+		x = 1
+		y = 1
+		relative_position_id = chaos_YUG_expand_the_mining_industry
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			any_controlled_state = {
+				is_core_of = ROOT
+				is_fully_controlled_by = ROOT
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			set_temp_variable = { count = 2 }
+			random_owned_controlled_state = {
+				limit = {
+					ROOT = { has_full_control_of_state = PREV }
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+				}
+				create_mils = yes
+			}
+			set_temp_variable = { count = 1 }
+			random_owned_controlled_state = {
+				limit = {
+					ROOT = { has_full_control_of_state = PREV }
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+				}
+				create_mils = yes
+			}
+		}
+	}
+	focus = {
+		id = chaos_YUG_integrated_rail_network
+		icon = GFX_goal_generic_construct_infrastructure
+		prerequisite = { focus = chaos_YUG_develop_military_industry focus = chaos_YUG_develop_civilian_industry }
+		x = 1
+		y = 1
+		relative_position_id = chaos_YUG_develop_civilian_industry
+
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				num_subjects > 0
+				factor = 2
+			}
+			modifier = {
+				num_subjects > 1
+				factor = 5
+			}
+		}
+		available = {
+			any_controlled_state = {
+				is_core_of = ROOT
+				is_fully_controlled_by = ROOT
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			every_owned_state = {
+				limit = {
+					ROOT = { has_full_control_of_state = PREV }
+					is_core_of = ROOT
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			every_state = {
+				limit = {
+					owner = {
+						NOT = { tag = ROOT }
+						OR = {
+							is_subject_of = ROOT
+						}
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = chaos_YUG_local_militias
+		icon = GFX_goal_generic_allies_build_infantry
+		prerequisite = { focus = chaos_YUG_integrated_rail_network focus = chaos_YUG_federal_defense_council }
+		x = 0
+		y = 1
+		relative_position_id = chaos_YUG_integrated_rail_network
+		cost = 10
+		ai_will_do = {
+			factor = 4
+			modifier = {
+				factor = 3
+				has_manpower < 100000
+			}
+		}
+		available = {
+			has_war_support > 0.25
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		search_filters = { FOCUS_FILTER_MANPOWER }
+		completion_reward = {
+			add_ideas = YUG_idea_local_militias
+		}
+	}
+	focus = {
+		id = chaos_YUG_mutual_economic_aid
+		icon = GFX_goal_generic_soviet_construction
+		prerequisite = { focus = chaos_YUG_industrialization_program }
+		x = 3
+		y = 1
+		relative_position_id = chaos_YUG_industrialization_program
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			NOT = { has_government = fascism }
+			SOV = {
+				NOT = { has_war_with = ROOT }
+				exists = yes
+				has_capitulated = no
+			}
+		}
+		bypass = {
+			SOV = {
+				NOT = { exists = yes }
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			add_popularity = { ideology = communism popularity = 0.05 }
+			add_timed_idea = { idea = YUG_idea_economic_aid days = 720 }
+			SOV = {
+				add_timed_idea = { idea = YUG_idea_economic_aid days = 365 }
+				add_ai_strategy = {
+					type = protect
+					id = ROOT
+					value = 50
+				}
+				add_ai_strategy = {
+					type = support
+					id = ROOT
+					value = 50
+				}
+			}
+		}
+	}
+	focus = {
+		id = chaos_YUG_federal_defense_council
+		icon = GFX_goal_demand_sudetenland
+		prerequisite = { focus = chaos_YUG_mutual_economic_aid }
+		x = 0
+		y = 2
+		relative_position_id = chaos_YUG_mutual_economic_aid
+		cost = 5
+		ai_will_do = {
+			factor = 2
+		}
+		available = {
+
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			add_popularity = { ideology = communism popularity = 0.05 }
+			add_ideas = { YUG_idea_federal_defense_council }
+		}
+	}
+
+
+	### BULGARIA ###
+
+	focus = {
+		id = chaos_BUL_georgi_benkovski_aircraft_repair_facilities
+		icon = GFX_goal_generic_air_production
+		x = 28
+		y = 6
+		cost = 10
+		search_filters = {FOCUS_FILTER_INDUSTRY}
+		ai_will_do = {
+			factor = 2
+		}
+		completion_reward = {
+			air_experience = 10
+			random_core_state = {
+				set_temp_variable = { countc = 1 }
+				set_temp_variable = { countm = 1 }
+				create_factories = yes
+			}
+			add_ideas = BUL_aircraft_repair_facilities
+		}
+	}
+	focus = {
+		id = chaos_BUL_reorganize_the_military_industry
+		prerequisite = { focus = chaos_BUL_georgi_benkovski_aircraft_repair_facilities }
+		icon = GFX_focus_generic_tank_production
+		x = 0
+		y = 1
+		relative_position_id = chaos_BUL_georgi_benkovski_aircraft_repair_facilities
+		cost = 5
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			num_of_military_factories > 9
+		}
+		search_filters = {FOCUS_FILTER_RESEARCH}
+		completion_reward = {
+			add_tech_bonus = {
+				name = BUL_reorganize_the_military_industry
+			    bonus = 1.0
+			    uses = 1
+			    category = infantry_weapons
+				category = artillery
+			}
+		}
+	}
+	focus = {
+		id = chaos_BUL_darzhavna_voenna_fabrika
+		prerequisite = { focus = chaos_BUL_reorganize_the_military_industry }
+		icon = GFX_goal_generic_construct_mil_factory
+		relative_position_id = chaos_BUL_reorganize_the_military_industry
+		x = -2
+		y = 1
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}	
+		search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH}
+		completion_reward = {
+			set_temp_variable = { count = 2 }
+			create_mils_in_random_owned_state = yes
+			add_tech_bonus = {
+				name = BUL_darzhavna_voenna_fabrika
+			    bonus = 1.0
+			    uses = 2
+				category = infantry_weapons
+				category = support_tech
+			}
+		}
+	}
+	focus = {
+		id = chaos_BUL_vasil_levsky_national_military_university
+		prerequisite = { focus = chaos_BUL_reorganize_the_military_industry }
+		icon = GFX_focus_research
+		relative_position_id = chaos_BUL_reorganize_the_military_industry
+		x = 0
+		y = 1
+		cost = 10
+		available = {
+			has_army_manpower = {
+				size > 100000
+			}
+		}
+		ai_will_do = {
+			factor = 4
+			modifier = {
+				factor = 6
+				amount_research_slots < 4
+			}
+		}
+		search_filters = {FOCUS_FILTER_RESEARCH}
+		completion_reward = {
+			army_experience = 15
+			navy_experience = 15
+			air_experience = 15
+			add_doctrine_cost_reduction = {
+				name = BUL_vasil_levsky_national_military_university
+			    cost_reduction = 0.35
+			    uses = 2
+				category = land_doctrine
+				category = naval_doctrine
+				category = air_doctrine
+			}
+			add_research_slot = 1
+		}
+	}
+	focus = {
+		id = chaos_BUL_rebuild_the_army
+		prerequisite = { focus = chaos_BUL_reorganize_the_military_industry }
+		icon = GFX_focus_generic_little_entente
+		relative_position_id = chaos_BUL_reorganize_the_military_industry
+		x = 2
+		y = 1
+		cost = 10
+		search_filters = {FOCUS_FILTER_RESEARCH FOCUS_FILTER_MANPOWER}
+		ai_will_do = {
+			factor = 2
+			modifier = {
+				factor = 5
+				has_manpower < 100000
+			}
+		}
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+				name = BUL_rebuild_the_army
+			    cost_reduction = 0.5
+			    uses = 1
+				category = land_doctrine
+			}
+			add_ideas = BUL_bulgarian_army_01
+			increase_conscription_law = yes
+		}
+	}
+	focus = {
+		id = chaos_BUL_prussia_of_the_balkans
+		prerequisite = { focus = chaos_BUL_rebuild_the_army }
+		prerequisite = { focus = chaos_BUL_vasil_levsky_national_military_university }
+		prerequisite = { focus = chaos_BUL_darzhavna_voenna_fabrika }
+		icon = GFX_focus_BUL_prussia_of_the_balkans
+		relative_position_id = chaos_BUL_vasil_levsky_national_military_university
+		x = 0
+		y = 1
+		cost = 10
+		ai_will_do = {
+			factor = 16
+		}
+		available = {
+			any_unit_leader = {
+				skill > 5
+			}
+		}
+		search_filters = {FOCUS_FILTER_MANPOWER FOCUS_FILTER_INDUSTRY}
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = BUL_bulgarian_army_01
+				add_idea = BUL_prussia_of_the_balkans_03
+			}
+		}
+	}
+
+	### USA ###
+	focus = {
+		id = chaos_USA_wpa
+		icon = GFX_goal_generic_production
+		x = 41
+		y = 0
+		cost = 10
+		ai_will_do = {
+			factor = 3
+			modifier = {
+				factor = 8
+				has_political_power < 0
+			}
+		}
+		available_if_capitulated = yes
+		search_filters = {FOCUS_FILTER_POLITICAL}
+		completion_reward = {
+			add_political_power = 150
+		}
+	}
+
+	focus = {
+		id = chaos_USA_two_ocean_navy_act
+		icon = GFX_focus_generic_navy_battleship2
+		prerequisite = { focus = chaos_USA_wpa }
+		x = 0
+		y = 1
+		relative_position_id = chaos_USA_wpa
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			has_navy_size = {
+				size > 4
+			}
+		}
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		available_if_capitulated = no
+		search_filters = {FOCUS_FILTER_USA_CONGRESS}
+		completion_reward = {
+			set_temp_variable = { count = 3 }
+			random_owned_controlled_state = {
+				limit = {
+					is_coastal = yes
+					free_building_slots = {
+						building = dockyard
+						size > 0
+						include_locked = yes
+					}
+				}
+				create_docks = yes
+			}
+			random_owned_controlled_state = {
+				limit = {
+					is_coastal = yes
+					free_building_slots = {
+						building = dockyard
+						size > 0
+						include_locked = yes
+					}
+				}
+				create_docks = yes
+			}
+		}
+	}
+	focus = {
+		id = chaos_USA_battleship_primacy
+		icon = GFX_goal_generic_navy_battleship
+		prerequisite = { focus = chaos_USA_two_ocean_navy_act }
+		mutually_exclusive = { focus = chaos_USA_carrier_primacy }
+		x = -2
+		y = 1
+		relative_position_id = chaos_USA_two_ocean_navy_act
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = {FOCUS_FILTER_RESEARCH}
+		completion_reward = {
+			add_tech_bonus = {
+				name = USA_battleship_primacy
+				bonus = 1.0
+				uses = 2
+				category = bb_tech
+			}
+		}
+	}
+
+	focus = {
+		id = chaos_USA_advanced_mahanian_doctrine
+		icon = GFX_goal_generic_navy_doctrines_tactics
+		prerequisite = { focus = chaos_USA_battleship_primacy }
+		x = 0
+		y = 1
+		relative_position_id = chaos_USA_battleship_primacy
+		cost = 5
+		available_if_capitulated = yes
+		search_filters = {FOCUS_FILTER_RESEARCH}
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+				name = USA_advanced_mahanian_doctrine
+				cost_reduction = 0.5
+				uses = 1
+				category = cat_base_strike
+			}
+			hidden_effect = {
+				create_equipment_variant = {
+					name = "Super Heavy Battleship"
+					type = ship_hull_super_heavy_1
+					name_group = USA_BB_HISTORICAL
+					parent_version = 0
+					allow_without_tech = yes
+					modules = {
+						fixed_ship_battery_slot = ship_super_heavy_battery_1
+						fixed_ship_anti_air_slot = ship_anti_air_2
+						fixed_ship_fire_control_system_slot = ship_fire_control_system_1
+						fixed_ship_radar_slot = empty
+						fixed_ship_engine_slot = heavy_ship_engine_3
+						fixed_ship_secondaries_slot = ship_secondaries_2
+						fixed_ship_armor_slot = ship_armor_shbb
+						front_1_custom_slot = ship_anti_air_2
+						front_2_custom_slot = empty
+						mid_1_custom_slot = empty
+						mid_2_custom_slot = ship_secondaries_2
+						mid_3_custom_slot = ship_secondaries_2
+						rear_1_custom_slot = ship_super_heavy_battery_1
+						rear_2_custom_slot = ship_airplane_launcher_1
+					}
+				}
+			}
+			add_equipment_production = {
+				equipment = {
+					type = ship_hull_super_heavy_1
+					creator = "USA"
+					version_name = "Super Heavy Battleship"
+				}
+				requested_factories = 1
+				progress = 0.95
+				amount = 1
+			}
+		}
+	}
+
+	focus = {
+		id = chaos_USA_advanced_basing
+		icon = GFX_goal_generic_occupy_states_coastal
+		x = 0
+		y = 2
+		prerequisite = { focus = chaos_USA_advanced_mahanian_doctrine }
+		relative_position_id = chaos_USA_battleship_primacy
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			has_navy_size = {
+				size > 1
+				unit = battleship
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		completion_reward = {
+			every_core_state = {
+				limit = {
+					is_coastal = yes
+				}
+				add_building_construction = {
+					type = naval_base
+					level = 2
+					instant_build = yes
+					province = {
+						all_provinces = yes
+						limit_to_naval_base  = yes
+					}
+				}
+				add_building_construction = {
+					type = coastal_bunker
+					level = 2
+					instant_build = yes
+					province = {
+						all_provinces = yes
+						limit_to_naval_base  = yes
+					}
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = chaos_USA_carrier_primacy
+		icon = GFX_goal_generic_navy_battleship
+		prerequisite = { focus = chaos_USA_two_ocean_navy_act }
+		mutually_exclusive = { focus = chaos_USA_battleship_primacy }
+		x = 0
+		y = 1
+		relative_position_id = chaos_USA_two_ocean_navy_act
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = {FOCUS_FILTER_RESEARCH}
+		completion_reward = {
+			add_tech_bonus = {
+				name = USA_carrier_primacy
+				bonus = 1.0
+				uses = 2
+				category = cv_tech
+			}
+		}
+	}
+
+	focus = {
+		id = chaos_USA_bureau_of_aeronautics
+		icon = GFX_goal_generic_air_naval_bomber
+		prerequisite = { focus = chaos_USA_carrier_primacy }
+		x = 0
+		y = 1
+		relative_position_id = chaos_USA_carrier_primacy
+		cost = 5
+		available_if_capitulated = yes
+
+		search_filters = {FOCUS_FILTER_RESEARCH}
+		completion_reward = {
+			add_tech_bonus = {
+				name = USA_bureau_of_aeronautics
+				bonus = 1.0
+				uses = 1
+				category = naval_bomber
+				category = naval_air
+			}
+			hidden_effect = {	
+				create_equipment_variant = {
+					name = "Destroyer"
+					type = ship_hull_light_3
+					name_group = USA_DD_HISTORICAL
+					parent_version = 0
+					allow_without_tech = yes
+					modules = {
+						fixed_ship_battery_slot = dp_light_battery_2
+						fixed_ship_anti_air_slot = ship_anti_air_2
+						fixed_ship_fire_control_system_slot = ship_sonar_1
+						fixed_ship_radar_slot = ship_radar_1
+						fixed_ship_engine_slot = light_ship_engine_2
+						fixed_ship_torpedo_slot = ship_torpedo_2
+						mid_1_custom_slot = ship_mine_layer_1
+						rear_1_custom_slot = ship_depth_charge_2
+						front_1_custom_slot = dp_light_battery_2
+					}
+				}
+			}
+			add_equipment_production = {
+				equipment = {
+					type = ship_hull_light_3
+					creator = "USA"
+					version_name = "Destroyer"
+				}
+				requested_factories = 1
+				progress = 0.95
+				amount = 1
+			}
+			add_equipment_production = {
+				equipment = {
+					type = ship_hull_light_3
+					creator = "USA"
+					version_name = "Destroyer"
+				}
+				requested_factories = 1
+				progress = 0.95
+				amount = 1
+			}
+			add_equipment_production = {
+				equipment = {
+					type = ship_hull_light_3
+					creator = "USA"
+					version_name = "Destroyer"
+				}
+				requested_factories = 1
+				progress = 0.95
+				amount = 1
+			}
+			add_equipment_production = {
+				equipment = {
+					type = ship_hull_light_3
+					creator = "USA"
+					version_name = "Destroyer"
+				}
+				requested_factories = 1
+				progress = 0.95
+				amount = 1
+			}
+		}
+	}
+	focus = {
+		id = chaos_USA_naval_radar
+		icon = GFX_goal_generic_radar
+		x = 0
+		y = 1
+		prerequisite = { focus = chaos_USA_bureau_of_aeronautics }
+		relative_position_id = chaos_USA_bureau_of_aeronautics
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			has_navy_size = {
+				size > 0
+				unit = carrier
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		search_filters = {FOCUS_FILTER_RESEARCH}
+		completion_reward = {
+			add_offsite_building = {
+				type = dockyard
+				level = 1
+			}
+			add_tech_bonus = {
+				name = USA_naval_radar
+				uses = 2
+				bonus = 2.0
+				category = radar_tech
+			}
+			
+		}
+	}
+	focus = {
+		id = chaos_USA_fleet_submarines
+		icon = GFX_goal_generic_navy_submarine
+		x = 2
+		y = 1
+		prerequisite = { focus = chaos_USA_two_ocean_navy_act }
+		relative_position_id = chaos_USA_two_ocean_navy_act
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		search_filters = {FOCUS_FILTER_RESEARCH}
+		completion_reward = {
+			add_tech_bonus = {
+				name = USA_fleet_submarines
+				bonus = 1.0
+				uses = 2
+				category = ss_tech
+			}
+			if = {
+				limit = {
+					has_dlc = "Man the Guns"
+				}
+				set_technology = { cruiser_submarines = 1 }
+			}
+		}
+	}
+	focus = {
+		id = chaos_USA_escort_effort
+		icon = GFX_goal_generic_navy_anti_submarine
+		prerequisite = { focus = chaos_USA_fleet_submarines }
+		x = 0
+		y = 1
+		relative_position_id = chaos_USA_fleet_submarines
+		cost = 5
+		ai_will_do = {
+			factor = 1
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+			add_ideas = escort_effort_focus
+		}
+	}
+	focus = {
+		id = chaos_USA_amphibious_operations
+		icon = GFX_goal_generic_amphibious_assault
+		prerequisite = { focus = chaos_USA_escort_effort }
+		x = 0
+		y = 1
+		relative_position_id = chaos_USA_escort_effort
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available_if_capitulated = yes
+		search_filters = {FOCUS_FILTER_RESEARCH}
+		completion_reward = {
+			add_tech_bonus = {
+				name = USA_amphibious_operations
+				bonus = 1.0
+				uses = 2
+				category = tp_tech 
+			}
+			add_tech_bonus = {
+				name = USA_amphibious_operations
+				bonus = 1.0
+				uses = 2
+				category = marine_tech 
+			}
+		}
+	}
+	focus = {
+		id = chaos_USA_war_plans_division
+		icon = GFX_goal_generic_position_armies
+		prerequisite = { focus = chaos_USA_wpa }
+		x = 4
+		y = 2
+		relative_position_id = chaos_USA_wpa
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		completion_reward = {
+			add_command_power = 50
+			add_ideas = USA_intervention_in_europe
+		}
+	}
+	focus = {
+		id = chaos_USA_war_plan_orange
+		icon = GFX_focus_attack_japan
+		will_lead_to_war_with = JAP
+		prerequisite = { focus = chaos_USA_war_plans_division }
+		continue_if_invalid = yes
+		available_if_capitulated = yes
+		x = 0
+		y = 1
+		relative_position_id = chaos_USA_war_plans_division
+		cost = 10
+		completion_reward = {
+			add_threat = 2
+			create_wargoal = {
+				type = annex_everything
+				target = JAP
+			}
+			random_core_state = {
+				set_temp_variable = { countc = 1 }
+				set_temp_variable = { countm = 1 }
+				create_factories = yes
+			}
+		}
+	}
+	focus = {
+		id = chaos_USA_war_plan_red
+		icon = GFX_focus_attack_britain
+		will_lead_to_war_with = ENG
+		prerequisite = { focus = chaos_USA_war_plan_orange }
+		available = {
+		}
+		x = 0
+		y = 1
+		relative_position_id = chaos_USA_war_plan_orange
+		cost = 10
+		available_if_capitulated = yes
+		completion_reward = {
+			add_threat = 2
+			create_wargoal = {
+				type = annex_everything
+				target = ENG
+			}
+			random_core_state = {
+				set_temp_variable = { countc = 1 }
+				set_temp_variable = { countm = 1 }
+				create_factories = yes
+			}
+		}
+	}
+
+	### CHINA ###
+	
+	focus = {
+		id = chaos_CHI_three_principles_of_the_people
+		icon = GFX_goal_generic_national_unity
+		x = 37
+		y = 5
+		cost = 5
+		ai_will_do = {
+			factor = 2
+			modifier = {
+				factor = 5
+				has_stability < 0.5
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		search_filters = { FOCUS_FILTER_STABILITY }
+		completion_reward = {
+			add_stability = 0.05
+		}
+	}
+	focus = {
+		id = chaos_CHI_democracy
+		icon = GFX_goal_support_democracy
+		prerequisite = { focus = chaos_CHI_three_principles_of_the_people }
+		x = 0
+		y = 1
+		relative_position_id = chaos_CHI_three_principles_of_the_people
+		cost = 10
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 5
+				has_political_power < 0
+			}
+		}
+		available = {
+
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			add_political_power = 120
+		}
+	}
+	focus = {
+		id = chaos_CHI_constitutional_reform
+		icon = GFX_goal_generic_forceful_treaty
+		prerequisite = { focus = chaos_CHI_democracy }
+		x = -1
+		y = 1
+		relative_position_id = chaos_CHI_democracy
+		cost = 10
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 9
+				has_war_support < 0.3
+			}
+		}
+		available = {
+
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		search_filters = { FOCUS_FILTER_WAR_SUPPORT }
+		completion_reward = {
+			add_war_support = 0.1
+		}
+	}
+	focus = {
+		id = chaos_CHI_executive_yuan
+		icon = GFX_goal_generic_demand_territory
+		prerequisite = { focus = chaos_CHI_democracy }
+		x = 1
+		y = 1
+		relative_position_id = chaos_CHI_democracy
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			add_political_power = -150
+			add_ideas = CHI_executive_yuan
+		}
+	}
+	focus = {
+		id = chaos_CHI_republicanism
+		icon = GFX_goal_generic_propaganda
+		prerequisite = { focus = chaos_CHI_constitutional_reform }
+		x = -1
+		y = 1
+		relative_position_id = chaos_CHI_constitutional_reform
+		cost = 5
+		ai_will_do = {
+			factor = 1
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		completion_reward = {
+			every_country = {
+				limit = {
+					is_major = yes
+					has_government = democratic
+				}
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = CHI_republicanism
+				}
+			}
+		}
+	}
+	focus = {
+		id = chaos_CHI_inter_party_coordination_council
+		icon = GFX_goal_generic_major_alliance
+		prerequisite = { focus = chaos_CHI_constitutional_reform }
+		prerequisite = { focus = chaos_CHI_executive_yuan }
+		x = 1
+		y = 1
+		relative_position_id = chaos_CHI_constitutional_reform
+
+		cost = 5
+
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				has_government = neutrality
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		completion_reward = {
+			add_ideas = CHI_inter_party_coordination_council
+		}
+	}
+	focus = {
+		id = chaos_CHI_judicial_yuan
+		icon = GFX_goal_generic_defence
+		prerequisite = { focus = chaos_CHI_executive_yuan }
+		x = 1
+		y = 1
+		relative_position_id = chaos_CHI_executive_yuan
+		cost = 10
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				has_stability < 0.5
+				factor = 5
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		search_filters = { FOCUS_FILTER_STABILITY }
+		completion_reward = {
+			add_stability = 0.1
+		}
+	}
+	focus = {
+		id = chaos_CHI_invite_foreign_investors 
+		icon = GFX_focus_generic_concessions
+		prerequisite = { focus = chaos_CHI_three_principles_of_the_people }
+		x = 4
+		y = 1
+		relative_position_id = chaos_CHI_three_principles_of_the_people
+		cost = 10
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 4
+				tag = CHI
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		completion_reward = {
+			add_offsite_building = { type = industrial_complex level = 2 }
+		}
+	}
+	focus = {
+		id = chaos_CHI_experimental_mechanised_unit
+		icon = GFX_goal_generic_cavalry
+		prerequisite = { focus = chaos_CHI_invite_foreign_investors }
+		x = 0
+		y = 1
+		relative_position_id = chaos_CHI_invite_foreign_investors
+	
+		cost = 10
+	
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 5
+				ai_wants_divisions > ROOT.num_armies
+			}
+		}
+	
+		available = {
+			has_tech = motorised_infantry
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		completion_reward = {
+			custom_effect_tooltip = chaos_CHI_experimental_mechanised_unit_effect
+			hidden_effect = {
+				division_template = {
+					name = "Experimental Mechanised Division"
+					division_names_group = CHI_MEC_01
+					priority = 2
+					regiments = {
+						light_armor = { x = 0 y = 0 }
+						light_armor = { x = 0 y = 1 }
+						light_armor = { x = 0 y = 2 }
+			
+						motorized = { x = 1 y = 0 }
+						motorized = { x = 1 y = 1 }
+						motorized = { x = 1 y = 2 }
+						motorized = { x = 1 y = 3 }
+					}
+					support = {
+						engineer = { x = 0 y = 0 }
+					}
+				}
+				capital_scope = {
+					create_unit = {
+						division = "name = \"200. Mechanised Division\" division_template = \"Experimental Mechanised Division\" start_experience_factor = 1.0 force_equipment_variants = { light_tank_equipment_1 = { creator = \"GER\" } }" 
+						owner = ROOT
+					}
+				}
+			}
+		}
+	}
+	
+	focus = {
+		id = chaos_CHI_one_china_policy
+		icon = GFX_focus_chi_one_china_policy
+		prerequisite = { focus = chaos_CHI_experimental_mechanised_unit }
+		x = 0
+		y = 1
+		relative_position_id = chaos_CHI_experimental_mechanised_unit
+		cost = 10
+		ai_will_do = {
+			factor = 2
+			modifier = {
+				num_of_factories < 50
+				factor = 0.5
+			}
+		}
+		available = {
+			num_divisions > 49
+		}
+		bypass = {
+			
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		completion_reward = {
+			custom_effect_tooltip = "Gain a wargoal on every country that owns any Chinese state"
+			hidden_effect = {
+				every_country = {
+					limit = {
+						any_owned_state = {
+							is_core_of = CHI
+						}
+					}
+					PREV = {
+						create_wargoal = {
+							target = PREV
+							type = annex_everything
+						}
+					}
+				}
+			}
+		}
+	}
+
+	### CHAOS ###
+	focus = {
+		id = chaos_chaos_event_1
+		icon = GFX_focus_jap_manchurian_project
+		x = 5
+		y = 6
+		cost = 1
+		available_if_capitulated = yes
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				surrender_progress > 0.5
+				factor = 10
+			}
+			modifier = {
+				surrender_progress > 0.9
+				factor = 1000
+			}
+		}
+		completion_reward = {
+			chaos_event = yes
+		}
+	}
+	focus = {
+		id = chaos_chaos_event_2
+		icon = GFX_focus_jap_manchurian_project
+		relative_position_id = chaos_chaos_event_1
+		prerequisite = { focus = chaos_chaos_event_1 }
+		available = {
+			date > 1937.1.1
+			OR = {
+				num_divisions > 9
+				num_of_factories > 14
+			}
+		}
+		x = 0
+		y = 1
+		cost = 1
+		available_if_capitulated = yes
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				surrender_progress > 0.5
+				factor = 10
+			}
+			modifier = {
+				surrender_progress > 0.9
+				factor = 1000
+			}
+		}
+		completion_reward = {
+			chaos_event = yes
+		}
+	}
+	focus = {
+		id = chaos_chaos_event_3
+		icon = GFX_focus_jap_manchurian_project
+		relative_position_id = chaos_chaos_event_2
+		prerequisite = { focus = chaos_chaos_event_2 }
+		available = {
+			date > 1938.1.1
+			OR = {
+				num_divisions > 19
+				num_of_factories > 24
+			}
+		}
+		x = 0
+		y = 1
+		cost = 1
+		available_if_capitulated = yes
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				surrender_progress > 0.5
+				factor = 10
+			}
+			modifier = {
+				surrender_progress > 0.9
+				factor = 1000
+			}
+		}
+		completion_reward = {
+			chaos_event = yes
+		}
+	}
+	focus = {
+		id = chaos_chaos_event_4
+		icon = GFX_focus_jap_manchurian_project
+		relative_position_id = chaos_chaos_event_3
+		prerequisite = { focus = chaos_chaos_event_3 }
+		available = {
+			date > 1939.1.1
+			OR = {
+				num_divisions > 29
+				num_of_factories > 34
+			}
+		}
+		x = 0
+		y = 1
+		cost = 1
+		available_if_capitulated = yes
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				surrender_progress > 0.5
+				factor = 10
+			}
+			modifier = {
+				surrender_progress > 0.9
+				factor = 1000
+			}
+		}
+		completion_reward = {
+			chaos_event = yes
+		}
+	}
+
+}

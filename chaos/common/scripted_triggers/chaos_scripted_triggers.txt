@@ -1,0 +1,65 @@
+chaos_enabled = {
+	check_variable = { THIS.chaos_event_counter > -1 }
+}
+
+true = {
+	always = yes
+}
+
+false = {
+	NOT = { always = yes }
+}
+
+is_owned_by_player = {
+	OWNER = {
+		is_ai = no
+	}
+}
+
+is_owned_by_player_or_subject = {
+	OWNER = {
+		OR = {
+			is_ai = no
+			OVERLORD = { is_ai = no }
+		}
+	}
+}
+
+is_owned_by_ai = {
+	OWNER = {
+		is_ai = yes
+	}
+}
+
+is_on_same_continent_as_PREV = {
+	OR = {
+		AND = {
+			CAPITAL_SCOPE = { is_on_continent = europe }
+			PREV = { CAPITAL_SCOPE = { is_on_continent = europe } }
+		}
+		AND = {
+			CAPITAL_SCOPE = { is_on_continent = north_america }
+			PREV = { CAPITAL_SCOPE = { is_on_continent = north_america } }
+		}
+		AND = {
+			CAPITAL_SCOPE = { is_on_continent = south_america }
+			PREV = { CAPITAL_SCOPE = { is_on_continent = south_america } }
+		}
+		AND = {
+			CAPITAL_SCOPE = { is_on_continent = australia }
+			PREV = { CAPITAL_SCOPE = { is_on_continent = australia } }
+		}
+		AND = {
+			CAPITAL_SCOPE = { is_on_continent = africa }
+			PREV = { CAPITAL_SCOPE = { is_on_continent = africa } }
+		}
+		AND = {
+			CAPITAL_SCOPE = { is_on_continent = asia }
+			PREV = { CAPITAL_SCOPE = { is_on_continent = asia } }
+		}
+		AND = {
+			CAPITAL_SCOPE = { is_on_continent = middle_east }
+			PREV = { CAPITAL_SCOPE = { is_on_continent = middle_east } }
+		}
+	}
+}

@@ -1,0 +1,12 @@
+d_ce = {
+	if = {
+		limit = {
+			has_variable = args^0
+		}
+		set_variable = { eventnum = args^0 }
+		specific_chaos_event = yes
+	}
+	else = {
+		chaos_event = yes
+	}
+}

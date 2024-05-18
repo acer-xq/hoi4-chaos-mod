@@ -1,0 +1,46 @@
+﻿capital = 1
+set_research_slots = 0
+set_stability = 0
+set_war_support = 0
+set_convoys = 0
+
+
+add_ideas = {
+	disarmed_nation
+	undisturbed_isolation
+	closed_economy
+}
+
+
+#Politics for 1936.1.1
+set_politics = {
+	ruling_party = neutrality
+	last_election = "1935.5.8"
+	election_frequency = 60
+	elections_allowed = no
+}
+set_popularities = {
+	democratic = 0
+	fascism = 0
+	communism = 0
+	neutrality = 100
+}
+set_rule = {
+	can_join_factions = no
+	can_not_declare_war = yes
+	can_create_factions = no
+	can_force_government = no
+	can_puppet = no
+	can_send_volunteers = no
+}
+country_lock_all_division_template = yes
+recruit_character = dummy
+recruit_character = dummy2
+recruit_character = dummy3
+recruit_character = dummy4
+recruit_character = dummy5
+recruit_character = dummy6
+recruit_character = dummy7
+recruit_character = dummy8
+recruit_character = dummy9
+recruit_character = dummy10

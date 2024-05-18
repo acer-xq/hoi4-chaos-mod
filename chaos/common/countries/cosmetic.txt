@@ -1,0 +1,9 @@
+CAR_UNIFIED = {
+    color = rgb { 70 170 220 }
+    color_ui = rgb { 80 190 240 }
+}
+
+CAL_GREATER = {
+    color = rgb { 70 40 120 }
+    color_ui = rgb { 80 55 145 }
+}

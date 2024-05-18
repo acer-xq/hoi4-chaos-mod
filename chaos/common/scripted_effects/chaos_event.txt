@@ -1,0 +1,261 @@
+chaos_event = {
+	custom_effect_tooltip = chaos_effect_tt
+
+	# set_variable_to_random reuses the same seed across games so doesn't really work
+	random_value = yes
+	set_temp_variable = { eventnum = x }
+	
+	hidden_effect = {
+		specific_chaos_event = yes
+	}
+}
+
+# args: eventnum
+specific_chaos_event = {
+	log = "[ROOT.GetName]: Calling chaos effect [?eventnum|.0]"
+	meta_effect = {
+		text = {
+			country_event = { id = chaos.[EVENT_NUM] }
+			# disgusting hack to extract the event title to somewhere it can be accessed
+			UNC = {
+				set_character_name = {
+					character = dummy
+					name = chaos.[EVENT_NUM].t
+				}
+			}
+		}
+		EVENT_NUM = "[?eventnum|.0]"
+	}
+	set_variable = { global.CHAOS_LAST_EFFECT = eventnum }
+}
+
+# args: e
+specific_chaos_events = {
+	for_each_loop = {
+		array = e
+		value = v
+		set_temp_variable = { eventnum = v }
+		specific_chaos_event = yes
+	}
+}
+
+#args: eventnum
+extract_selected_effect_title = {
+	log = "[ROOT.GetName]: Getting effect title for [?eventnum|.0]"
+	meta_effect = {
+		text = {
+			UNC = {
+				set_character_name = {
+					character = dummy2
+					name = chaos.[EVENT_NUM].t
+				}
+			}
+		}
+		EVENT_NUM = "[?eventnum|.0]"
+	}
+}
+
+random_value = {
+	hidden_effect = {
+		random_list = {
+			1 = { set_temp_variable = { x = 1 } }
+			1 = { set_temp_variable = { x = 2 } }
+			1 = { set_temp_variable = { x = 3 } }
+			1 = { set_temp_variable = { x = 4 } }
+			1 = { set_temp_variable = { x = 5 } }
+			1 = { set_temp_variable = { x = 6 } }
+			1 = { set_temp_variable = { x = 7 } }
+			1 = { set_temp_variable = { x = 8 } }
+			1 = { set_temp_variable = { x = 9 } }
+			1 = { set_temp_variable = { x = 10 } }
+			1 = { set_temp_variable = { x = 11 } }
+			1 = { set_temp_variable = { x = 12 } }
+			1 = { set_temp_variable = { x = 13 } }
+			1 = { set_temp_variable = { x = 14 } }
+			1 = { set_temp_variable = { x = 15 } }
+			1 = { set_temp_variable = { x = 16 } }
+			1 = { set_temp_variable = { x = 17 } }
+			1 = { set_temp_variable = { x = 18 } }
+			1 = { set_temp_variable = { x = 19 } }
+			1 = { set_temp_variable = { x = 20 } }
+			1 = { set_temp_variable = { x = 21 } }
+			1 = { set_temp_variable = { x = 22 } }
+			1 = { set_temp_variable = { x = 23 } }
+			1 = { set_temp_variable = { x = 24 } }
+			1 = { set_temp_variable = { x = 25 } }
+			1 = { set_temp_variable = { x = 26 } }
+			1 = { set_temp_variable = { x = 27 } }
+			1 = { set_temp_variable = { x = 28 } }
+			1 = { set_temp_variable = { x = 29 } }
+			1 = { set_temp_variable = { x = 30 } }
+			1 = { set_temp_variable = { x = 31 } }
+			1 = { set_temp_variable = { x = 32 } }
+			1 = { set_temp_variable = { x = 33 } }
+			1 = { set_temp_variable = { x = 34 } }
+			1 = { set_temp_variable = { x = 35 } }
+			1 = { set_temp_variable = { x = 36 } }
+			1 = { set_temp_variable = { x = 37 } }
+			1 = { set_temp_variable = { x = 38 } }
+			1 = { set_temp_variable = { x = 39 } }
+			1 = { set_temp_variable = { x = 40 } }
+			1 = { set_temp_variable = { x = 41 } }
+			1 = { set_temp_variable = { x = 42 } }
+			1 = { set_temp_variable = { x = 43 } }
+			1 = { set_temp_variable = { x = 44 } }
+			1 = { set_temp_variable = { x = 45 } }
+			1 = { set_temp_variable = { x = 46 } }
+			1 = { set_temp_variable = { x = 47 } }
+			1 = { set_temp_variable = { x = 48 } }
+			1 = { set_temp_variable = { x = 49 } }
+			1 = { set_temp_variable = { x = 50 } }
+			1 = { set_temp_variable = { x = 51 } }
+			1 = { set_temp_variable = { x = 52 } }
+			1 = { set_temp_variable = { x = 53 } }
+			1 = { set_temp_variable = { x = 54 } }
+			1 = { set_temp_variable = { x = 55 } }
+			1 = { set_temp_variable = { x = 56 } }
+			1 = { set_temp_variable = { x = 57 } }
+			1 = { set_temp_variable = { x = 58 } }
+			1 = { set_temp_variable = { x = 59 } }
+			1 = { set_temp_variable = { x = 60 } }
+			1 = { set_temp_variable = { x = 61 } }
+			1 = { set_temp_variable = { x = 62 } }
+			1 = { set_temp_variable = { x = 63 } }
+			1 = { set_temp_variable = { x = 64 } }
+			1 = { set_temp_variable = { x = 65 } }
+			1 = { set_temp_variable = { x = 66 } }
+			1 = { set_temp_variable = { x = 67 } }
+			1 = { set_temp_variable = { x = 68 } }
+			1 = { set_temp_variable = { x = 69 } }
+			1 = { set_temp_variable = { x = 70 } }
+			1 = { set_temp_variable = { x = 71 } }
+			1 = { set_temp_variable = { x = 72 } }
+			1 = { set_temp_variable = { x = 73 } }
+			1 = { set_temp_variable = { x = 74 } }
+			1 = { set_temp_variable = { x = 75 } }
+			1 = { set_temp_variable = { x = 76 } }
+			1 = { set_temp_variable = { x = 77 } }
+			1 = { set_temp_variable = { x = 78 } }
+			1 = { set_temp_variable = { x = 79 } }
+			1 = { set_temp_variable = { x = 80 } }
+			1 = { set_temp_variable = { x = 81 } }
+			1 = { set_temp_variable = { x = 82 } }
+			1 = { set_temp_variable = { x = 83 } }
+			1 = { set_temp_variable = { x = 84 } }
+			1 = { set_temp_variable = { x = 85 } }
+			1 = { set_temp_variable = { x = 86 } }
+			1 = { set_temp_variable = { x = 87 } }
+			1 = { set_temp_variable = { x = 88 } }
+			1 = { set_temp_variable = { x = 89 } }
+			1 = { set_temp_variable = { x = 90 } }
+			1 = { set_temp_variable = { x = 91 } }
+			1 = { set_temp_variable = { x = 92 } }
+			1 = { set_temp_variable = { x = 93 } }
+			1 = { set_temp_variable = { x = 94 } }
+			1 = { set_temp_variable = { x = 95 } }
+			1 = { set_temp_variable = { x = 96 } }
+			1 = { set_temp_variable = { x = 97 } }
+			1 = { set_temp_variable = { x = 98 } }
+			1 = { set_temp_variable = { x = 99 } }
+			1 = { set_temp_variable = { x = 100 } }
+			1 = { set_temp_variable = { x = 101 } }
+			1 = { set_temp_variable = { x = 102 } }
+			1 = { set_temp_variable = { x = 103 } }
+			1 = { set_temp_variable = { x = 104 } }
+			1 = { set_temp_variable = { x = 105 } }
+			1 = { set_temp_variable = { x = 106 } }
+			1 = { set_temp_variable = { x = 107 } }
+			1 = { set_temp_variable = { x = 108 } }
+			1 = { set_temp_variable = { x = 109 } }
+			1 = { set_temp_variable = { x = 110 } }
+			1 = { set_temp_variable = { x = 111 } }
+			1 = { set_temp_variable = { x = 112 } }
+			1 = { set_temp_variable = { x = 113 } }
+			1 = { set_temp_variable = { x = 114 } }
+			1 = { set_temp_variable = { x = 115 } }
+			1 = { set_temp_variable = { x = 116 } }
+			1 = { set_temp_variable = { x = 117 } }
+			1 = { set_temp_variable = { x = 118 } }
+			1 = { set_temp_variable = { x = 119 } }
+			1 = { set_temp_variable = { x = 120 } }
+			1 = { set_temp_variable = { x = 121 } }
+			1 = { set_temp_variable = { x = 122 } }
+			1 = { set_temp_variable = { x = 123 } }
+			1 = { set_temp_variable = { x = 124 } }
+			1 = { set_temp_variable = { x = 125 } }
+			1 = { set_temp_variable = { x = 126 } }
+			1 = { set_temp_variable = { x = 127 } }
+			1 = { set_temp_variable = { x = 128 } }
+			1 = { set_temp_variable = { x = 129 } }
+			1 = { set_temp_variable = { x = 130 } }
+			1 = { set_temp_variable = { x = 131 } }
+			1 = { set_temp_variable = { x = 132 } }
+			1 = { set_temp_variable = { x = 133 } }
+			1 = { set_temp_variable = { x = 134 } }
+			1 = { set_temp_variable = { x = 135 } }
+			1 = { set_temp_variable = { x = 136 } }
+			1 = { set_temp_variable = { x = 137 } }
+			1 = { set_temp_variable = { x = 138 } }
+			1 = { set_temp_variable = { x = 139 } }
+			1 = { set_temp_variable = { x = 140 } }
+			1 = { set_temp_variable = { x = 141 } }
+			1 = { set_temp_variable = { x = 142 } }
+			1 = { set_temp_variable = { x = 143 } }
+			1 = { set_temp_variable = { x = 144 } }
+			1 = { set_temp_variable = { x = 145 } }
+			1 = { set_temp_variable = { x = 146 } }
+			1 = { set_temp_variable = { x = 147 } }
+			1 = { set_temp_variable = { x = 148 } }
+			1 = { set_temp_variable = { x = 149 } }
+			1 = { set_temp_variable = { x = 150 } }
+			1 = { set_temp_variable = { x = 151 } }
+			1 = { set_temp_variable = { x = 152 } }
+			1 = { set_temp_variable = { x = 153 } }
+			1 = { set_temp_variable = { x = 154 } }
+			1 = { set_temp_variable = { x = 155 } }
+			1 = { set_temp_variable = { x = 156 } }
+			1 = { set_temp_variable = { x = 157 } }
+			1 = { set_temp_variable = { x = 158 } }
+			1 = { set_temp_variable = { x = 159 } }
+			1 = { set_temp_variable = { x = 160 } }
+			1 = { set_temp_variable = { x = 161 } }
+			1 = { set_temp_variable = { x = 162 } }
+			1 = { set_temp_variable = { x = 163 } }
+			1 = { set_temp_variable = { x = 164 } }
+			1 = { set_temp_variable = { x = 165 } }
+			1 = { set_temp_variable = { x = 166 } }
+			1 = { set_temp_variable = { x = 167 } }
+			1 = { set_temp_variable = { x = 168 } }
+			1 = { set_temp_variable = { x = 169 } }
+			1 = { set_temp_variable = { x = 170 } }
+			1 = { set_temp_variable = { x = 171 } }
+			1 = { set_temp_variable = { x = 172 } }
+			1 = { set_temp_variable = { x = 173 } }
+			1 = { set_temp_variable = { x = 174 } }
+			1 = { set_temp_variable = { x = 175 } }
+			1 = { set_temp_variable = { x = 176 } }
+			1 = { set_temp_variable = { x = 177 } }
+			1 = { set_temp_variable = { x = 178 } }
+			1 = { set_temp_variable = { x = 179 } }
+			1 = { set_temp_variable = { x = 180 } }
+			1 = { set_temp_variable = { x = 181 } }
+			1 = { set_temp_variable = { x = 182 } }
+			1 = { set_temp_variable = { x = 183 } }
+			1 = { set_temp_variable = { x = 184 } }
+			1 = { set_temp_variable = { x = 185 } }
+			1 = { set_temp_variable = { x = 186 } }
+			1 = { set_temp_variable = { x = 187 } }
+			1 = { set_temp_variable = { x = 188 } }
+			1 = { set_temp_variable = { x = 189 } }
+			1 = { set_temp_variable = { x = 190 } }
+			1 = { set_temp_variable = { x = 191 } }
+			1 = { set_temp_variable = { x = 192 } }
+			1 = { set_temp_variable = { x = 193 } }
+			1 = { set_temp_variable = { x = 194 } }
+			1 = { set_temp_variable = { x = 195 } }
+			1 = { set_temp_variable = { x = 196 } }
+			1 = { set_temp_variable = { x = 197 } }
+			1 = { set_temp_variable = { x = 198 } }
+		}
+	}
+}

@@ -1,0 +1,14 @@
+spriteTypes = {
+	spriteType = {
+		name = "GFX_chaos_button"
+		texturefile = "gfx/interface/chaos_button.dds"
+	}
+	spriteType = {
+		name = "GFX_chaos_button2"
+		texturefile = "gfx/interface/chaos_button2.dds"
+	}
+	spriteType = {
+		name = "GFX_chaos_button3"
+		texturefile = "gfx/interface/chaos_button3.dds"
+	}
+}

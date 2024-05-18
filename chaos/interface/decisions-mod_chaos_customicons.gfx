@@ -1,0 +1,45 @@
+spriteTypes = { 
+	##Icon For Category: Mod chaos
+	SpriteType = { 
+		name = "chaos_icon"
+		texturefile = "gfx/interface/decisions/chaos_icon.dds"
+	}
+	
+	SpriteType = { 
+		name = "chaos_icon_small"
+		texturefile = "gfx/interface/decisions/chaos_icon_small.dds"
+	}
+
+	##Icon For: Évenement (35 jours)
+	SpriteType = { 
+		name = "decision_icon_chaos__35d"
+		texturefile = "gfx/interface/decisions/chaos_icon.dds"
+	}
+	
+	spriteType = {
+		name = "GFX_ability_chaos_brick"
+		texturefile = "gfx/interface/ability/ability_chaos_brick.dds"
+	}
+	
+	SpriteType = {
+		name = "GFX_ability_chaos_brick_animated"
+		texturefile = "gfx/interface/ability/ability_chaos_brick.dds"
+#		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		effectFile = "gfx/FX/buttonstate.lua"		
+		animation = {
+			animationmaskfile = "gfx/interface/ability/ability_chaos_brick.dds"
+			animationtexturefile = "gfx/interface/focus_completed_texture.dds" 	# <- the animated file
+			animationrotation = 0.0		# -90 clockwise 90 counterclockwise(by default)
+			animationlooping = yes			# yes or no ;)
+			animationtime = 26.0				# in seconds
+			animationdelay = 0.0			# in seconds
+			animationblendmode = "add"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 } 
+#			animationframes = {1 2 3 }
+		}
+	
+		legacy_lazy_load = no
+	}
+}

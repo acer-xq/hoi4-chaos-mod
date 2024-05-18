@@ -1,0 +1,207 @@
+defined_text = {
+	name = chaos_random_battalion_string_1
+	text = {
+		trigger = { set_temp_variable_to_random = { var = r min = 0 max = 10 integer = yes } check_variable = { r < 5 } }
+		localization_key = "infantry "
+	}
+	text = { trigger = { check_variable = { r < 7 } } localization_key = "cavalry " }
+	text = { trigger = { check_variable = { r < 8 } } localization_key = "artillery_brigade " }
+	text = { trigger = { check_variable = { r < 9 } } localization_key = "anti_air_brigade " }
+	text = { trigger = { check_variable = { r < 10 } } localization_key = "anti_tank_brigade " }
+}
+
+defined_text = {
+	name = chaos_random_battalion_string_2
+	text = {
+		trigger = { set_temp_variable_to_random = { var = r min = 0 max = 10 integer = yes } check_variable = { r < 3 } }
+		localization_key = "infantry "
+	}
+	text = { trigger = { check_variable = { r < 4 } } localization_key = "motorized " }
+	text = { trigger = { check_variable = { r < 5 } } localization_key = "mountaineers " }
+	text = { trigger = { check_variable = { r < 6 } } localization_key = "marine " }
+	text = { trigger = { check_variable = { r < 7 } } localization_key = "cavalry " }
+	text = { trigger = { check_variable = { r < 8 } } localization_key = "artillery_brigade " }
+	text = { trigger = { check_variable = { r < 9 } } localization_key = "anti_air_brigade " }
+	text = { trigger = { check_variable = { r < 10 } } localization_key = "anti_tank_brigade " }
+	text = { trigger = { check_variable = { r < 11 } } localization_key = "rocket_artillery_brigade " }
+}
+
+defined_text = {
+    name = chaos_random_regiment_string_1
+	text = {
+		trigger = {
+			set_temp_variable_to_random = { var = r min = 0 max = 6 integer = yes }
+			check_variable = { r < 1 }
+		}
+		localization_key = "[chaos_random_battalion_string_1] = { x = 0 y = 0 }"
+	}
+	text = {
+		trigger = { check_variable = { r < 3 } }
+		localization_key = "[chaos_random_battalion_string_1] = { x = 0 y = 0 } [chaos_random_battalion_string_1] = { x = 0 y = 1 }"
+	}
+	text = {
+		trigger = { check_variable = { r < 6 } }
+		localization_key = "[chaos_random_battalion_string_1] = { x = 0 y = 0 } [chaos_random_battalion_string_1] = { x = 0 y = 1 } [chaos_random_battalion_string_1] = { x = 0 y = 2 }"
+	}
+}
+
+defined_text = {
+    name = chaos_random_regiment_string_2
+	text = {
+		trigger = {
+			set_temp_variable_to_random = { var = r min = 0 max = 6 integer = yes }
+			check_variable = { r < 1 }
+		}
+		localization_key = "[chaos_random_battalion_string_1] = { x = 1 y = 0 }"
+	}
+	text = {
+		trigger = { check_variable = { r < 3 } }
+		localization_key = "[chaos_random_battalion_string_1] = { x = 1 y = 0 } [chaos_random_battalion_string_1] = { x = 1 y = 1 }"
+	}
+	text = {
+		trigger = { check_variable = { r < 6 } }
+		localization_key = "[chaos_random_battalion_string_1] = { x = 1 y = 0 } [chaos_random_battalion_string_1] = { x = 1 y = 1 } [chaos_random_battalion_string_1] = { x = 1 y = 2 }"
+	}
+}
+
+defined_text = {
+    name = chaos_random_regiment_string_3
+	text = {
+		trigger = {
+			set_temp_variable_to_random = { var = r min = 0 max = 6 integer = yes }
+			check_variable = { r < 1 }
+		}
+		localization_key = "[chaos_random_battalion_string_1] = { x = 2 y = 0 }"
+	}
+	text = {
+		trigger = { check_variable = { r < 3 } }
+		localization_key = "[chaos_random_battalion_string_1] = { x = 2 y = 0 } [chaos_random_battalion_string_1] = { x = 2 y = 1 }"
+	}
+	text = {
+		trigger = { check_variable = { r < 6 } }
+		localization_key = "[chaos_random_battalion_string_1] = { x = 2 y = 0 } [chaos_random_battalion_string_1] = { x = 2 y = 1 } [chaos_random_battalion_string_1] = { x = 2 y = 2 }"
+	}
+}
+
+defined_text = {
+    name = chaos_random_regiment_string_4
+	text = {
+		trigger = {
+			set_temp_variable_to_random = { var = r min = 0 max = 6 integer = yes }
+			check_variable = { r < 3 }
+		}
+		localization_key = "[chaos_random_battalion_string_2] = { x = 3 y = 0 }"
+	}
+	text = {
+		trigger = { check_variable = { r < 5 } }
+		localization_key = "[chaos_random_battalion_string_2] = { x = 3 y = 0 } [chaos_random_battalion_string_2] = { x = 3 y = 1 }"
+	}
+	text = {
+		trigger = { check_variable = { r < 6 } }
+		localization_key = "[chaos_random_battalion_string_2] = { x = 3 y = 0 } [chaos_random_battalion_string_2] = { x = 3 y = 1 } [chaos_random_battalion_string_2] = { x = 3 y = 2 }"
+	}
+}
+
+defined_text = {
+    name = chaos_random_support_string
+	text = {
+		trigger = {
+			set_temp_variable_to_random = { var = r min = 0 max = 11 integer = yes }
+			check_variable = { r < 1 }
+		}
+		localization_key = ""
+	}
+	text = {
+		trigger = { check_variable = { r < 2 } }
+		localization_key = "engineer = { x = 0 y = 0 }"
+	}
+	text = {
+		trigger = { check_variable = { r < 3 } }
+		localization_key = "engineer = { x = 0 y = 0 } anti_air = { x = 0 y = 1 }"
+	}
+	text = {
+		trigger = { check_variable = { r < 4 } }
+		localization_key = "engineer = { x = 0 y = 0 } artillery = { x = 0 y = 1 }"
+	}
+	text = {
+		trigger = { check_variable = { r < 5 } }
+		localization_key = "engineer = { x = 0 y = 0 } anti_air = { x = 0 y = 1 } artillery = { x = 0 y = 2 }"
+	}
+	text = {
+		trigger = { check_variable = { r < 6 } }
+		localization_key = "logistics_company = { x = 0 y = 0 }"
+	}
+	text = {
+		trigger = { check_variable = { r < 7 } }
+		localization_key = "logistics_company = { x = 0 y = 0 } engineer = { x = 0 y = 1 }"
+	}
+	text = {
+		trigger = { check_variable = { r < 8 } }
+		localization_key = "logistics_company = { x = 0 y = 0 } engineer = { x = 0 y = 1 } artillery = { x = 0 y = 2 }"
+	}
+	text = {
+		trigger = { check_variable = { r < 9 } }
+		localization_key = "logistics_company = { x = 0 y = 0 } engineer = { x = 0 y = 1 } artillery = { x = 0 y = 2 } anti_air = { x = 0 y = 3 }"
+	}
+	text = {
+		trigger = { check_variable = { r < 10 } }
+		localization_key = "anti_tank = { x = 0 y = 0 } artillery = { x = 0 y = 1 }"
+	}
+	text = {
+		trigger = { check_variable = { r < 11 } }
+		localization_key = "anti_tank = { x = 0 y = 0 } anti_air = { x = 0 y = 1 } artillery = { x = 0 y = 2 }"
+	}
+}
+
+defined_text = {
+	name = chaos_last_building_string
+	text = {
+		trigger = { check_variable = { chaos_devil_2_last_building = 1 } }
+		localization_key = industrial_complex
+	}
+	text = {
+		trigger = { check_variable = { chaos_devil_2_last_building = 2 } }
+		localization_key = arms_factory
+	}
+	text = {
+		trigger = { check_variable = { chaos_devil_2_last_building = 3 } }
+		localization_key = dockyard
+	}
+	text = {
+		localization_key = "" 		
+	}
+}
+
+defined_text = {
+	name = chaos_last_stat_string
+	text = {
+		trigger = { check_variable = { chaos_devil_5_last_gain = 1 } }
+		localization_key = SKILL_ATTACK
+	}
+	text = {
+		trigger = { check_variable = { chaos_devil_5_last_gain = 2 } }
+		localization_key = SKILL_DEFENSE
+	}
+	text = {
+		trigger = { check_variable = { chaos_devil_5_last_gain = 3 } }
+		localization_key = SKILL_LOGISTICS
+	}
+	text = {
+		trigger = { check_variable = { chaos_devil_5_last_gain = 4 } }
+		localization_key = SKILL_PLANNING
+	}
+	text = {
+		localization_key = ""
+	}
+}
+
+defined_text = {
+	name = chaos_event_counter_string
+	text = {
+		trigger = { check_variable = { chaos_event_counter < 0 } }
+		localization_key = "-"
+	}
+	text = {
+		localization_key = chaos.counter_var
+	}
+}

@@ -1,0 +1,175 @@
+on_actions = {
+    on_startup = {
+        effect = {
+            set_variable = { global.CHAOS_NUM_EFFECTS = 198 }
+            set_variable = { global.CHAOS_LAST_EFFECT = 0 }
+            set_variable = { global.CHAOS_EVENT_COUNTER_MAX = 35 }
+            set_variable = { global.CHAOS_UI_SELECTED_EFFECT_ID = 1 }
+            UNC = {
+                set_character_name = { character = dummy name = "-" }
+                set_character_name = { character = dummy2 name = "-" }
+                set_character_name = { character = dummy3 name = "-" }
+                set_character_name = { character = dummy4 name = "-" }
+                set_character_name = { character = dummy5 name = "-" }
+                set_character_name = { character = dummy6 name = "-" }
+                set_character_name = { character = dummy7 name = "-" }
+                set_character_name = { character = dummy8 name = "-" }
+                set_character_name = { character = dummy9 name = "-" }
+                set_character_name = { character = dummy10 name = "-" }
+                extract_selected_effect_title = yes
+            }
+            every_possible_country = {
+                set_variable = { chaos_devil_1_last_core = var:UNC }
+                set_variable = { chaos_event_counter = -1 }
+            }
+        }
+    }
+
+    on_daily = {
+        effect = {
+            if = {
+                limit = {
+                    check_variable = { chaos_event_counter?-1 > 0 }
+                }
+                subtract_from_variable = { chaos_event_counter = 1 }
+            }
+            else_if = {
+                limit = {
+                    check_variable = { chaos_event_counter?-1 = 0 }
+                }
+                chaos_event = yes
+                set_variable = { chaos_event_counter = var:global.CHAOS_EVENT_COUNTER_MAX }
+            }
+        }
+    }
+
+    # ROOT = new controller
+    # FROM = old controller
+    # FROM.FROM = state id
+    on_state_control_changed = {
+        effect = {
+            if = {
+                limit = {
+                    FROM = { tag = UNC }
+                }
+                ROOT = {
+                    transfer_state = FROM.FROM
+                }
+            }
+        }
+    }
+
+    on_capitulation = {
+        effect = {
+            if = {
+                limit = {
+                    ROOT = {
+                        tag = UNC
+                    }
+                }
+                every_country = {
+                    limit = {
+                        has_country_flag = chaos.could_join_faction
+                    }
+                    set_rule = {
+                        can_join_factions = yes
+                    }
+                    clr_country_flag = chaos.could_join_faction
+                }
+            }
+        }
+    }
+
+    on_monthly = {
+        effect = {
+            if = {
+                limit = { has_idea = chaos_devil_1 }
+                add_stability = -0.03
+                random_state = {
+                    limit = {
+                        NOT = { is_core_of = ROOT }
+                    }
+                    add_core_of = ROOT
+                    set_variable = { PREV.chaos_devil_1_last_core = THIS }
+                }
+            }
+            if = {
+                limit = { has_idea = chaos_devil_2 }
+                add_war_support = -0.04
+                random_list = {
+                    1 = {
+                        add_offsite_building = { type = industrial_complex level = 1 }
+                        set_variable = { chaos_devil_2_last_building = 1 }
+                    }
+                    1 = {
+                        add_offsite_building = { type = arms_factory level = 1 }
+                        set_variable = { chaos_devil_2_last_building = 2 }
+                    }
+                    1 = {
+                        add_offsite_building = { type = dockyard level = 1 }
+                        set_variable = { chaos_devil_2_last_building = 3 }
+                    }
+                }
+            }
+            if = {
+                limit = { has_idea = chaos_devil_3 }
+                add_equipment_to_stockpile = { type = convoy_1 amount = -25 }
+                set_variable_to_random = { var = chaos_devil_3_last_res_amt min = 2 max = 8 integer = yes }
+                random_list = {
+                    1 = {
+                        add_resource = { type = oil amount = chaos_devil_3_last_res_amt state = var:THIS.Capital }
+                        set_variable = { chaos_devil_3_last_res_type = 1 }
+                    }
+                    1 = {
+                        add_resource = { type = aluminium amount = chaos_devil_3_last_res_amt state = var:THIS.Capital }
+                        set_variable = { chaos_devil_3_last_res_type = 2 }
+                    }
+                    1 = {
+                        add_resource = { type = rubber amount = chaos_devil_3_last_res_amt state = var:THIS.Capital }
+                        set_variable = { chaos_devil_3_last_res_type = 3 }
+                    }
+                    1 = {
+                        add_resource = { type = tungsten amount = chaos_devil_3_last_res_amt state = var:THIS.Capital }
+                        set_variable = { chaos_devil_3_last_res_type = 4 }
+                    }
+                    1 = {
+                        add_resource = { type = steel amount = chaos_devil_3_last_res_amt state = var:THIS.Capital }
+                        set_variable = { chaos_devil_3_last_res_type = 5 }
+                    }
+                    1 = {
+                        add_resource = { type = chromium amount = chaos_devil_3_last_res_amt state = var:THIS.Capital }
+                        set_variable = { chaos_devil_3_last_res_type = 6 }
+                    }
+                }
+            }
+            if = {
+                limit = { has_idea = chaos_devil_4 }
+                set_fuel = 0
+				set_temp_variable = { iters = 1 }
+				create_chaos_division_template = yes
+				spawn_chaos_divisions = yes
+            }
+            if = {
+                limit = { has_idea = chaos_devil_5 }
+                add_political_power = -15
+                random_unit_leader = {
+                    set_variable = { PREV.chaos_devil_5_last_leader = var:THIS }
+                    random_list = {
+                        1 = { add_attack = 1 set_variable = { PREV.chaos_devil_5_last_gain = 1 } }
+                        1 = { add_defense = 1 set_variable = { PREV.chaos_devil_5_last_gain = 2 } }
+                        1 = { add_logistics = 1 set_variable = { PREV.chaos_devil_5_last_gain = 3 } }
+                        1 = { add_planning = 1 set_variable = { PREV.chaos_devil_5_last_gain = 4 } }
+                    }
+                }
+            }
+            if = {
+                limit = { has_idea = chaos_devil_6 }
+                add_manpower = -2000
+                random_owned_state = {
+                    upgrade_state_category = yes
+                    set_variable = { PREV.chaos_devil_6_last_state = var:THIS }
+                }
+            }
+        }
+    }
+}

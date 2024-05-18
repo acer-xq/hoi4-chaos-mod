@@ -1,0 +1,31 @@
+mod_chaos_meta_1 = {
+	icon = chaos_icon
+	priority = 500
+}
+
+mod_chaos_meta_2 = {
+	icon = chaos_icon
+	visible = {
+		is_ai = no
+		has_global_flag = chaos_dbg
+	}
+	priority = 499
+}
+
+mod_chaos_meta_3 = {
+	icon = chaos_icon
+	visible = {
+		is_ai = no
+		has_global_flag = chaos_sce
+	}
+	priority = 498
+}
+
+mod_chaos_1 = {
+	icon = chaos_icon
+	priority = 497
+}
+
+mod_chaos_formable_nations = {
+	icon = generic_formable_nations
+}

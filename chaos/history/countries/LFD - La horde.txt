@@ -1,0 +1,27 @@
+﻿oob = "LFD_1936"
+capital = 1
+set_research_slots = 4
+set_stability = 0.95
+set_war_support = 0.95
+set_convoys = 15
+
+
+add_ideas = {
+	all_adults_serve
+	tot_economic_mobilisation
+}
+
+
+#Politics for 1936.1.1
+set_politics = {
+	ruling_party = fascism
+	last_election = "1935.5.8"
+	election_frequency = 60
+	elections_allowed = no
+}
+set_popularities = {
+	democratic = 0
+	fascism = 100
+	communism = 0
+	neutrality = 0
+}

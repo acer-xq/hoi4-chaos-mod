@@ -1,0 +1,51 @@
+ability = {
+	chaos_brick = {
+		name = ability_chaos_brick
+		desc = ability_chaos_brick_desc
+		
+		sound_effect = command_power_ability_offensive
+		
+		type = army_leader
+		
+		allowed = {
+			is_leading_army_group = no
+			is_border_war = no
+			OWNER = {
+				has_idea = chaos_ability_brick_idea
+			}
+		}
+		
+		cost = 1.0
+		duration = 168
+		
+		one_time_effect = {
+			OWNER = {
+				add_war_support = -0.05
+			}
+			add_temporary_buff_to_units = {
+				combat_defense = -10.00
+				combat_offense = -10.00
+				org_damage_multiplier = -1.0
+				str_damage_multiplier = -1.0
+				cannot_retreat_while_defending = 1.0
+				cannot_retreat_while_attacking = 1.0
+				
+				days = 7
+				tooltip = ability_chaos_brick_tt
+			}
+		}
+		
+		ai_will_do = {
+			factor = -1
+			modifier = {
+				check_variable = { num_units_defensive_combats > 8 }
+
+				set_temp_variable = { temp = avg_defensive_combat_status }
+				check_variable = { temp < 0.40 }
+				check_variable = { ai_random > temp }
+				
+				add = 2
+			}
+		}
+	}
+}

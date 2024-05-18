@@ -1,0 +1,332 @@
+mod_chaos_1 = {
+	pp_sink_1 = {
+		icon = 	gre_paying_ifc_debt
+		visible = {
+			has_idea = chaos_pp_sink_1
+		}
+		cost = 25
+		complete_effect = {
+			swap_ideas = {
+				remove_idea = chaos_pp_sink_1
+				add_idea = chaos_pp_sink_2
+			}
+		}
+		ai_will_do = {
+			base = 1
+			modifier = {
+				add = 100
+				OR = {
+					has_political_power > 100
+					political_power_daily > 1.0
+				}
+			}
+		}
+	}
+	pp_sink_2 = {
+		icon = 	gre_paying_ifc_debt
+		visible = {
+			has_idea = chaos_pp_sink_2
+		}
+		cost = 50
+		complete_effect = {
+			swap_ideas = {
+				remove_idea = chaos_pp_sink_2
+				add_idea = chaos_pp_sink_3
+			}
+		}
+		ai_will_do = {
+			base = 1
+			modifier = {
+				add = 100
+				OR = {
+					has_political_power > 100
+					political_power_daily > 1.0
+				}
+			}
+		}
+	}
+	pp_sink_3 = {
+		icon = 	gre_paying_ifc_debt
+		visible = {
+			has_idea = chaos_pp_sink_3
+		}
+		cost = 75
+		complete_effect = {
+			swap_ideas = {
+				remove_idea = chaos_pp_sink_3
+				add_idea = chaos_pp_sink_4
+			}
+		}
+		ai_will_do = {
+			base = 1
+			modifier = {
+				add = 80
+				OR = {
+					political_power_daily > 1.1
+					has_political_power > 125
+				}
+			}
+		}
+	}
+	pp_sink_4 = {
+		icon = 	gre_paying_ifc_debt
+		visible = {
+			has_idea = chaos_pp_sink_4
+		}
+		cost = 100
+		complete_effect = {
+			swap_ideas = {
+				remove_idea = chaos_pp_sink_4
+				add_idea = chaos_pp_sink_5
+			}
+			add_stability = 0.1
+			add_war_support = 0.1
+		}
+		ai_will_do = {
+			base = 1
+			modifier = {
+				add = 80
+				OR = {
+					political_power_daily > 1.1
+					has_political_power > 150
+				}
+			}
+		}
+	}
+	pp_sink_5 = {
+		icon = 	gre_paying_ifc_debt
+		visible = {
+			has_idea = chaos_pp_sink_5
+		}
+		cost = 125
+		complete_effect = {
+			swap_ideas = {
+				remove_idea = chaos_pp_sink_5
+				add_idea = chaos_pp_sink_6
+			}
+		}
+		ai_will_do = {
+			base = 1
+			modifier = {
+				add = 80
+				OR = {
+					political_power_daily > 1.2
+					has_political_power > 200
+				}
+			}
+		}
+	}
+	pp_sink_6 = {
+		icon = 	gre_paying_ifc_debt
+		visible = {
+			has_idea = chaos_pp_sink_6
+		}
+		cost = 150
+		complete_effect = {
+			swap_ideas = {
+				remove_idea = chaos_pp_sink_6
+				add_idea = chaos_pp_sink_7
+			}
+		}
+		ai_will_do = {
+			base = 1
+			modifier = {
+				add = 50
+				OR = {
+					political_power_daily > 1.2
+					has_political_power > 200
+				}
+			}
+		}
+	}
+	pp_sink_7 = {
+		icon = 	gre_paying_ifc_debt
+		visible = {
+			has_idea = chaos_pp_sink_7
+		}
+		cost = 175
+		complete_effect = {
+			swap_ideas = {
+				remove_idea = chaos_pp_sink_7
+				add_idea = chaos_pp_sink_8
+			}
+			every_unit_leader = {
+				gain_xp = 1000
+			}
+		}
+		ai_will_do = {
+			base = 1
+			modifier = {
+				add = 50
+				OR = {
+					political_power_daily > 1.2
+					has_political_power > 250
+				}
+			}
+		}
+	}
+	pp_sink_8 = {
+		icon = 	gre_paying_ifc_debt
+		visible = {
+			has_idea = chaos_pp_sink_8
+		}
+		cost = 200
+		complete_effect = {
+			swap_ideas = {
+				remove_idea = chaos_pp_sink_8
+				add_idea = chaos_pp_sink_9
+			}
+		}
+		ai_will_do = {
+			base = 0
+			modifier = {
+				add = 50
+				OR = {
+					political_power_daily > 1.2
+					has_political_power > 250
+				}
+			}
+		}
+	}
+	pp_sink_9 = {
+		icon = 	gre_paying_ifc_debt
+		visible = {
+			has_idea = chaos_pp_sink_9
+		}
+		cost = 225
+		complete_effect = {
+			swap_ideas = {
+				remove_idea = chaos_pp_sink_9
+				add_idea = chaos_pp_sink_10
+			}
+		}
+		ai_will_do = {
+			base = 0
+			modifier = {
+				add = 50
+				OR = {
+					date > 1940.1.1
+					has_political_power > 300
+				}
+			}
+		}
+	}
+	pp_sink_10 = {
+		icon = 	gre_paying_ifc_debt
+		visible = {
+			has_idea = chaos_pp_sink_10
+		}
+		cost = 250
+		complete_effect = {
+			swap_ideas = {
+				remove_idea = chaos_pp_sink_10
+				add_idea = chaos_pp_sink_11
+			}
+			add_offsite_building = { type = industrial_complex level = 2 }
+			add_offsite_building = { type = arms_factory level = 2 }
+		}
+		ai_will_do = {
+			base = 0
+			modifier = {
+				add = 50
+				OR = {
+					date > 1940.1.1
+					has_political_power > 300
+				}
+			}
+		}
+	}
+	pp_sink_11 = {
+		icon = 	gre_paying_ifc_debt
+		visible = {
+			has_idea = chaos_pp_sink_11
+		}
+		cost = 275
+		complete_effect = {
+			swap_ideas = {
+				remove_idea = chaos_pp_sink_11
+				add_idea = chaos_pp_sink_12
+			}
+		}
+		ai_will_do = {
+			base = 0
+			modifier = {
+				add = 10
+				OR = {
+					date > 1940.1.1
+					has_political_power > 300
+				}
+			}
+		}
+	}
+	pp_sink_12 = {
+		icon = 	gre_paying_ifc_debt
+		visible = {
+			has_idea = chaos_pp_sink_12
+		}
+		cost = 300
+		complete_effect = {
+			swap_ideas = {
+				remove_idea = chaos_pp_sink_12
+				add_idea = chaos_pp_sink_13
+			}
+		}
+		ai_will_do = {
+			base = 0
+			modifier = {
+				add = 10
+				OR = {
+					date > 1941.1.1
+					has_political_power > 500
+				}
+			}
+		}
+	}
+	pp_sink_13 = {
+		icon = 	gre_paying_ifc_debt
+		visible = {
+			has_idea = chaos_pp_sink_13
+		}
+		cost = 350
+		complete_effect = {
+			swap_ideas = {
+				remove_idea = chaos_pp_sink_13
+				add_idea = chaos_pp_sink_14
+			}
+		}
+		ai_will_do = {
+			base = 0
+			modifier = {
+				add = 10
+				OR = {
+					date > 1941.1.1
+					has_political_power > 500
+				}
+			}
+		}
+	}
+	pp_sink_14 = {
+		icon = 	gre_paying_ifc_debt
+		visible = {
+			has_idea = chaos_pp_sink_14
+		}
+		cost = 400
+		complete_effect = {
+			swap_ideas = {
+				remove_idea = chaos_pp_sink_14
+				add_idea = chaos_pp_sink_15
+			}
+			add_manpower = 500000
+		}
+		ai_will_do = {
+			base = 0
+			modifier = {
+				add = 10
+				OR = {
+					date > 1941.1.1
+					has_political_power > 500
+				}
+			}
+		}
+	}
+}

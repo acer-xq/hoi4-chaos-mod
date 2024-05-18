@@ -1,0 +1,259 @@
+guiTypes = {
+	# global window
+	containerWindowType = {
+		name = "chaos_window"
+		position = { x = -600 y = 40 }
+		size = { width = 300 height = 240 }
+		orientation = UPPER_RIGHT
+		origo = upper_left
+		
+		background = {
+			name = "Background"
+			spriteType = "GFX_tiled_bg"
+		}
+
+		instantTextboxType = {
+			name = "chaos_global_text"
+			position = { x = 0 y = 20 }
+			font = "hoi_24header"
+			text = "chaos.global_text"
+			maxWidth = 300
+			maxHeight = 30
+			format = center
+		}
+
+		# time between events controls
+		instantTextboxType = {
+			name = "chaos_max_text"
+			position = { x = 20 y = 50 }
+			font = "hoi_18mbs"
+			text = "chaos.max_text"
+			maxWidth = 120
+			maxHeight = 23
+			format = center
+			pdx_tooltip = "chaos.max_text_tt"
+		}
+		buttonType = {
+			name = "chaos_decrease_max"
+			position = { x = 170 y = 52 }
+			spriteType = "GFX_subtract_one"
+			pdx_tooltip = "chaos.decrease_max_tt"
+			scale = 1
+		}
+		instantTextboxType = {
+			name = "chaos_max_value"
+			position = { x = 200 y = 54 }
+			font = "hoi_18mbs"
+			text = "[?global.CHAOS_EVENT_COUNTER_MAX]"
+			maxWidth = 38
+			maxHeight = 23
+			format = center
+		}
+		buttonType = {
+			name = "chaos_increase_max"
+			position = { x = 245 y = 52 }
+			spriteType = "GFX_add_one"
+			pdx_tooltip = "chaos.increase_max_tt"
+			scale = 1
+		}
+
+		#all player countries
+		buttonType = {
+			name = "chaos_player_countries_enable"
+			position = { x = 50 y = 92 }
+			spriteType = "GFX_chaos_button3"
+			pdx_tooltip = "chaos.chaos_player_countries_enable_tt"
+			scale = 0.95
+		}
+		instantTextboxType = {
+			name = "chaos_player_countries_enable_text"
+			alwaystransparent = yes
+			position = { x = 60 y = 99 }
+			font = "hoi_18mbs"
+			text = "chaos.chaos_player_countries_enable_text"
+			maxWidth = 190
+			maxHeight = 23
+			format = center
+		}
+		buttonType = {
+			name = "chaos_player_countries_disable"
+			position = { x = 50 y = 122 }
+			spriteType = "GFX_chaos_button3"
+			pdx_tooltip = "chaos.chaos_player_countries_disable_tt"
+			scale = 0.95
+		}
+		instantTextboxType = {
+			name = "chaos_player_countries_disable_text"
+			alwaystransparent = yes
+			position = { x = 60 y = 129 }
+			font = "hoi_18mbs"
+			text = "chaos.chaos_player_countries_disable_text"
+			maxWidth = 190
+			maxHeight = 23
+			format = center
+		}
+
+		#all countries
+		buttonType = {
+			name = "chaos_all_countries_enable"
+			position = { x = 50 y = 152 }
+			spriteType = "GFX_chaos_button3"
+			pdx_tooltip = "chaos.chaos_all_countries_enable_tt"
+			scale = 0.95
+		}
+		instantTextboxType = {
+			name = "chaos_all_countries_enable_text"
+			alwaystransparent = yes
+			position = { x = 60 y = 159 }
+			font = "hoi_18mbs"
+			text = "chaos.chaos_all_countries_enable_text"
+			maxWidth = 190
+			maxHeight = 23
+			format = center
+		}
+		buttonType = {
+			name = "chaos_all_countries_disable"
+			position = { x = 50 y = 182 }
+			spriteType = "GFX_chaos_button3"
+			pdx_tooltip = "chaos.chaos_all_countries_disable_tt"
+			scale = 0.95
+		}
+		instantTextboxType = {
+			name = "chaos_all_countries_disable_text"
+			alwaystransparent = yes
+			position = { x = 60 y = 189 }
+			font = "hoi_18mbs"
+			text = "chaos.chaos_all_countries_disable_text"
+			maxWidth = 190
+			maxHeight = 23
+			format = center
+		}
+	}
+
+	#country specific window
+	containerWindowType = {
+		name = "chaos_window_country"
+		position = { x = -600 y = 280 }
+		size = { width = 300 height = 266 }
+		orientation = UPPER_RIGHT
+		origo = upper_left
+		
+		background = {
+			name = "Background"
+			spriteType = "GFX_tiled_bg"
+		}
+
+		instantTextboxType = {
+			name = "chaos_country_name_text"
+			position = { x = 0 y = 20 }
+			font = "hoi_24header"
+			text = "chaos.country_name"
+			maxWidth = 300
+			maxHeight = 30
+			format = center
+		}
+
+		# next event in days
+		instantTextboxType = {
+			name = "chaos_next_event_text"
+			position = { x = 0 y = 50 }
+			font = "hoi_20bs"
+			text = "chaos.next_event_tt"
+			maxWidth = 300
+			maxHeight = 23
+			format = center
+		}
+
+		#enabled for country controls
+		instantTextboxType = {
+			name = "chaos_country_enabled_text"
+			position = { x = 20 y = 82 }
+			font = "hoi_18mbs"
+			text = "chaos.enabled_for_text"
+			maxWidth = 150
+			maxHeight = 23
+			format = center
+			pdx_tooltip = "chaos.enabled_for_text_tt"
+		}
+		buttonType = {
+			name = "chaos_country_enabled_checkbox_on"
+			spriteType = "GFX_generic_checkbox2"
+			frame = 2
+			position = { x = 200 y = 82 }
+			pdx_tooltip = "chaos.enabled_for_text_tt"
+			scale = 1
+		}
+		buttonType = {
+			name = "chaos_country_enabled_checkbox_off"
+			spriteType = "GFX_generic_checkbox2"
+			frame = 1
+			position = { x = 200 y = 82 }
+			pdx_tooltip = "chaos.enabled_for_text_tt"
+			scale = 1
+		}
+
+		# trigger effect button
+		buttonType = {
+			name = "chaos_trigger_effect"
+			position = { x = 50 y = 132 }
+			spriteType = "GFX_chaos_button3"
+			pdx_tooltip = "chaos.chaos_trigger_effect_tt"
+			scale = 0.95
+		}
+		instantTextboxType = {
+			name = "chaos_trigger_effect_text"
+			alwaystransparent = yes
+			position = { x = 60 y = 139 }
+			font = "hoi_18mbs"
+			text = "chaos.chaos_trigger_effect_text"
+			maxWidth = 190
+			maxHeight = 23
+			format = center
+		}
+
+		# trigger effect select
+		instantTextboxType = {
+			name = "chaos_effect_select_text"
+			position = { x = 20 y = 175 }
+			font = "hoi_18mbs"
+			text = "chaos.effect_select_text"
+			maxWidth = 120
+			maxHeight = 23
+			format = center
+			pdx_tooltip = "chaos.effect_select_tt"
+		}
+		buttonType = {
+			name = "chaos_effect_select_decrease"
+			position = { x = 170 y = 171 }
+			spriteType = "GFX_subtract_one"
+			pdx_tooltip = "chaos.decrease_max_tt"
+			scale = 1
+		}
+		instantTextboxType = {
+			name = "chaos_effect_select_value"
+			position = { x = 200 y = 173 }
+			font = "hoi_18mbs"
+			text = "[?global.CHAOS_UI_SELECTED_EFFECT_ID]"
+			maxWidth = 38
+			maxHeight = 23
+			format = center
+		}
+		buttonType = {
+			name = "chaos_effect_select_increase"
+			position = { x = 245 y = 171 }
+			spriteType = "GFX_add_one"
+			pdx_tooltip = "chaos.increase_max_tt"
+			scale = 1
+		}
+		instantTextboxType = {
+			name = "chaos_effect_select_effect_title"
+			position = { x = 40 y = 206 }
+			font = "hoi_18mbs"
+			text = "chaos.chaos_trigger_effect_effect_title"
+			maxWidth = 220
+			maxHeight = 40
+			format = center
+			pdx_tooltip = "chaos.chaos_trigger_effect_effect_title_tt"
+		}
+	}
+}

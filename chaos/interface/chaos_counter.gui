@@ -1,0 +1,40 @@
+guiTypes = {
+	containerWindowType = {
+		name = "chaos_counter"
+		position = { x= -450 y = 5}
+		clipping = no
+		size = { width=62 height=30 }
+		Orientation = UPPER_RIGHT
+
+		buttonType = {
+			name = "chaos_window_open"
+			quadTextureSprite = "GFX_mini_tooltip"
+			size = {x = 62 y = 30}
+			position = { x = 0 y = 0 }
+			shortcut = "ctrl+alt+c"
+			pdx_tooltip = "chaos.window.tt"
+			clicksound = click_ok
+			oversound = ui_menu_over
+		}
+
+		iconType = {
+			name ="chaos_icon"
+			spriteType = "chaos_icon_small"
+			position = { x= 5 y = 1 }
+			Orientation = "UPPER_LEFT"
+			alwaystransparent = yes
+		}
+		
+		instantTextBoxType = {
+			name ="chaos_counter_value"
+			position = { x= 34 y = 5 }
+			font = "hoi_18mbs"
+			text = chaos.counter
+			format = left
+			maxWidth = 30
+			maxHeight = 24
+			fixedsize = yes
+			alwaystransparent = yes
+		}
+	}
+}

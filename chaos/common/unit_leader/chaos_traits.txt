@@ -1,0 +1,19 @@
+leader_traits = {
+    chaos_big_army = { 
+		type = corps_commander
+        trait_type = status_trait
+		
+		corps_commander_modifier = {
+			max_commander_army_size = 24
+		}
+        field_marshal_modifier = {
+			max_army_group_size = 5
+		}
+
+		logistics_skill_factor = 2
+
+        new_commander_weight = {
+            factor = 0
+        }
+	}
+}

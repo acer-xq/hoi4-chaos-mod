@@ -1,0 +1,106 @@
+spriteTypes = { 
+	SpriteType = { 
+		name = "GFX_idea_chaos_deja_vu"
+		texturefile = "gfx/interface/ideas/chaos_deja_vu.dds"
+	}
+
+	SpriteType = { 
+		name = "GFX_idea_chaos_stonks"
+		texturefile = "gfx/interface/ideas/chaos_stonks.dds"
+	}
+
+	SpriteType = { 
+		name = "GFX_idea_chaos_ideology_acceptance"
+		texturefile = "gfx/interface/ideas/chaos_ideology_acceptance.dds"
+	}
+
+	SpriteType = { 
+		name = "GFX_idea_chaos_no_focus_swap"
+		texturefile = "gfx/interface/ideas/chaos_no_focus_swap.dds"
+	}
+
+	SpriteType = { 
+		name = "GFX_idea_chaos_prince"
+		texturefile = "gfx/interface/ideas/chaos_prince.dds"
+	}
+
+	SpriteType = { 
+		name = "GFX_idea_chaos_devil"
+		texturefile = "gfx/interface/ideas/chaos_devil.dds"
+	}
+
+	SpriteType = { 
+		name = "GFX_idea_chaos_pp_sink_1"
+		texturefile = "gfx/interface/ideas/chaos_pp_sink_1.dds"
+	}
+
+	SpriteType = { 
+		name = "GFX_idea_chaos_pp_sink_2"
+		texturefile = "gfx/interface/ideas/chaos_pp_sink_2.dds"
+	}
+
+	SpriteType = { 
+		name = "GFX_idea_chaos_pp_sink_3"
+		texturefile = "gfx/interface/ideas/chaos_pp_sink_3.dds"
+	}
+
+	SpriteType = { 
+		name = "GFX_idea_chaos_pp_sink_4"
+		texturefile = "gfx/interface/ideas/chaos_pp_sink_4.dds"
+	}
+
+	SpriteType = { 
+		name = "GFX_idea_chaos_pp_sink_5"
+		texturefile = "gfx/interface/ideas/chaos_pp_sink_5.dds"
+	}
+
+	SpriteType = { 
+		name = "GFX_idea_chaos_pp_sink_6"
+		texturefile = "gfx/interface/ideas/chaos_pp_sink_6.dds"
+	}
+
+	SpriteType = { 
+		name = "GFX_idea_chaos_pp_sink_7"
+		texturefile = "gfx/interface/ideas/chaos_pp_sink_7.dds"
+	}
+
+	SpriteType = { 
+		name = "GFX_idea_chaos_pp_sink_8"
+		texturefile = "gfx/interface/ideas/chaos_pp_sink_8.dds"
+	}
+
+	SpriteType = { 
+		name = "GFX_idea_chaos_pp_sink_9"
+		texturefile = "gfx/interface/ideas/chaos_pp_sink_9.dds"
+	}
+
+	SpriteType = { 
+		name = "GFX_idea_chaos_pp_sink_10"
+		texturefile = "gfx/interface/ideas/chaos_pp_sink_10.dds"
+	}
+
+	SpriteType = { 
+		name = "GFX_idea_chaos_pp_sink_11"
+		texturefile = "gfx/interface/ideas/chaos_pp_sink_11.dds"
+	}
+
+	SpriteType = { 
+		name = "GFX_idea_chaos_pp_sink_12"
+		texturefile = "gfx/interface/ideas/chaos_pp_sink_12.dds"
+	}
+
+	SpriteType = { 
+		name = "GFX_idea_chaos_pp_sink_13"
+		texturefile = "gfx/interface/ideas/chaos_pp_sink_13.dds"
+	}
+
+	SpriteType = { 
+		name = "GFX_idea_chaos_pp_sink_14"
+		texturefile = "gfx/interface/ideas/chaos_pp_sink_14.dds"
+	}
+
+	SpriteType = { 
+		name = "GFX_idea_chaos_pp_sink_15"
+		texturefile = "gfx/interface/ideas/chaos_pp_sink_15.dds"
+	}
+ }

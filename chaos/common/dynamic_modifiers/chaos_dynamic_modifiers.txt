@@ -1,0 +1,17 @@
+berlin_conf = {
+	enable = { always = yes }
+
+	icon = GFX_modifiers_generic_fascist_corporatism
+	
+	local_non_core_manpower = 0.3
+	local_building_slots = 4
+	compliance_gain = 0.01
+}
+
+res_eff = {
+	enable = { always = yes }
+
+	icon = GFX_modifiers_increased_metal_production
+
+	local_resources = res_eff_amount
+}

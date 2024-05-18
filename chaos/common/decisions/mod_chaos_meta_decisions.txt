@@ -1,0 +1,827 @@
+mod_chaos_meta_1 = {
+	dbg = {
+		icon = generic_wreckers
+		visible = { is_ai = no }
+
+		complete_effect = {
+			if = {
+				limit = { NOT = { has_global_flag = chaos_dbg } }
+				set_global_flag = chaos_dbg
+			}
+			else = {
+				clr_global_flag = chaos_dbg
+			}
+		}
+	}
+
+	sce = {
+		icon = gre_faction_management
+		visible = { is_ai = no }
+
+		complete_effect = {
+			if = {
+				limit = { NOT = { has_global_flag = chaos_sce } }
+				set_global_flag = chaos_sce
+			}
+			else = {
+				clr_global_flag = chaos_sce
+			}
+		}
+	}
+}
+
+mod_chaos_meta_2 = {
+	tagswitch_toggle = {
+		icon = jap_pacific_guardian
+
+		visible = { is_ai = no }
+
+		complete_effect = {
+			if = {
+				limit = { NOT = { has_global_flag = chaos_tagswitch } }
+				set_global_flag = chaos_tagswitch
+			}
+			else = {
+				clr_global_flag = chaos_tagswitch
+			}
+		}
+	}
+
+
+	tagswitch = {
+		icon = jap_pacific_guardian
+		target_array = global.countries
+
+		visible = { 
+			has_global_flag = chaos_tagswitch
+			is_ai = no
+		}
+
+
+		complete_effect = {
+			set_variable = { FROM.chaos_event_counter = ROOT.chaos_event_counter }
+			set_variable = { ROOT.chaos_event_counter = -1 }
+			FROM = {
+				change_tag_from = ROOT
+			}	
+		}
+	}
+
+	wp = {
+		icon = SWI_guisan_speech
+
+		visible = { is_ai = no }
+
+		complete_effect = {
+			every_country = {
+				every_other_country = {
+					ROOT = { white_peace = PREV }
+				}
+			}
+		}
+	}
+
+}
+
+mod_chaos_meta_3 = {
+	sce_1 = {
+		icon = gre_faction_management
+
+		visible = { is_ai = no }
+		
+		complete_effect = {
+			hidden_effect = {
+				add_to_temp_array = { e = 67 } #unification of china
+				add_to_temp_array = { e = 71 } #tibet becomes a major
+				add_to_temp_array = { e = 142 } #dominion of north america
+				add_to_temp_array = { e = 143 } #big poland
+				add_to_temp_array = { e = 144 } #caledonia
+				add_to_temp_array = { e = 155 } #caribbean state
+				specific_chaos_events = yes
+				
+				
+				## polynesia
+				clear_temp_array = cs
+				add_to_temp_array = { cs = HAW }
+				add_to_temp_array = { cs = TAH }
+				add_to_temp_array = { cs = GUM }
+				add_to_temp_array = { cs = FSM }
+				add_to_temp_array = { cs = SAM }
+				add_to_temp_array = { cs = SOL }
+				add_to_temp_array = { cs = FIJ }
+				add_to_temp_array = { cs = NZL }
+				select_player_or_random_country = yes
+
+				var:c = {
+					set_cosmetic_tag = united_polynesia
+					clear_temp_array = states
+					add_to_temp_array = { states = 284 }
+					add_to_temp_array = { states = 524 }
+					add_to_temp_array = { states = 629 }
+					add_to_temp_array = { states = 630 }
+					add_to_temp_array = { states = 631 }
+					add_to_temp_array = { states = 632 }
+					add_to_temp_array = { states = 633 }
+					add_to_temp_array = { states = 634 }
+					add_to_temp_array = { states = 635 }
+					add_to_temp_array = { states = 636 }
+					add_to_temp_array = { states = 638 }
+					add_to_temp_array = { states = 639 }
+					add_to_temp_array = { states = 641 }
+					add_to_temp_array = { states = 642 }
+					add_to_temp_array = { states = 643 }
+					add_to_temp_array = { states = 645 }
+					add_to_temp_array = { states = 646 }
+					add_to_temp_array = { states = 647 }
+					add_to_temp_array = { states = 648 }
+					add_to_temp_array = { states = 684 }
+					add_to_temp_array = { states = 723 }
+					add_to_temp_array = { states = 725 }
+					add_to_temp_array = { states = 726 }
+					add_to_temp_array = { states = 727 }
+					add_to_temp_array = { states = 734 }
+					set_temp_variable = { core = 1 }
+					transfer_ai_states = yes
+					hidden_effect = {
+						news_event = { id = lar_news.291 hours = 6 }
+						set_global_flag = form_polynesia_flag
+					}
+				}
+
+				## baltic federation
+				clear_temp_array = cs
+				add_to_temp_array = { cs = LIT }
+				add_to_temp_array = { cs = LAT }
+				add_to_temp_array = { cs = EST }
+				select_player_or_random_country = yes
+
+				var:c = {
+					set_cosmetic_tag = BAL_UNIFIED
+					clear_temp_array = states
+					add_to_temp_array = { states = 13 }
+					add_to_temp_array = { states = 191 }
+					add_to_temp_array = { states = 811 }
+					add_to_temp_array = { states = 812 }
+					add_to_temp_array = { states = 813 }
+					add_to_temp_array = { states = 12 }
+					add_to_temp_array = { states = 190 }
+					add_to_temp_array = { states = 808 }
+					add_to_temp_array = { states = 809 }
+					add_to_temp_array = { states = 810 }
+					add_to_temp_array = { states = 11 }
+					add_to_temp_array = { states = 189 }
+					add_to_temp_array = { states = 188 }
+					add_to_temp_array = { states = 784 }
+					add_to_temp_array = { states = 814 }
+					add_to_temp_array = { states = 815 }
+					transfer_ai_states = yes
+				}
+				hidden_effect = {
+					news_event = { id = wtt_news.60 hours = 6 }
+					set_global_flag = form_baltic_federation_flag
+				}
+
+
+				## east africa
+
+				every_country = {
+					limit = {
+						is_ai = yes
+					}
+					release = KEN
+					release = UGA
+					release = TZN
+					release = RWA
+					release = BRD
+				}
+				
+				clear_temp_array = cs
+				add_to_temp_array = { cs = KEN }
+				add_to_temp_array = { cs = UGA }
+				add_to_temp_array = { cs = TZN }
+				add_to_temp_array = { cs = RWA }
+				add_to_temp_array = { cs = BRD }
+				select_player_or_random_country = yes
+
+				var:c = {
+					set_cosmetic_tag = east_africa
+					clear_temp_array = states
+					add_to_temp_array = { states = 546 }
+					add_to_temp_array = { states = 547 }
+					add_to_temp_array = { states = 904 }
+					add_to_temp_array = { states = 905 }
+					add_to_temp_array = { states = 548 }
+					add_to_temp_array = { states = 768 }
+					add_to_temp_array = { states = 769 }
+					add_to_temp_array = { states = 844 }
+					add_to_temp_array = { states = 770 }
+					add_to_temp_array = { states = 897 }
+					add_to_temp_array = { states = 837 }
+					add_to_temp_array = { states = 844 }
+					add_to_temp_array = { states = 559 }
+					add_to_temp_array = { states = 269 }
+					add_to_temp_array = { states = 836 }
+					add_to_temp_array = { states = 835 }
+					add_to_temp_array = { states = 268 }
+					add_to_temp_array = { states = 903 }
+					add_to_temp_array = { states = 708 }
+					load_focus_tree = chaos_focus
+					transfer_ai_states = yes
+
+					set_temp_variable = { iters = 3 }
+					division_template = {
+						name = "Chaos Division"
+						priority = 1
+						division_names_group = FRA_INF_01
+						regiments = {
+							infantry = { x = 0 y = 0 }
+							infantry = { x = 0 y = 1 }
+							infantry = { x = 0 y = 2 }
+							infantry = { x = 1 y = 0 }
+							infantry = { x = 1 y = 1 }
+							infantry = { x = 1 y = 2 }
+							infantry = { x = 2 y = 0 }
+							infantry = { x = 2 y = 1 }
+							infantry = { x = 2 y = 2 }
+						}
+						support = {
+							artillery = { x = 0 y = 0 }
+						}
+					}
+					spawn_chaos_divisions = yes
+					division_template = {
+						name = "Chaos Division"
+						priority = 1
+						division_names_group = FRA_INF_01
+						regiments = {
+							cavalry = { x = 0 y = 0 }
+							cavalry = { x = 0 y = 1 }
+							cavalry = { x = 0 y = 2 }
+							cavalry = { x = 1 y = 0 }
+							cavalry = { x = 1 y = 1 }
+						}
+						support = {
+						}
+					}
+					spawn_chaos_divisions = yes
+				}
+				hidden_effect = { 
+					news_event = { id = bba_africa_news.1 hours = 8 }
+					set_global_flag = form_east_africa_flag
+				}
+			}
+		}
+	}
+
+	sce_2 = {
+		icon = gre_faction_management
+
+		visible = { is_ai = no }
+
+		complete_effect = {
+			hidden_effect = {
+				add_to_temp_array = { e = 166 } #africa rapidly industrializes
+				add_to_temp_array = { e = 164 } #second berlin conference
+				add_to_temp_array = { e = 146 } #random african city gets more stuff
+				improve_random_african_city = yes # improve some more cities (calling the event multiple times does nothing)
+				improve_random_african_city = yes
+				improve_random_african_city = yes
+				improve_random_african_city = yes
+				improve_random_african_city = yes
+				add_to_temp_array = { e = 136 } #chaos in the middle east
+
+				specific_chaos_events = yes
+
+				ITA = {
+					# prevent ITA from being locked out of focus tree
+					complete_national_focus = ITA_solid_progress
+				}
+			}
+		}
+	}
+
+	sce_3 = {
+		icon = gre_faction_management
+
+		visible = { is_ai = no }
+
+		complete_effect = {
+			hidden_effect = {	
+				add_to_temp_array = { e = 150 } #south america has resources
+				add_to_temp_array = { e = 137 } #rubber shortage
+				add_to_temp_array = { e = 127 } #roleplay as turkey
+				add_to_temp_array = { e = 36 } #random oil
+				add_to_temp_array = { e = 167 } #random resource efficiency
+				add_to_temp_array = { e = 183 } #oil shortage
+
+				specific_chaos_events = yes
+			}
+		}
+	}
+
+	sce_4 = {
+		icon = gre_faction_management
+
+		visible = { is_ai = no }
+
+		complete_effect = {
+			hidden_effect = {	
+				add_to_temp_array = { e = 11 } #every country gets a new focus tree
+				add_to_temp_array = { e = 14 } #ideological influences
+
+				specific_chaos_events = yes
+			}
+		}
+	}
+
+	sce_5 = {
+		icon = gre_faction_management
+
+		visible = { is_ai = no }
+
+		complete_effect = {
+			hidden_effect = {	
+				every_country = {
+					limit = {
+						has_focus_tree = generic_focus
+					}
+					load_focus_tree = chaos_focus
+				}
+				add_to_temp_array = { e = 26 } #random ideology for every country
+				specific_chaos_events = yes
+			}
+		}
+	}
+
+	sce_6 = {
+		icon = gre_faction_management
+
+		visible = { is_ai = no }
+
+		complete_effect = {
+			hidden_effect = {	
+				every_country = {
+					limit = {
+						has_focus_tree = generic_focus
+					}
+					load_focus_tree = chaos_focus
+				}
+				add_to_temp_array = { e = 39 } #every country can act
+				add_to_temp_array = { e = 170 } #random alliances
+				add_to_temp_array = { e = 123 } #random guarantees
+				specific_chaos_events = yes
+			}
+		}
+	}
+
+	sce_7 = {
+		icon = gre_faction_management
+
+		visible = { is_ai = no }
+
+		complete_effect = {
+			hidden_effect = {	
+				every_country = {
+					limit = {
+						has_focus_tree = generic_focus
+					}
+					load_focus_tree = chaos_focus
+				}
+				add_to_temp_array = { e = 173 } #pacman
+				add_to_temp_array = { e = 3 } #deja vu
+				add_to_temp_array = { e = 130 } #yes supply
+				specific_chaos_events = yes
+			}
+		}
+	}
+
+	sce_8 = {
+		icon = gre_faction_management
+
+		visible = { is_ai = no }
+
+		complete_effect = {
+			hidden_effect = {
+				add_stability = 0.25
+				add_war_support = 0.25
+				upgrade_economy_law = yes
+				add_political_power = 150
+				add_ideas = chaos_devil_1
+				add_ideas = chaos_devil_2
+				add_ideas = chaos_devil_3
+				add_ideas = chaos_devil_4
+				add_ideas = chaos_devil_5
+				add_ideas = chaos_devil_6
+			}
+		}
+	}
+
+	sce_9 = {
+		icon = gre_faction_management
+
+		visible = { is_ai = no }
+
+		complete_effect = {
+			hidden_effect = {
+				clear_temp_array = cs
+				add_to_temp_array = { cs = MOR }
+				add_to_temp_array = { cs = WES }
+				add_to_temp_array = { cs = RIF }
+				add_to_temp_array = { cs = ALG }
+				add_to_temp_array = { cs = TUN }
+				add_to_temp_array = { cs = LBA }
+				add_to_temp_array = { cs = EGY }
+				add_to_temp_array = { cs = CHA }
+				add_to_temp_array = { cs = NGR }
+				add_to_temp_array = { cs = NGA }
+				add_to_temp_array = { cs = MLI }
+				add_to_temp_array = { cs = MRT }
+				add_to_temp_array = { cs = SEN }
+				add_to_temp_array = { cs = GAM }
+				add_to_temp_array = { cs = VOL }
+				add_to_temp_array = { cs = GNA }
+				add_to_temp_array = { cs = GNB }
+				add_to_temp_array = { cs = LIB }
+				add_to_temp_array = { cs = SIE }
+				add_to_temp_array = { cs = GHA }
+				add_to_temp_array = { cs = IVO }
+				add_to_temp_array = { cs = TOG }
+				add_to_temp_array = { cs = DAH }
+				add_to_temp_array = { cs = CMR }
+				add_to_temp_array = { cs = GAB }
+				add_to_temp_array = { cs = CAR }
+				add_to_temp_array = { cs = COG }
+				add_to_temp_array = { cs = RCG }
+				add_to_temp_array = { cs = TZN }
+				add_to_temp_array = { cs = KEN }
+				add_to_temp_array = { cs = UGA }
+				add_to_temp_array = { cs = BRD }
+				add_to_temp_array = { cs = RWA }
+				add_to_temp_array = { cs = MZB }
+				add_to_temp_array = { cs = SOM }
+				add_to_temp_array = { cs = ERI }
+				add_to_temp_array = { cs = DJI }
+				add_to_temp_array = { cs = ETH }
+				add_to_temp_array = { cs = ORO }
+				add_to_temp_array = { cs = QEM }
+				add_to_temp_array = { cs = AFA }
+				add_to_temp_array = { cs = TIG }
+				add_to_temp_array = { cs = BEG }
+				add_to_temp_array = { cs = GBA }
+				add_to_temp_array = { cs = SID }
+				add_to_temp_array = { cs = HAR }
+				add_to_temp_array = { cs = ANG }
+				add_to_temp_array = { cs = MLW }
+				add_to_temp_array = { cs = ZAM }
+				add_to_temp_array = { cs = ZIM }
+				add_to_temp_array = { cs = BOT }
+				add_to_temp_array = { cs = SAF }
+				add_to_temp_array = { cs = NMB }
+				add_to_temp_array = { cs = MAD }
+				add_to_temp_array = { cs = EQG }
+				select_player_or_random_country = yes
+
+				every_state = {
+					limit = {
+						is_on_continent = africa
+					}
+					add_to_temp_array = { states = this }
+					add_core_of = var:c
+				}
+				var:c = {
+					transfer_ai_states = yes
+					
+
+					if = {
+						limit = { controls_state = 559 }
+						set_capital = { state = 559 }
+						add_victory_points = { province = 12991 value = 2 }
+					}
+					if = {
+						limit = { controls_state = 551 }
+						set_capital = { state = 551 }
+						add_victory_points = { province = 12806 value = 7 }
+					}
+					if = {
+						limit = { controls_state = 448 }
+						set_capital = { state = 448 }
+					}
+					if = {
+						limit = { controls_state = 540 }
+						set_capital = { state = 540 }
+						add_victory_points = { province = 8248 value = 9 }
+					}
+					if = {
+						limit = { controls_state = 447 }
+						set_capital = { state = 447 }
+					}
+					if = {
+						limit = { controls_state = 271 }
+						set_capital = { state = 271 }
+						add_victory_points = { province = 5010 value = 5 }
+					}
+					if = {
+						limit = { controls_state = 272 }
+						set_capital = { state = 272 }
+						add_victory_points = { province = 4948 value = 10 }
+					}
+					if = {
+						limit = { controls_state = 547 }
+						set_capital = { state = 547 }
+						add_victory_points = { province = 1939 value = 5 }
+					}
+					if = {
+						limit = { controls_state = 458 }
+						set_capital = { state = 458 }
+						add_victory_points = { province = 11969 value = 5 }
+					}
+					if = {
+						limit = { controls_state = 274 }
+						set_capital = { state = 274 }
+						add_victory_points = { province = 10862 value = 14 }
+					}
+					if = {
+						limit = { controls_state = 546 }
+						set_capital = { state = 546 }
+						add_victory_points = { province = 2196 value = 14 }
+					}
+					if = {
+						limit = { controls_state = 295 }
+						set_capital = { state = 295 }
+						add_victory_points = { province = 5117 value = 17 }
+					}
+					if = {
+						limit = { controls_state = 558 }
+						set_capital = { state = 558 }
+						add_victory_points = { province = 2050 value = 19 }
+					}
+					if = {
+						limit = { controls_state = 461 }
+						set_capital = { state = 461 }
+						add_victory_points = { province = 7069 value = 20 }
+					}
+					if = {
+						limit = { controls_state = 459 }
+						set_capital = { state = 459 }
+						add_victory_points = { province = 1145 value = 25 }
+					}
+					if = {
+						limit = { controls_state = 275 }
+						set_capital = { state = 275 }
+						add_victory_points = { province = 10400 value = 25 }
+					}
+					if = {
+						limit = { controls_state = 907 }
+						set_capital = { state = 907 }
+						add_victory_points = { province = 7011 value = 20 }
+					}
+
+
+					inherit_technology = ENG
+					division_template = {
+						name = "Chaos Division"
+						priority = 1
+						division_names_group = POL_INF_01
+						regiments = {
+							infantry = { x = 0 y = 0 }
+							infantry = { x = 0 y = 1 }
+							infantry = { x = 0 y = 2 }
+							infantry = { x = 1 y = 0 }
+							infantry = { x = 1 y = 1 }
+							infantry = { x = 1 y = 2 }
+							infantry = { x = 2 y = 0 }
+							infantry = { x = 2 y = 1 }
+							infantry = { x = 2 y = 2 }
+							artillery_brigade = { x = 3 y = 0 }
+						}
+						support = {}
+					}
+					set_temp_variable_to_random = { var = iters min = 9 max = 28 integer = yes }
+					spawn_chaos_divisions = yes
+					division_template = {
+						name = "Chaos Division"
+						priority = 0
+						division_names_group = POL_INF_01
+						regiments = {
+							cavalry = { x = 0 y = 0 }
+							cavalry = { x = 0 y = 1 }
+							cavalry = { x = 0 y = 2 }
+							cavalry = { x = 1 y = 0 }
+							cavalry = { x = 1 y = 1 }
+						}
+						support = {}
+					}
+					set_temp_variable_to_random = { var = iters min = 15 max = 36 integer = yes }
+					spawn_chaos_divisions = yes
+					load_focus_tree = chaos_focus
+					load_oob = "ITA_1936_naval_mtg"
+					load_oob = "AST_1936_naval"
+					load_oob = "ARG_1939_naval_mtg"
+					load_oob = "FIN_1939_naval_mtg"
+					load_oob = "GRE_1939_naval_mtg"
+
+				}
+				add_command_power = 200
+
+				# modified 166
+				hidden_effect = {
+					#coastal states
+					every_state = {
+						limit = {
+							is_on_continent = africa
+							is_coastal = yes
+						}
+						upgrade_state_category = yes
+						random_list = {
+							1 = { }
+							2 = { upgrade_state_category = yes }
+						}
+						random_list = {
+							1 = { }
+							1 = { upgrade_state_category = yes }
+						}
+						random_list = {
+							2 = { }
+							1 = { upgrade_state_category = yes }
+						}
+						random_list = {
+							50 = {}
+							25 = { add_extra_state_shared_building_slots = 1 }
+							10 = { add_extra_state_shared_building_slots = 2 }
+							1 = { add_extra_state_shared_building_slots = 3 }
+						}
+						random_list = {
+							25 = {}
+							10 = { add_building_construction = { type = arms_factory level = 1 } } 
+							2 = { add_building_construction = { type = arms_factory level = 2 } } 
+						}
+						random_list = {
+							25 = {}
+							10 = { add_building_construction = { type = industrial_complex level = 1 } } 
+							2 = { add_building_construction = { type = industrial_complex level = 2 } } 
+						}
+						random_list = {
+							25 = {}
+							5 = { add_building_construction = { type = dockyard level = 1 } }  
+						}
+						random_list = {
+							35 = {}
+							25 = { add_building_construction = { type = infrastructure level = 1 } } 
+							8 = { add_building_construction = { type = infrastructure level = 2 } } 
+						}
+						random_list = {
+							20 = {}
+							20 = { add_manpower = 100000 }
+							15 = { add_manpower = 250000 }
+							10 = { add_manpower = 500000 }
+							3 = { add_manpower = 1000000 }
+						}
+						set_variable = { res_min = 1 }
+						set_variable = { res_max = 8 }
+						random_list = {
+							2 = {}
+							1 = { add_random_resource = yes }
+						}
+						random_list = {
+							5 = {}
+							1 = { add_random_resource = yes }
+						}
+					}
+		
+					#inland states
+					every_state = {
+						limit = {
+							is_on_continent = africa
+							is_coastal = no
+						}
+						random_list = {
+							1 = { }
+							1 = { upgrade_state_category = yes }
+						}
+						random_list = {
+							1 = { }
+							1 = { upgrade_state_category = yes }
+						}
+						random_list = {
+							1 = { }
+							1 = { upgrade_state_category = yes }
+						}
+						random_list = {
+							50 = {}
+							10 = { add_extra_state_shared_building_slots = 1 }
+							10 = { add_extra_state_shared_building_slots = 2 }
+						}
+						random_list = {
+							80 = {}
+							15 = { add_building_construction = { type = arms_factory level = 1 } } 
+							1 = { add_building_construction = { type = arms_factory level = 2 } } 
+						}
+						random_list = {
+							70 = {}
+							20 = { add_building_construction = { type = industrial_complex level = 1 } } 
+							1 = { add_building_construction = { type = industrial_complex level = 2 } } 
+						}
+						random_list = {
+							30 = {}
+							15 = { add_building_construction = { type = infrastructure level = 1 } } 
+						}
+						random_list = {
+							15 = {}
+							15 = { add_manpower = 100000 }
+							10 = { add_manpower = 250000 }
+							5 = { add_manpower = 500000 }
+						}
+						set_variable = { res_min = 1 }
+						set_variable = { res_max = 6 }
+						random_list = {
+							3 = {}
+							1 = { add_random_resource = yes }
+						}
+						random_list = {
+							8 = {}
+							1 = { add_random_resource = yes }
+						}
+					}
+				}
+			}
+		}
+	}
+
+	sce_10 = {
+		icon = gre_faction_management
+
+		visible = { is_ai = no }
+
+		complete_effect = {	
+			hidden_effect = {
+				every_country = {
+					limit = { 
+						is_major = no
+					}
+
+					random_country = {
+						limit = {
+							is_major = yes
+						}
+						puppet = PREV
+					}
+
+				}
+
+				every_country = {
+					limit = {
+						is_major = yes
+						is_faction_leader = no
+					}
+
+					leave_faction = yes
+
+					if = {
+						limit = { original_tag = GER }
+						create_faction = Axis
+					}
+					else_if = {
+						limit = { original_tag = ENG }
+						create_faction = Allies
+					}
+					else_if = {
+						limit = { original_tag = SOV }
+						create_faction = Comintern
+					}
+					else_if = {
+						limit = { original_tag = JAP }
+						create_faction = "Greater East Asian Co-prosperity Sphere"
+					}
+					else_if = {
+						limit = { original_tag = USA }
+						create_faction = NATO
+					}
+					else_if = {
+						limit = { original_tag = ITA }
+						create_faction = "Treaty of Rome"
+					}
+					else_if = {
+						limit = { original_tag = FRA }
+						create_faction = "Little Entente"
+					}
+					else = {
+						meta_effect = {
+							text = {
+								random_list = {
+									2 = { create_faction = "[ADJ] Faction" }
+									2 = { create_faction = "[ADJ] Clique" }
+									2 = { create_faction = "[ADJ] Union" }
+									2 = { create_faction = "The [ADJ] Front" }
+									2 = { create_faction = "The [ADJ] Concordat" }
+									2 = { create_faction = "The [ADJ] Alliance" }	
+								}
+							}
+							ADJ = "[?THIS.GetAdjective]"
+						}
+					}
+
+				}
+			}
+		}
+	}
+}

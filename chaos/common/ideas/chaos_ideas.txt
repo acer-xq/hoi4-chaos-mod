@@ -1,0 +1,721 @@
+ideas = {
+	country = {
+
+		chaos_debug = {
+			picture = ETH_ethiopian_electric_power
+			allowed = { always = yes }
+			modifier = {
+				additional_brigade_column_size = 2
+			}
+		}
+
+		chaos_aggressive_ai = {
+			picture = chaos_devil
+			allowed = { always = yes }
+			modifier = {
+				ai_focus_aggressive_factor = 100000
+			}
+		}
+
+		chaos_unclaimed = {
+			picture = chaos_devil
+			allowed = { always = yes }
+			modifier = {
+				conscription_factor = -1
+				industrial_capacity_factory = -10
+				production_speed_buildings_factor = -10
+				resistance_target = -10
+				surrender_limit = 1
+			}
+		}
+
+		chaos_deja_vu = {
+			picture = chaos_deja_vu-1062
+			modifier = {
+				army_speed_factor = 2.5
+				mobilization_speed = 2.5
+			}
+		}
+
+		chaos_stonks = {
+			picture = chaos_stonks-1060
+			modifier = {
+				industrial_capacity_factory = 5
+			}
+		}
+
+		chaos_acceptation_des_diffrents_idaux = {
+			picture = chaos_acceptation_des_diffrents_idaux-1441
+			modifier = {
+				fascism_acceptance = 150
+				communism_acceptance = 150
+				democratic_acceptance = 150
+				neutrality_acceptance = 150
+			}
+		}
+
+		chaos_pay_state = {
+			picture = idea_generic_agrarian_reform
+			modifier = {
+				consumer_goods_factor = 0.25
+			}
+		}
+
+		chaos_no_focus_change = {
+			picture = chaos_no_focus_swap
+			modifier = {
+				industrial_capacity_factory = -0.25
+				industrial_capacity_dockyard = -0.25
+				production_speed_buildings_factor = -0.2
+			}
+		}
+
+		chaos_prince = {
+			picture = chaos_prince
+			modifier = {
+				cavalry_attack_factor = 0.4
+				cavalry_defence_factor = 0.4
+				naval_strike_targetting_factor = 0.1
+			}
+		}
+
+		chaos_devil_1 = {
+			allowed = { always = yes }
+			picture = chaos_devil
+			modifier = {
+				custom_modifier_tooltip = chaos_devil_1_tt
+			}
+		}
+
+		chaos_devil_2 = {
+			allowed = { always = yes }
+			picture = chaos_devil
+			modifier = {
+				custom_modifier_tooltip = chaos_devil_2_tt
+			}
+		}
+
+		chaos_devil_3 = {
+			picture = chaos_devil
+			allowed = { always = yes }
+			modifier = {
+				custom_modifier_tooltip = chaos_devil_3_tt
+				# production_speed_buildings_factor = 0.6
+				# local_resources_factor = -1.0
+			}
+		}
+
+		chaos_devil_4 = {
+			picture = chaos_devil
+			allowed = { always = yes }
+			modifier = {
+				custom_modifier_tooltip = chaos_devil_4_tt
+			}
+		}
+		
+		chaos_devil_5 = {
+			picture = chaos_devil
+			allowed = { always = yes }
+			modifier = {
+				custom_modifier_tooltip = chaos_devil_5_tt
+			}
+		}
+
+		chaos_devil_6 = {
+			picture = chaos_devil
+			allowed = { always = yes }
+			modifier = {
+				custom_modifier_tooltip = chaos_devil_6_tt
+			}
+		}
+
+		chaos_yes_supply = {
+			picture = FRA_motorized_focus
+			modifier = {
+				supply_consumption_factor = -1
+				attrition = -1
+			}
+		}
+
+		chaos_autonomy = {
+			picture = ETH_dire_dawa_industries
+			modifier = {
+				autonomy_gain = 10.0
+			}
+		}
+
+		chaos_dominion_na = {
+			picture = air_support_focus
+			modifier = {
+				political_power_gain = 0.1
+				local_resources_factor = 0.1
+				research_speed_factor = 0.05
+				min_export = 0.05
+				stability_factor = 0.1
+				send_volunteers_tension = -1
+				send_volunteer_size = 5
+				production_factory_efficiency_gain_factor = 0.1
+				ai_focus_aggressive_factor = 0.5
+				army_leader_start_level = 2
+			}
+		}
+
+		chaos_no_step_back = {
+			picture = POL_the_peasants_strike
+			modifier = {
+				army_core_attack_factor = 0.1
+				army_core_defence_factor = 1.0
+				army_org = 5
+				army_org_regain = 0.25
+				cas_damage_reduction = 0.4
+				dig_in_speed_factor = 0.5
+				max_dig_in = 10
+			}
+		}
+		
+		chaos_no_autonomy = {
+			picture = FRA_matignon_agreements
+			modifier = {
+				autonomy_gain = -10.0
+			}
+			cancel = {
+				is_subject = no
+			}
+		}
+
+		chaos_land_doctrine_1 = {
+			picture = FRA_scw_intervention_nationalists_focus
+			modifier = {
+				land_doctrine_cost_factor = -0.05
+			}
+		}
+
+		chaos_land_doctrine_2 = {
+			picture = FRA_scw_intervention_nationalists_focus
+			modifier = {
+				land_doctrine_cost_factor = -0.1
+			}
+		}
+
+		chaos_land_doctrine_3 = {
+			picture = FRA_scw_intervention_nationalists_focus
+			modifier = {
+				land_doctrine_cost_factor = -0.15
+			}
+		}
+
+		
+		chaos_land_doctrine_1_sf = {
+			picture = FRA_scw_intervention_nationalists_focus
+			modifier = {
+				land_doctrine_cost_factor = -0.05
+				special_forces_cap = 0.05
+				army_org_factor = 0.05
+			}
+		}
+
+		chaos_land_doctrine_2_sf = {
+			picture = FRA_scw_intervention_nationalists_focus
+			modifier = {
+				land_doctrine_cost_factor = -0.1
+				special_forces_cap = 0.05
+				army_org_factor = 0.05
+			}
+		}
+
+		chaos_land_doctrine_3_sf = {
+			picture = FRA_scw_intervention_nationalists_focus
+			modifier = {
+				land_doctrine_cost_factor = -0.15
+				special_forces_cap = 0.05
+				army_org_factor = 0.05
+			}
+		}
+
+		chaos_special_forces = {
+			picture = danieli
+			modifier = {
+				special_forces_cap = 0.05
+				army_org_factor = 0.05
+			}
+		}
+
+		chaos_support_equipment_discount = {
+			picture = danieli
+			equipment_bonus = {
+				support_equipment = {
+					build_cost_ic = -0.1 instant = yes
+				}
+			}
+		}
+
+		chaos_infantry_equipment_discount = {
+			picture = danieli
+			equipment_bonus = {
+				infantry_equipment = {
+					build_cost_ic = -0.1 instant = yes
+				}
+			}
+		}
+
+		chaos_artillery_equipment_discount = {
+			picture = danieli
+			equipment_bonus = {
+				artillery_equipment = {
+					build_cost_ic = -0.1 instant = yes
+				}
+			}
+		}
+
+		chaos_production = {
+			picture = ITA_camicie_nere
+			modifier = {
+				production_factory_max_efficiency_factor = 0.1
+				production_factory_efficiency_gain_factor = 0.05
+			}
+			cancel = {
+				set_temp_variable = { r1 = num_equipment_in_armies@infantry_equipment }
+				modulo_temp_variable = { r1 = 23 }
+				check_variable = {
+					var = r1
+					value = 1
+					compare = less_than
+				}
+			}
+		}
+
+		chaos_pp_sink_1 = {
+			allowed = { always = yes }
+			picture = chaos_pp_sink_1
+			modifier = {
+				consumer_goods_factor = -0.025
+				industrial_capacity_factory = 0.01
+			}
+		}
+
+		chaos_pp_sink_2 = {
+			allowed = { always = yes }
+			picture = chaos_pp_sink_2
+			modifier = {
+				political_power_gain = -0.05
+				consumer_goods_factor = -0.05
+				industrial_capacity_factory = 0.02
+			}
+		}
+
+		chaos_pp_sink_3 = {
+			allowed = { always = yes }
+			picture = chaos_pp_sink_3
+			modifier = {
+				political_power_gain = -0.1
+				consumer_goods_factor = -0.075
+				industrial_capacity_factory = 0.03
+			}
+		}
+
+		chaos_pp_sink_4 = {
+			allowed = { always = yes }
+			picture = chaos_pp_sink_4
+			modifier = {
+				political_power_gain = -0.15
+				consumer_goods_factor = -0.1
+				industrial_capacity_factory = 0.04
+			}
+		}
+
+		chaos_pp_sink_5 = {
+			allowed = { always = yes }
+			picture = chaos_pp_sink_5
+			modifier = {
+				political_power_gain = -0.2
+				consumer_goods_factor = -0.125
+				industrial_capacity_factory = 0.05
+				production_factory_efficiency_gain_factor = 0.03
+			}
+		}
+
+		chaos_pp_sink_6 = {
+			allowed = { always = yes }
+			picture = chaos_pp_sink_6
+			modifier = {
+				political_power_gain = -0.25
+				consumer_goods_factor = -0.15
+				industrial_capacity_factory = 0.06
+				production_factory_efficiency_gain_factor = 0.06
+			}
+		}
+
+		chaos_pp_sink_7 = {
+			allowed = { always = yes }
+			picture = chaos_pp_sink_7
+			modifier = {
+				political_power_gain = -0.3
+				consumer_goods_factor = -0.175
+				industrial_capacity_factory = 0.07
+				production_factory_efficiency_gain_factor = 0.1
+			}
+		}
+
+		chaos_pp_sink_8 = {
+			allowed = { always = yes }
+			picture = chaos_pp_sink_8
+			modifier = {
+				political_power_gain = -0.35
+				consumer_goods_factor = -0.2
+				industrial_capacity_factory = 0.08
+				production_factory_efficiency_gain_factor = 0.1
+				fuel_gain_factor = 0.1
+			}
+		}
+
+		chaos_pp_sink_9 = {
+			allowed = { always = yes }
+			picture = chaos_pp_sink_9
+			modifier = {
+				political_power_gain = -0.4
+				consumer_goods_factor = -0.225
+				industrial_capacity_factory = 0.09
+				production_factory_efficiency_gain_factor = 0.1
+				fuel_gain_factor = 0.2
+			}
+		}
+
+		chaos_pp_sink_10 = {
+			allowed = { always = yes }
+			picture = chaos_pp_sink_10
+			modifier = {
+				political_power_gain = -0.45
+				consumer_goods_factor = -0.25
+				industrial_capacity_factory = 0.1
+				production_factory_efficiency_gain_factor = 0.1
+				fuel_gain_factor = 0.3
+			}
+		}
+
+		chaos_pp_sink_11 = {
+			allowed = { always = yes }
+			picture = chaos_pp_sink_11
+			modifier = {
+				political_power_gain = -0.5
+				consumer_goods_factor = -0.275
+				industrial_capacity_factory = 0.11
+				production_factory_efficiency_gain_factor = 0.1
+				fuel_gain_factor = 0.3
+				army_attack_factor = 0.05
+			}
+		}
+
+		chaos_pp_sink_12 = {
+			allowed = { always = yes }
+			picture = chaos_pp_sink_12
+			modifier = {
+				political_power_gain = -0.55
+				consumer_goods_factor = -0.3
+				industrial_capacity_factory = 0.12
+				production_factory_efficiency_gain_factor = 0.1
+				fuel_gain_factor = 0.3
+				army_attack_factor = 0.1
+			}
+		}
+
+		chaos_pp_sink_13 = {
+			allowed = { always = yes }
+			picture = chaos_pp_sink_13
+			modifier = {
+				political_power_gain = -0.6
+				consumer_goods_factor = -0.325
+				industrial_capacity_factory = 0.13
+				production_factory_efficiency_gain_factor = 0.1
+				fuel_gain_factor = 0.3
+				army_attack_factor = 0.15
+			}
+		}
+
+		chaos_pp_sink_14 = {
+			allowed = { always = yes }
+			picture = chaos_pp_sink_14
+			modifier = {
+				political_power_gain = -0.65
+				consumer_goods_factor = -0.35
+				industrial_capacity_factory = 0.14
+				production_factory_efficiency_gain_factor = 0.1
+				fuel_gain_factor = 0.3
+				army_attack_factor = 0.2
+			}
+		}
+
+		chaos_pp_sink_15 = {
+			allowed = { always = yes }
+			picture = chaos_pp_sink_15
+			modifier = {
+				political_power_gain = -0.7
+				consumer_goods_factor = -0.4
+				industrial_capacity_factory = 0.15
+				production_factory_efficiency_gain_factor = 0.1
+				fuel_gain_factor = 0.3
+				army_attack_factor = 0.25
+				command_abilities_cost_factor = -0.33
+			}
+		}
+
+		chaos_cheap_abilities = {
+			picture = FRA_army_of_aggression_focus
+			modifier = {
+				command_abilities_cost_factor = -0.99
+			}
+		}
+
+		chaos_naval_invasion_cap_2 = {
+			picture = chi_war_of_resistance
+			modifier = {
+				naval_invasion_capacity = 2
+			}
+		}
+
+		chaos_naval_invasion_cap_3 = {
+			picture = chi_war_of_resistance
+			modifier = {
+				naval_invasion_capacity = 3
+			}
+		}
+
+		chaos_naval_invasion_cap_5 = {
+			picture = chi_war_of_resistance
+			modifier = {
+				naval_invasion_capacity = 5
+			}
+		}
+
+		chaos_naval_invasion_cap_7 = {
+			picture = chi_war_of_resistance
+			modifier = {
+				naval_invasion_capacity = 7
+			}
+		}
+
+		chaos_naval_invasion_cap_9 = {
+			picture = chi_war_of_resistance
+			modifier = {
+				naval_invasion_capacity = 9
+			}
+		}
+
+		chaos_naval_invasion_cap_10 = {
+			picture = chi_war_of_resistance2
+			modifier = {
+				naval_invasion_capacity = 10
+			}
+		}
+
+		chaos_naval_invasion_cap_15 = {
+			picture = chi_war_of_resistance2
+			modifier = {
+				naval_invasion_capacity = 15
+			}
+		}
+
+		chaos_naval_invasion_cap_20 = {
+			picture = chi_war_of_resistance2
+			modifier = {
+				naval_invasion_capacity = 20
+			}
+		}
+
+		chaos_naval_invasion_cap_25 = {
+			picture = chi_war_of_resistance2
+			modifier = {
+				naval_invasion_capacity = 25
+			}
+		}
+
+		chaos_naval_invasion_cap_30 = {
+			picture = chi_war_of_resistance2
+			modifier = {
+				naval_invasion_capacity = 30
+			}
+		}
+
+		chaos_naval_invasion_cap_40 = {
+			picture = chi_war_of_resistance3
+			modifier = {
+				naval_invasion_capacity = 40
+			}
+		}
+
+		chaos_naval_invasion_cap_50 = {
+			picture = chi_war_of_resistance3
+			modifier = {
+				naval_invasion_capacity = 50
+			}
+		}
+
+		chaos_naval_invasion_cap_75 = {
+			picture = chi_war_of_resistance3
+			modifier = {
+				naval_invasion_capacity = 75
+			}
+		}
+
+		chaos_naval_invasion_cap_100 = {
+			picture = chi_war_of_resistance3
+			modifier = {
+				naval_invasion_capacity = 100
+			}
+		}
+
+		chaos_sov_mobilisation = {
+			picture = fourth_international
+			modifier = {
+				production_factory_max_efficiency_factor = 0.1
+				stability_factor = 0.1
+				supply_consumption_factor = -0.25
+				weekly_manpower = 750
+				army_core_attack_factor = 0.25
+				army_core_defence_factor = 0.25
+			}
+			cancel = {
+				OR = {
+					OR = {
+						is_major = yes
+						num_of_factories > 35
+					}
+					NOT = {
+						has_war_with = SOV
+					}
+				}
+			}
+		}
+
+		chaos_red_menace = {
+			allowed = {
+				NOT = {
+					has_government = communism
+				}
+			}
+
+			allowed_civil_war = {
+				NOT = {
+					has_government = communism
+				}
+			}
+
+			picture = ger_the_great_red_menace
+			modifier = {
+				communism_drift = -0.02
+				fascism_drift = 0.02
+				industrial_capacity_factory = 0.05
+				industrial_capacity_dockyard = 0.05
+			}
+		}
+
+		chaos_armour_focus = {
+			picture = generic_acquire_tanks
+			modifier = {
+				army_armor_speed_factor = 0.1
+				army_armor_attack_factor = 0.05
+				army_armor_defence_factor = 0.05
+			}
+			equipment_bonus = {
+				motorized_equipment = {
+					build_cost_ic = -0.1 instant = yes
+				}
+			}
+		}
+
+		chaos_colonial_elite = {
+			picture = generic_research_bonus
+			allowed = { always = yes }
+			modifier = {
+				research_speed_factor = 0.07
+				acclimatization_hot_climate_gain_factor = 0.1
+			}
+		}
+
+		chaos_aircraft_production_group = {
+			picture = generic_air_bonus
+			allowed = { always = yes }
+			modifier = {
+				consumer_goods_factor = -0.15
+			}		
+			equipment_bonus = {
+				small_plane_airframe = {
+					build_cost_ic = -0.1 instant = yes
+				}
+				cv_small_plane_airframe = {
+					build_cost_ic = -0.1 instant = yes
+				}
+			}
+		}
+
+		chaos_fortification_focus = {
+			picture = generic_wall_line
+			allowed = { always = yes }
+			modifier = {
+				production_speed_bunker_factor = 0.1
+				production_speed_coastal_bunker_factor = 0.1
+				special_forces_cap = 0.02
+			}
+		}
+		chaos_infantry_focus = {
+			picture = generic_artillery_regiments
+			allowed = { always = yes }
+			equipment_bonus = {
+				artillery_equipment = {
+					soft_attack = 0.1
+					build_cost_ic = -0.1
+					instant = yes
+				}
+				infantry_equipment = {
+					build_cost_ic = -0.1
+					instant = yes
+				}
+			}
+		}
+		chaos_egalite = {
+			picture = FRA_liberte_egalite_solidarite
+			allowed = { always = yes }
+			modifier = {
+				industrial_capacity_dockyard = 0.1
+				industrial_capacity_factory = 0.1
+				army_core_attack_factor = 0.1
+				army_core_defence_factor = 0.1
+				production_speed_arms_factory_factor = 0.05
+				production_speed_dockyard_factor = 0.05
+				conscription_factor = 0.15
+			}
+		}
+
+		chaos_ability_brick_idea = {
+			picture = FRA_la_deluge
+			allowed = { always = yes }
+			modifier = {
+				custom_modifier_tooltip = chaos_can_use_ability_brick_tt
+				army_speed_factor = -0.5
+				cas_damage_reduction = 0.45
+				max_dig_in = 10
+				pocket_penalty = -0.3
+			}
+		}
+
+		chaos_ability_brick_idea = {
+			picture = FRA_la_deluge
+			allowed = { always = yes }
+			modifier = {
+				custom_modifier_tooltip = chaos_can_use_ability_brick_tt
+				army_speed_factor = -0.5
+				cas_damage_reduction = 0.45
+				max_dig_in = 10
+				pocket_penalty = -0.3
+			}
+		}
+
+		chaos_construction_boost_limit = {
+			picture = generic_central_management
+			allowed = { always = yes }
+			modifier = {
+				cic_construction_boost_factor = 0.5
+				cic_construction_boost = 0.15
+			}
+		}
+	}
+}

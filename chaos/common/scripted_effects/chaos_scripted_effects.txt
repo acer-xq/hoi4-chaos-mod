@@ -1,0 +1,621 @@
+# country scope
+enable_chaos = {
+	set_variable = { THIS.chaos_event_counter = global.CHAOS_EVENT_COUNTER_MAX }
+}
+
+# country scope
+disable_chaos = {
+	set_variable = { THIS.chaos_event_counter = -1 }
+}
+
+# args: iters
+spawn_chaos_divisions = {
+	custom_effect_tooltip = spawn_divisions_tt
+
+	for_loop_effect = {
+		end = iters?0
+		value = i
+		
+		random_owned_controlled_state = {
+			limit = { PREV = { has_full_control_of_state = PREV } }
+			create_unit = {
+				division = "name = \"Chaos Division\" division_template = \"Chaos Division\" start_experience_factor = 0.3" 
+				owner = PREV
+			}
+		}
+	}
+}
+
+create_chaos_division_template = {
+	meta_effect = {
+		text = {
+			division_template = {
+				name = "Chaos Division"
+				priority = 1
+				division_names_group = POL_INF_01
+				regiments = {
+					[REGA]
+					[REGB]
+					[REGC]
+					[REGD]
+				}
+				support = {
+					[REGE]
+				}
+			}
+		}
+		REGA = "[chaos_random_regiment_string_1]"
+		REGB = "[chaos_random_regiment_string_2]"
+		REGC = "[chaos_random_regiment_string_3]"
+		REGD = "[chaos_random_regiment_string_4]"
+		REGD = "[chaos_random_regiment_string]"
+		REGE = "[chaos_random_support_string]"
+	}
+}
+
+# args: pp_max, pp_min
+add_random_political_power = {
+	set_temp_variable_to_random = {
+		var = pp
+		integer = yes
+		max = pp_max?100
+		min = pp_min?0
+	}
+	add_political_power = pp
+}
+
+# args: count
+create_civs = {
+	add_extra_state_shared_building_slots = count?1
+	add_building_construction = {
+		type = industrial_complex
+		level = count?1
+		instant_build = yes
+	}
+}
+
+# args: count
+create_mils = {
+	add_extra_state_shared_building_slots = count?1
+	add_building_construction = {
+		type = arms_factory
+		level = count?1
+		instant_build = yes
+	}
+}
+
+# args: count
+create_mils_in_random_owned_state = {
+	random_owned_controlled_state = {
+		limit = {
+			free_building_slots = {
+				building = arms_factory
+				size > 0
+				include_locked = yes
+			}
+		}
+		create_mils = yes
+	}
+}
+
+# args: count
+create_docks = {
+	add_extra_state_shared_building_slots = count?1
+	add_building_construction = {
+		type = dockyard
+		level = count?1
+		instant_build = yes
+	}
+}
+
+# args: countc countm countd
+create_factories = {
+	set_temp_variable = { total = countc?0 }
+	add_to_temp_variable = { total = countm?0 }
+	add_to_temp_variable = { total = countd?0 }
+	add_extra_state_shared_building_slots = total
+
+	if = {
+		limit = {
+			check_variable = { countc?0 > 0 }
+		}
+		add_building_construction = {
+			type = industrial_complex
+			level = countc
+			instant_build = yes
+		}
+	}
+	if = {
+		limit = {
+			check_variable = { countm?0 > 0 }
+		}
+		add_building_construction = {
+			type = arms_factory
+			level = countm?0
+			instant_build = yes
+		}
+	}
+	if = {
+		limit = {
+			check_variable = { countd?0 > 0 }
+		}
+		add_building_construction = {
+			type = dockyard
+			level = countd?0
+			instant_build = yes
+		}
+	}
+}
+
+puppet_random_ai_country = {
+	random_country = {
+		limit = {
+			is_subject = no
+			is_ai = yes
+		}
+		PREV = {
+			puppet = PREV
+		}
+	}
+}
+
+increase_to_extensive_conscription = {
+	if = {
+		limit = {
+			OR = {
+				has_idea = disarmed_nation
+				has_idea = volunteer_only
+				has_idea = limited_conscription
+			}
+		}
+		add_ideas = extensive_conscription
+	}
+}
+
+increase_conscription_law = {
+	if = {
+		limit = { has_idea = disarmed_nation }
+		add_ideas = volunteer_only
+	}
+	else_if = {
+		limit = { has_idea = volunteer_only }
+		add_ideas = limited_conscription
+	}
+	else_if = {
+		limit = { has_idea = limited_conscription }
+		add_ideas = extensive_conscription
+	}
+	else_if = {
+		limit = { has_idea = extensive_conscription }
+		add_ideas = service_by_requirement
+	}
+	else_if = {
+		limit = { has_idea = service_by_requirement }
+		add_ideas = all_adults_serve
+	}
+	else_if = {
+		limit = { has_idea = all_adults_serve }
+		add_ideas = scraping_the_barrel
+	}
+}
+
+improve_random_african_city = {
+	random_state = {
+		limit = {
+			OR = {
+				state = 557
+				state = 701
+				state = 272
+				state = 296
+				state = 780
+				state = 700
+				state = 298
+				state = 779
+				state = 558
+				state = 773
+				state = 297
+				state = 295
+				state = 540
+				state = 681
+				state = 544
+				state = 543
+				state = 546
+				state = 905
+				state = 547
+				state = 548
+				state = 559
+				state = 271
+				state = 268
+				state = 550
+				state = 883
+				state = 446
+				state = 907
+				state = 447
+				state = 454
+				state = 451
+				state = 448
+				state = 450
+				state = 458
+				state = 460
+				state = 459
+				state = 461
+				state = 290
+				state = 462
+				state = 774
+				state = 781
+				state = 556
+			}
+		}
+		log = "State: [?THIS.GetName]"
+		set_state_category = large_city
+		add_extra_state_shared_building_slots = 6
+		add_building_construction = {
+			type = industrial_complex
+			level = 3
+		}
+		add_building_construction = {
+			type = arms_factory
+			level = 3
+		}
+		add_building_construction = {
+			type = infrastructure
+			level = 2
+		}
+		hidden_effect = {
+			if = { limit = { state = 459 } set_victory_points = { province = 1145 value = 25 } }
+			if = { limit = { state = 458 } set_victory_points = { province = 11969 value = 20 } }
+			if = { limit = { state = 461 } set_victory_points = { province = 7069 value = 20 } }
+			if = { limit = { state = 272 } set_victory_points = { province = 4948 value = 20 } }
+			if = { limit = { state = 274 } set_victory_points = { province = 10862 value = 20 } }
+			if = { limit = { state = 558 } set_victory_points = { province = 2050 value = 25 } }
+			if = { limit = { state = 295 } set_victory_points = { province = 5117 value = 20 } }
+			if = { limit = { state = 681 } set_victory_points = { province = 12589 value = 25 } }
+			if = { limit = { state = 905 } set_victory_points = { province = 5210 value = 25 } }
+			if = { limit = { state = 271 } set_victory_points = { province = 5010 value = 20 } }
+			if = { limit = { state = 447 } set_victory_points = { province = 4076 value = 30 } }
+			if = { limit = { state = 448 } set_victory_points = { province = 1149 value = 20 } }
+			if = { limit = { state = 546 } set_victory_points = { province = 2196 value = 25 } }
+			random_list = {
+				1 = { add_resource = { type = steel amount = 6 } }
+				1 = { add_resource = { type = steel amount = 7 } }
+				1 = { add_resource = { type = steel amount = 10 } }
+				1 = { add_resource = { type = steel amount = 12 } }
+				4 = {}
+			}
+			random_list = {
+				1 = { add_resource = { type = aluminium amount = 6 } }
+				1 = { add_resource = { type = aluminium amount = 7 } }
+				1 = { add_resource = { type = aluminium amount = 10 } }
+				1 = { add_resource = { type = aluminium amount = 12 } }
+				4 = {}
+			}
+			random_list = {
+				1 = { add_resource = { type = oil amount = 6 } }
+				1 = { add_resource = { type = oil amount = 7 } }
+				1 = { add_resource = { type = oil amount = 10 } }
+				1 = { add_resource = { type = oil amount = 12 } }
+				4 = {}
+			}				
+			random_list = {
+				1 = { add_resource = { type = tungsten amount = 6 } }
+				1 = { add_resource = { type = tungsten amount = 7 } }
+				1 = { add_resource = { type = tungsten amount = 10 } }
+				1 = { add_resource = { type = tungsten amount = 12 } }
+				4 = {}
+			}
+			random_list = {
+				1 = { add_resource = { type = chromium amount = 6 } }
+				1 = { add_resource = { type = chromium amount = 7 } }
+				1 = { add_resource = { type = chromium amount = 10 } }
+				1 = { add_resource = { type = chromium amount = 12 } }
+				4 = {}
+			}
+			random_list = {
+				1 = { add_resource = { type = rubber amount = 6 } }
+				1 = { add_resource = { type = rubber amount = 7 } }
+				1 = { add_resource = { type = rubber amount = 10 } }
+				1 = { add_resource = { type = rubber amount = 12 } }
+				4 = {}
+			}
+			random_list = {
+				1= { add_manpower = 250000 }
+				1= { add_manpower = 500000 }
+				1= { add_manpower = 1000000 }
+				1= { add_manpower = 2000000 }
+				3= { }
+			}
+		}
+	}
+}
+
+add_random_leader_trait = {
+	custom_effect_tooltip = assign_random_trait_tt
+	hidden_effect = {
+		random_list = {
+			
+			1 = { add_country_leader_trait = emperor_showa }
+			1 = { add_country_leader_trait = constitutional_monarch }
+			1 = { add_country_leader_trait = kaiserin_of_the_people }
+			1 = { add_country_leader_trait = calipha }
+			1 = { add_country_leader_trait = JUNO_king_of_chile }
+			
+			5 = { add_country_leader_trait = the_academic }
+			5 = { add_country_leader_trait = gran_carabinero }
+			5 = { add_country_leader_trait = head_of_intelligence }
+			5 = { add_country_leader_trait = father_of_the_turks_1 }
+			5 = { add_country_leader_trait = pan_americanist_caudillo }
+			5 = { add_country_leader_trait = pro_allied_politician }
+			5 = { add_country_leader_trait = JUNO_miister_of_lands_and_colonization_2 }
+			
+			10 = { add_country_leader_trait = headstrong }
+			10 = { add_country_leader_trait = face_licker }
+			10 = { add_country_leader_trait = maresal }
+			10 = { add_country_leader_trait = economic_reformer }
+			10 = { add_country_leader_trait = rearmer }
+			10 = { add_country_leader_trait = JUNO_el_jefe }
+			10 = { add_country_leader_trait = JUNO_father_of_industrialization }
+			
+			10 = { add_country_leader_trait = underage_monarch } 
+			10 = { add_country_leader_trait = hawk } 
+			10 = { add_country_leader_trait = sins_of_the_father } 
+			10 = { add_country_leader_trait = old_coup_maker } 
+			10 = { add_country_leader_trait = JUNO_ibanist_prime_minister } 
+			10 = { add_country_leader_trait = JUNO_mapuche_traditionalist } 
+			
+			5 = { add_country_leader_trait = inexperienced_imperialist } 
+			5 = { add_country_leader_trait = champion_of_peace_5 }
+			5 = { add_country_leader_trait = strict_austerity_adherent }
+			5 = { add_country_leader_trait = JUNO_president_of_the_senate_2 }
+			5 = { add_country_leader_trait = JUNO_radical_suffragette }
+			5 = { add_country_leader_trait = JUNO_unpopular }
+			
+			1 = { add_country_leader_trait = defeatist }
+			1 = { add_country_leader_trait = divided_interests }
+			1 = { add_country_leader_trait = incompetent_leader }
+			1 = { add_country_leader_trait = JUNO_sovereign_of_patagonia_2 }
+			1 = { add_country_leader_trait = JUNO_minister_of_social_assistance }
+			
+		}
+	}
+}
+
+# also completes specific focuses and sets certain variables to make them playable
+load_random_focus_tree = {
+	custom_effect_tooltip = load_random_focus_tree_tt
+	hidden_effect = {	
+		random_list = {	
+			1 = { 
+				load_focus_tree = german_focus
+			}
+			1 = {
+				load_focus_tree = british_focus
+			}
+			1 = {
+				load_focus_tree = french_focus
+				unlock_national_focus = FRA_algerie_france
+			}
+			1 = {
+				load_focus_tree = portuguese_focus
+				complete_national_focus = POR_continue_the_public_works
+				complete_national_focus = POR_colonial_assimilation_policy
+				unlock_national_focus = POR_arsenal_do_alfeite
+			}
+			1 = {
+				load_focus_tree = usa_focus 
+				set_variable = { representatives_support = 1000 }
+				set_variable = { representatives_total = 1000 }
+				set_variable = { senators_support = 1000 }
+				set_variable = { senators_total = 1000 }
+			}
+			1 = {
+				load_focus_tree = horn_of_africa_tree
+			}
+			1 = {
+					load_focus_tree = indian_focus
+					unlock_national_focus = RAJ_great_indian_peninsula_railway
+					complete_national_focus = RAJ_industrial_expansion
+					unlock_national_focus = RAJ_tata_steel
+					unlock_national_focus = RAJ_assam_oil
+			}
+			1 = {
+				load_focus_tree = hungarian_focus
+				complete_national_focus = HUN_naval_warfare
+			}
+			1 = {
+				load_focus_tree = czech_focus
+			}
+			1 = {
+				load_focus_tree = romanian_focus
+			}
+			1 = {
+				load_focus_tree = australian_focus
+			}
+			1 = {
+				load_focus_tree = japan_wtt_focus
+			}
+			1 = {
+				load_focus_tree = turkish_focus
+				unlock_national_focus = TUR_abuse_the_office_of_soil_products
+				complete_national_focus = TUR_democratic_capstone_focus
+				set_country_flag = TUR_ottoman_officers_invited_back
+			}
+			1 = {
+				load_focus_tree = soviet_focus
+				unlock_national_focus = SOV_eastern_development
+				unlock_national_focus = SOV_develop_the_urals
+
+				set_variable = { SOV_fyp_factory_requirement_tier_1 = THIS.num_of_factories }
+				multiply_variable = { SOV_fyp_factory_requirement_tier_1 = 1.1 }
+				add_to_variable = { SOV_fyp_factory_requirement_tier_1 = 2 }
+				round_variable = SOV_fyp_factory_requirement_tier_1
+
+				set_variable = { SOV_fyp_factory_requirement_tier_2 = THIS.num_of_factories }
+				multiply_variable = { SOV_fyp_factory_requirement_tier_2 = 1.25 }
+				add_to_variable = { SOV_fyp_factory_requirement_tier_2 = 3 }
+				round_variable = SOV_fyp_factory_requirement_tier_2
+
+				set_variable = { SOV_fyp_factory_requirement_tier_3 = THIS.num_of_factories }
+				multiply_variable = { SOV_fyp_factory_requirement_tier_3 = 1.6 }
+				add_to_variable = { SOV_fyp_factory_requirement_tier_3 = 5 }
+				round_variable = SOV_fyp_factory_requirement_tier_3
+
+				set_variable = { SOV_fyp_factory_requirement_tier_4 = THIS.num_of_factories }
+				multiply_variable = { SOV_fyp_factory_requirement_tier_4 = 1.8 }
+				add_to_variable = { SOV_fyp_factory_requirement_tier_4 = 10 }
+				round_variable = SOV_fyp_factory_requirement_tier_4
+
+				set_variable = { SOV_fyp_factory_requirement_tier_5 = THIS.num_of_factories }
+				multiply_variable = { SOV_fyp_factory_requirement_tier_5 = 2 }
+				add_to_variable = { SOV_fyp_factory_requirement_tier_5 = 25 }
+				round_variable = SOV_fyp_factory_requirement_tier_5
+
+			}
+			1 = {
+				load_focus_tree = estonia_tree
+				unlock_national_focus = BALTIC_rebuild_forts
+			}
+			1 = {
+				load_focus_tree = latvia_tree
+				unlock_national_focus = BALTIC_rebuild_forts
+			}
+			1 = {
+				load_focus_tree = greek_focus
+				complete_national_focus = GRE_connecting_our_prefectures
+				unlock_national_focus = GRE_fiscal_responsibility
+				unlock_national_focus = GRE_the_hellenic_air_force
+			}
+			1 = {
+				load_focus_tree = chaos_focus
+			}
+			1 = {
+				load_focus_tree = chilean_focus_tree
+			}
+			1 = {
+				load_focus_tree = uruguay_focus
+			}
+			1 = {
+				load_focus_tree = paraguay_focus
+			}
+			1 = {
+				load_focus_tree = finnish_focus
+			}
+			1 = {
+				load_focus_tree = norwegian_focus
+			}
+		}
+	}
+}
+
+# args: cs, returns c
+select_player_or_random_existent_country = {
+	if = {
+		limit = {
+			any_of_scopes = {
+				array = cs
+				tooltip = "At least one is a player"
+				NOT = { is_ai = yes }
+			}
+		}
+		random_scope_in_array = {
+			array = cs
+			limit = { NOT = { is_ai = yes } }
+			set_temp_variable = { c = THIS }
+		}
+	}
+	else = {
+		random_scope_in_array = {
+			array = cs
+			limit = { exists = yes }
+			set_temp_variable = { c = THIS }
+		}
+	}
+}
+
+# args: cs, returns c
+select_player_or_random_country = {
+	if = {
+		limit = {
+			any_of_scopes = {
+				array = cs
+				tooltip = "At least one is a player"
+				NOT = { is_ai = yes }
+			}
+		}
+		random_scope_in_array = {
+			array = cs
+			limit = { NOT = { is_ai = yes } }
+			set_temp_variable = { c = THIS }
+		}
+	}
+	else = {
+		random_scope_in_array = {
+			array = cs
+			set_temp_variable = { c = THIS }
+		}
+	}
+}
+
+# args: states, core
+transfer_ai_states = {
+	for_each_scope_loop = {
+		array = states
+		if = {
+			limit = {
+				OWNER = { is_ai = yes }
+			}
+			transfer_state_to = PREV
+		}
+		if = {
+			limit = { check_variable = { core > 0 } } 
+			add_core_of = PREV
+		}
+	}
+}
+
+upgrade_state_category = {
+	if = {
+		limit = { has_state_category = wasteland }
+		set_state_category = pastoral
+	}
+	else_if = {
+		limit = { has_state_category = pastoral }
+		set_state_category = rural
+	}
+	else_if = {
+		limit = { has_state_category = rural }
+		set_state_category = town
+	}
+	else_if = {
+		limit = { has_state_category = town }
+		set_state_category = large_town
+	}
+	else_if = {
+		limit = { has_state_category = large_town }
+		set_state_category = city
+	}
+	else_if = {
+		limit = { has_state_category = city }
+		set_state_category = large_city
+	}
+	else_if = {
+		limit = { has_state_category = large_city }
+		set_state_category = metropolis
+	}
+	else_if = {
+		limit = { has_state_category = metropolis }
+		set_state_category = megalopolis
+	}
+}
+
+# args: res_min, res_max
+add_random_resource = {
+	set_variable_to_random = { var = res_amt min = res_min?1 max = res_max?10 integer = yes }
+	random_list = {
+		1 = { add_resource = { type = oil amount = res_amt } set_variable = { res_type = 1 } }
+		1 = { add_resource = { type = aluminium amount = res_amt } set_variable = { res_type = 2 } }
+		1 = { add_resource = { type = rubber amount = res_amt } set_variable = { res_type = 3 } }
+		1 = { add_resource = { type = tungsten amount = res_amt } set_variable = { res_type = 4 } }
+		1 = { add_resource = { type = steel amount = res_amt } set_variable = { res_type = 5 } }
+		1 = { add_resource = { type = chromium amount = res_amt } set_variable = { res_type = 6 } }
+	}
+}
