@@ -1,2 +1,1 @@
-LFD = "countries/La horde.txt"
 UNC = "countries/Unclaimed.txt"
