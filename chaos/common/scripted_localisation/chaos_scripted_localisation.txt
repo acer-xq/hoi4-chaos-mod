@@ -205,3 +205,49 @@ defined_text = {
 		localization_key = chaos.counter_var
 	}
 }
+
+defined_text = {
+	name = chaos_continent_adj
+	text = {
+		trigger = {
+			CAPITAL_SCOPE = { is_on_continent = europe }
+		}
+		localization_key = "European"
+	}
+	text = {
+		trigger = {
+			CAPITAL_SCOPE = { is_on_continent = north_america }
+		}
+		localization_key = "North American"
+	}
+	text = {
+		trigger = {
+			CAPITAL_SCOPE = { is_on_continent = south_america }
+		}
+		localization_key = "South American"
+	}
+	text = {
+		trigger = {
+			CAPITAL_SCOPE = { is_on_continent = australia }
+		}
+		localization_key = "Oceanian"
+	}
+	text = {
+		trigger = {
+			CAPITAL_SCOPE = { is_on_continent = Africa }
+		}
+		localization_key = "African"
+	}
+	text = {
+		trigger = {
+			CAPITAL_SCOPE = { is_on_continent = asia }
+		}
+		localization_key = "Asian"
+	}
+	text = {
+		trigger = {
+			CAPITAL_SCOPE = { is_on_continent = middle_east }
+		}
+		localization_key = "Middle-Eastern"
+	}
+}

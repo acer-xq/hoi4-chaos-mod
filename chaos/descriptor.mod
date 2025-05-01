@@ -1,9 +1,9 @@
-version="1.0"
+version="1.1"
 picture="thumbnail.png"
 tags={
 	"Events"
 	"Gameplay"
 }
 name="Chaos Mod"
-supported_version="1.14.*"
-remote_file_id="3249341121"
+supported_version="1.16.*"
+path="C:/Users/acer/Documents/Paradox Interactive/Hearts of Iron IV/mod/chaos"

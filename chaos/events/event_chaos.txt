@@ -334,7 +334,7 @@ country_event = {
 	}
 }
 
-# Every country with generic tree gets a new one
+# Every country with generic tree gets chaos tree
 country_event = {
 	id = chaos.11
 	title = chaos.11.t
@@ -351,7 +351,7 @@ country_event = {
 					has_focus_tree = horn_of_africa_tree
 				}
 			}
-			load_random_focus_tree = yes
+			load_focus_tree = chaos_focus
 		}
 	}
 }
@@ -1314,6 +1314,9 @@ country_event = {
 		ai_chance = { factor = 1 }
 		SOV = {
 			every_neighbor_country = {
+				limit = {
+					NOT = { has_war_with = SOV }
+				}
 				declare_war_on = {
 					type = puppet_wargoal_focus
 					target = SOV
@@ -1498,6 +1501,9 @@ country_event = {
 			add_offsite_building = { type = dockyard level = 1 }
 		}
 		every_neighbor_country = {
+			limit = {
+				NOT = { has_war_with = SOV }
+			}
 			declare_war_on = {
 				type = puppet_wargoal_focus
 				target = SOV
@@ -1871,6 +1877,9 @@ country_event = {
 		name = chaos.52.a
 		ai_chance = { factor = 1 }
 		every_state = {
+			limit = {
+				has_resistance = yes
+			}
 			add_compliance = 100
 		}
 	}
@@ -2326,7 +2335,12 @@ country_event = {
 			add_threat = 20
 		}
 		every_country = {
-			add_country_leader_trait = warmonger
+			if = {
+				limit = {
+					NOT = { has_country_leader_with_trait = warmonger }
+				}
+				add_country_leader_trait = warmonger
+			}
 			add_timed_idea = {
 				idea = BUL_total_war
 				days = 105
@@ -3374,12 +3388,22 @@ country_event = {
 		ai_chance = { factor = 1 }
 		every_country = {
 			limit = {
-				has_stability < 0.35
+				has_stability < 0.2
 				is_ai = yes
 			}
-			start_civil_war = {
-				ideology = fascism
-				size = 0.5
+			add_stability = 0.1
+			if = {
+				limit = { has_government = fascism }
+				start_civil_war = {
+					ideology = communism
+					size = 0.3
+				}
+			}
+			else = {
+				start_civil_war = {
+					ideology = fascism
+					size = 0.3
+				}
 			}
 		}
 	}
@@ -5086,28 +5110,62 @@ country_event = {
 			every_state = {
 				limit = {
 					OR = {
-						state = 854
-						state = 857
+						# saudi arabia
 						state = 859
-						state = 656
+						state = 857
+						state = 854
 						state = 855
-						state = 680
-						state = 291
-						state = 676
-						state = 413
-						state = 421
-						state = 419
-						state = 544
-						state = 677
-						state = 799
-						state = 412
-						state = 765
-						state = 658
-						state = 659
 						state = 858
+
+						#iraq
+						state = 291
+						state = 675
+						state = 676
+						state = 1010
+						state = 1011
+
+						#kuwait
+						state = 656
+
+						#syria
+						state = 680
+						state = 677
+						state = 554
+						state = 799
+
+						#jordan
+						state = 455
+
+						#iran
+						state = 419
+						state = 1001
+						state = 421
+						state = 413
+						state = 417
+						state = 420
+						state = 412
+						state = 416
+
+						#qatar
+						state = 765
+
+						#bahrain
+						state = 1014
+
+						#uae
+						state = 658
+
+						#yemen
+						state = 659
+						state = 293
+						state = 992
+
+						#turkey
 						state = 352
 						state = 350
-						state = 416
+
+						#oman
+						state = 1016
 					}
 				}
 				random_list = {
@@ -5128,13 +5186,13 @@ country_event = {
 		}
 
 		hidden_effect = {
-			854 = {
-				if = { 
-					limit = { owner = { is_ai = yes } }
-					random_list = {
+			#saudi arabia
+			859 = {
+				if = { limit = { owner = { is_ai = yes } }
+				random_list = {
 						1 = { IRQ = { transfer_state = PREV } }
-						1 = { ENG = { transfer_state = PREV } }
 						1 = { SAU = { transfer_state = PREV } }
+						1 = { KUW = { transfer_state = PREV } }
 						1 = { }
 					}
 				}
@@ -5149,35 +5207,13 @@ country_event = {
 					}
 				}
 			}
-			859 = {
-				if = { limit = { owner = { is_ai = yes } }
-				random_list = {
+			854 = {
+				if = { 
+					limit = { owner = { is_ai = yes } }
+					random_list = {
 						1 = { IRQ = { transfer_state = PREV } }
-						1 = { ENG = { transfer_state = PREV } }
-						1 = { SAU = { transfer_state = PREV } }
-						1 = { }
-					}
-				}
-			}
-			656 = {
-				if = { limit = { owner = { is_ai = yes } }
-				random_list = {
-						1 = { IRQ = { transfer_state = PREV } }
-						1 = { ENG = { transfer_state = PREV } }
-						1 = { SAU = { transfer_state = PREV } }
-						1 = { KUW = { transfer_state = PREV } }
-						1 = { }
-					}
-				}
-			}
-			455 = {
-				if = { limit = { owner = { is_ai = yes } }
-				random_list = {
-						1 = { IRQ = { transfer_state = PREV } }
-						1 = { SAU = { transfer_state = PREV } }
-						1 = { ENG = { transfer_state = PREV } }
-						1 = { FRA = { transfer_state = PREV } }
 						1 = { JOR = { transfer_state = PREV } }
+						1 = { SAU = { transfer_state = PREV } }
 						1 = { }
 					}
 				}
@@ -5186,158 +5222,7 @@ country_event = {
 				if = { limit = { owner = { is_ai = yes } }
 				random_list = {
 						1 = { SAU = { transfer_state = PREV } }
-						1 = { ENG = { transfer_state = PREV } }
-						1 = { }
-					}
-				}
-			}
-			680 = {
-				if = { limit = { owner = { is_ai = yes } }
-				random_list = {
-						1 = { IRQ = { transfer_state = PREV } }
-						1 = { FRA = { transfer_state = PREV } }
-						1 = { TUR = { transfer_state = PREV } }
-						1 = { SYR = { transfer_state = PREV } }
-						1 = { }
-					}
-				}
-			}
-			675 = {
-				if = { limit = { owner = { is_ai = yes } }
-				random_list = {
-						1 = { IRQ = { transfer_state = PREV } }
-						1 = { SAU = { transfer_state = PREV } }
-						1 = { ENG = { transfer_state = PREV } }
-						1 = { FRA = { transfer_state = PREV } }
-						1 = { }
-					}
-				}
-			}
-			291 = {
-				if = { limit = { owner = { is_ai = yes } }
-				random_list = {
-						1 = { IRQ = { transfer_state = PREV } }
-						1 = { ENG = { transfer_state = PREV } }
-						1 = { PER = { transfer_state = PREV } }
-						1 = { }
-					}
-				}
-			}
-			676 = {
-				if = { limit = { owner = { is_ai = yes } }
-				random_list = {
-						1 = { IRQ = { transfer_state = PREV } }
-						1 = { FRA = { transfer_state = PREV } }
-						1 = { PER = { transfer_state = PREV } }
-						1 = { TUR = { transfer_state = PREV } }
-						1 = { }
-					}
-				}
-			}
-			413 = {
-				if = { limit = { owner = { is_ai = yes } }
-				random_list = {
-						1 = { IRQ = { transfer_state = PREV } }
-						1 = { PER = { transfer_state = PREV } }
-						1 = { ENG = { transfer_state = PREV } }
-						1 = { FRA = { transfer_state = PREV } }
-						1 = { }
-					}
-				}
-			}
-			421 = {
-				if = { limit = { owner = { is_ai = yes } }
-				random_list = {
-						1 = { IRQ = { transfer_state = PREV } }
-						1 = { PER = { transfer_state = PREV } }
-						1 = { KUR = { transfer_state = PREV } }
-						1 = { }
-					}
-				}
-			}
-			419 = {
-				if = { limit = { owner = { is_ai = yes } }
-				random_list = {
-						1 = { IRQ = { transfer_state = PREV } }
-						1 = { PER = { transfer_state = PREV } }
-						1 = { TUR = { transfer_state = PREV } }
-						1 = { KUR = { transfer_state = PREV } }
-						1 = { }
-					}
-				}
-			}
-			554 = {
-				if = { limit = { owner = { is_ai = yes } }
-				random_list = {
-						1 = { SYR = { transfer_state = PREV } }
-						1 = { ENG = { transfer_state = PREV } }
-						1 = { FRA = { transfer_state = PREV } }
-						1 = { TUR = { transfer_state = PREV } }
-						1 = { }
-					}
-				}
-			}
-			677 = {
-				if = { limit = { owner = { is_ai = yes } }
-				random_list = {
-						1 = { SYR = { transfer_state = PREV } }
-						1 = { ENG = { transfer_state = PREV } }
-						1 = { FRA = { transfer_state = PREV } }
-						1 = { TUR = { transfer_state = PREV } }
-						1 = { }
-					}
-				}
-			}
-			799 = {
-				if = { limit = { owner = { is_ai = yes } }
-				random_list = {
-						1 = { SYR = { transfer_state = PREV } }
-						1 = { ENG = { transfer_state = PREV } }
-						1 = { FRA = { transfer_state = PREV } }
-						1 = { TUR = { transfer_state = PREV } }
-						1 = { }
-					}
-				}
-			}
-			412 = {
-				if = { limit = { owner = { is_ai = yes } }
-				random_list = {
-						1 = { PER = { transfer_state = PREV } }
-						1 = { ENG = { transfer_state = PREV } }
-						1 = { FRA = { transfer_state = PREV } }
-						1 = { }
-					}
-				}
-			}
-			765 = {
-				if = { limit = { owner = { is_ai = yes } }
-				random_list = {
-						1 = { SAU = { transfer_state = PREV } }
-						1 = { ENG = { transfer_state = PREV } }
-						1 = { FRA = { transfer_state = PREV } }
-						1 = { PER = { transfer_state = PREV } }
-						1 = { }
-					}
-				}
-			}
-			658 = {
-				if = { limit = { owner = { is_ai = yes } }
-				random_list = {
-						1 = { SAU = { transfer_state = PREV } }
-						1 = { ENG = { transfer_state = PREV } }
-						1 = { FRA = { transfer_state = PREV } }
-						1 = { OMA = { transfer_state = PREV } }
-						1 = { }
-					}
-				}
-			}
-			659 = {
-				if = { limit = { owner = { is_ai = yes } }
-				random_list = {
-						1 = { SAU = { transfer_state = PREV } }
-						1 = { ENG = { transfer_state = PREV } }
-						1 = { FRA = { transfer_state = PREV } }
-						1 = { YEM = { transfer_state = PREV } }
+						1 = { JOR = { transfer_state = PREV } }
 						1 = { }
 					}
 				}
@@ -5352,6 +5237,298 @@ country_event = {
 					}
 				}
 			}
+
+			#iraq
+			291 = {
+				if = { limit = { owner = { is_ai = yes } }
+				random_list = {
+						1 = { IRQ = { transfer_state = PREV } }
+						1 = { PER = { transfer_state = PREV } }
+						1 = { }
+					}
+				}
+			}
+			675 = {
+				if = { limit = { owner = { is_ai = yes } }
+				random_list = {
+						1 = { IRQ = { transfer_state = PREV } }
+						1 = { SAU = { transfer_state = PREV } }
+						1 = { KUW = { transfer_state = PREV } }
+						1 = { }
+					}
+				}
+			}
+			676 = {
+				if = { limit = { owner = { is_ai = yes } }
+				random_list = {
+						1 = { IRQ = { transfer_state = PREV } }
+						1 = { SYR = { transfer_state = PREV } }
+						1 = { PER = { transfer_state = PREV } }
+						1 = { TUR = { transfer_state = PREV } }
+						1 = { KUR = { transfer_state = PREV } }
+						1 = { }
+					}
+				}
+			}
+			1010 = {
+				if = { limit = { owner = { is_ai = yes } }
+				random_list = {
+						1 = { IRQ = { transfer_state = PREV } }
+						1 = { SYR = { transfer_state = PREV } }
+						1 = { JOR = { transfer_state = PREV } }
+						1 = { }
+					}
+				}
+			}
+			1011 = {
+				if = { limit = { owner = { is_ai = yes } }
+				random_list = {
+						1 = { IRQ = { transfer_state = PREV } }
+						1 = { PER = { transfer_state = PREV } }
+						1 = { KUW = { transfer_state = PREV } }
+						1 = { }
+					}
+				}
+			}
+
+			#kuwait
+			656 = {
+				if = { limit = { owner = { is_ai = yes } }
+				random_list = {
+						1 = { IRQ = { transfer_state = PREV } }
+						1 = { ENG = { transfer_state = PREV } }
+						1 = { SAU = { transfer_state = PREV } }
+						1 = { KUW = { transfer_state = PREV } }
+						1 = { FRA = { transfer_state = PREV } }
+						1 = { PER = { transfer_state = PREV } }
+						1 = { }
+					}
+				}
+			}
+
+			#syria
+			680 = {
+				if = { limit = { owner = { is_ai = yes } }
+				random_list = {
+						1 = { IRQ = { transfer_state = PREV } }
+						1 = { TUR = { transfer_state = PREV } }
+						1 = { SYR = { transfer_state = PREV } }
+						1 = { }
+					}
+				}
+			}
+			677 = {
+				if = { limit = { owner = { is_ai = yes } }
+				random_list = {
+						1 = { SYR = { transfer_state = PREV } }
+						1 = { TUR = { transfer_state = PREV } }
+						1 = { }
+					}
+				}
+			}
+			554 = {
+				if = { limit = { owner = { is_ai = yes } }
+				random_list = {
+						1 = { SYR = { transfer_state = PREV } }
+						1 = { FRA = { transfer_state = PREV } }
+						1 = { }
+					}
+				}
+			}
+			799 = {
+				if = { limit = { owner = { is_ai = yes } }
+				random_list = {
+						1 = { SYR = { transfer_state = PREV } }
+						1 = { TUR = { transfer_state = PREV } }
+						1 = { }
+					}
+				}
+			}
+
+			#jordan
+			455 = {
+				if = { limit = { owner = { is_ai = yes } }
+				random_list = {
+						1 = { IRQ = { transfer_state = PREV } }
+						1 = { SAU = { transfer_state = PREV } }
+						1 = { PAL = { transfer_state = PREV } }
+						1 = { JOR = { transfer_state = PREV } }
+						1 = { }
+					}
+				}
+			}
+
+			#iran
+			419 = {
+				if = { limit = { owner = { is_ai = yes } }
+				random_list = {
+						1 = { IRQ = { transfer_state = PREV } }
+						1 = { PER = { transfer_state = PREV } }
+						1 = { TUR = { transfer_state = PREV } }
+						1 = { KUR = { transfer_state = PREV } }
+						1 = { }
+					}
+				}
+			}
+			1000 = {
+				if = { limit = { owner = { is_ai = yes } }
+				random_list = {
+						1 = { PER = { transfer_state = PREV } }
+						1 = { KUR = { transfer_state = PREV } }
+						1 = { AZR = { transfer_state = PREV } }
+						1 = { }
+					}
+				}
+			}
+			1001 = {
+				if = { limit = { owner = { is_ai = yes } }
+				random_list = {
+						1 = { IRQ = { transfer_state = PREV } }
+						1 = { PER = { transfer_state = PREV } }
+						1 = { KUR = { transfer_state = PREV } }
+						1 = { AZR = { transfer_state = PREV } }
+						1 = { }
+					}
+				}
+			}
+			421 = {
+				if = { limit = { owner = { is_ai = yes } }
+				random_list = {
+						1 = { IRQ = { transfer_state = PREV } }
+						1 = { PER = { transfer_state = PREV } }
+						1 = { KUR = { transfer_state = PREV } }
+						1 = { }
+					}
+				}
+			}
+			413 = {
+				if = { limit = { owner = { is_ai = yes } }
+				random_list = {
+						1 = { IRQ = { transfer_state = PREV } }
+						1 = { PER = { transfer_state = PREV } }
+						1 = { }
+					}
+				}
+			}
+			417 = {
+				if = { limit = { owner = { is_ai = yes } }
+				random_list = {
+						1 = { PER = { transfer_state = PREV } }
+						1 = { ENG = { transfer_state = PREV } }
+						1 = { }
+					}
+				}
+			}
+			420 = {
+				if = { limit = { owner = { is_ai = yes } }
+				random_list = {
+						1 = { PER = { transfer_state = PREV } }
+						1 = { AZR = { transfer_state = PREV } }
+						1 = { KUR = { transfer_state = PREV } }
+						1 = { }
+					}
+				}
+			}
+			412 = {
+				if = { limit = { owner = { is_ai = yes } }
+				random_list = {
+						1 = { PER = { transfer_state = PREV } }
+						1 = { ENG = { transfer_state = PREV } }
+						1 = { FRA = { transfer_state = PREV } }
+						1 = { }
+					}
+				}
+			}
+			416 = {
+				if = { limit = { owner = { is_ai = yes } }
+				random_list = {
+						1 = { PER = { transfer_state = PREV } }
+						1 = { AFG = { transfer_state = PREV } }
+						1 = { }
+					}
+				}
+			}
+
+			#qatar
+			765 = {
+				if = { limit = { owner = { is_ai = yes } }
+				random_list = {
+						1 = { SAU = { transfer_state = PREV } }
+						1 = { ENG = { transfer_state = PREV } }
+						1 = { FRA = { transfer_state = PREV } }
+						1 = { PER = { transfer_state = PREV } }
+						1 = { PER = { transfer_state = PREV } }
+						1 = { QAT = { transfer_state = PREV } }
+						1 = { }
+					}
+				}
+			}
+
+			#bahrain
+			1014 = {
+				if = { limit = { owner = { is_ai = yes } }
+				random_list = {
+						1 = { SAU = { transfer_state = PREV } }
+						1 = { ENG = { transfer_state = PREV } }
+						1 = { FRA = { transfer_state = PREV } }
+						1 = { PER = { transfer_state = PREV } }
+						1 = { PER = { transfer_state = PREV } }
+						1 = { BHR = { transfer_state = PREV } }
+						1 = { QAT = { transfer_state = PREV } }
+						1 = { }
+					}
+				}
+			}
+
+			#uae
+			658 = {
+				if = { limit = { owner = { is_ai = yes } }
+				random_list = {
+						1 = { SAU = { transfer_state = PREV } }
+						1 = { ENG = { transfer_state = PREV } }
+						1 = { FRA = { transfer_state = PREV } }
+						1 = { OMA = { transfer_state = PREV } }
+						1 = { }
+					}
+				}
+			}
+
+			#yemen
+			659 = {
+				if = { limit = { owner = { is_ai = yes } }
+				random_list = {
+						1 = { SAU = { transfer_state = PREV } }
+						1 = { ENG = { transfer_state = PREV } }
+						1 = { FRA = { transfer_state = PREV } }
+						1 = { YEM = { transfer_state = PREV } }
+						1 = { }
+					}
+				}
+			}
+			293 = {
+				if = { limit = { owner = { is_ai = yes } }
+				random_list = {
+						1 = { SAU = { transfer_state = PREV } }
+						1 = { RAJ = { transfer_state = PREV } }
+						1 = { YEM = { transfer_state = PREV } }
+						1 = { }
+					}
+				}
+			}
+			992 = {
+				if = { limit = { owner = { is_ai = yes } }
+				random_list = {
+						1 = { SAU = { transfer_state = PREV } }
+						1 = { ENG = { transfer_state = PREV } }
+						1 = { FRA = { transfer_state = PREV } }
+						1 = { YEM = { transfer_state = PREV } }
+						1 = { RAJ = { transfer_state = PREV } }
+						1 = { }
+					}
+				}
+			}
+
+			#turkey
 			352 = {
 				if = { limit = { owner = { is_ai = yes } }
 				random_list = {
@@ -5374,15 +5551,7 @@ country_event = {
 					}
 				}
 			}
-			416 = {
-				if = { limit = { owner = { is_ai = yes } }
-				random_list = {
-						1 = { PER = { transfer_state = PREV } }
-						1 = { AFG = { transfer_state = PREV } }
-						1 = { }
-					}
-				}
-			}
+
 		}
 		
 	}
@@ -5487,6 +5656,23 @@ country_event = {
 			amount = -8
 			state = 497
 		}
+		add_resource = {
+			type = rubber
+			amount = -2
+			state = 938
+		}
+
+		#drc
+		add_resource = {
+			type = rubber
+			amount = -1
+			state = 538
+		}
+		add_resource = {
+			type = rubber
+			amount = -1
+			state = 718
+		}
 
 		set_global_flag = ChaosRubberShortage
 	}
@@ -5503,7 +5689,7 @@ country_event = {
 	}
 }
 
-#focus tree switch
+# free resources
 country_event = {
 	id = chaos.138
 	title = chaos.138.t
@@ -5513,13 +5699,32 @@ country_event = {
 	option = {
 		name = chaos.138.a
 		ai_chance = { factor = 1 }
-		load_random_focus_tree = yes
+		CAPITAL_SCOPE = {
+			add_resource = {
+				type = aluminium
+				amount = 4
+			}
+		}
 	}
 	option = {
 		name = chaos.138.b
 		ai_chance = { factor = 1 }
-		add_stability = -0.075
-		add_political_power = -50
+		CAPITAL_SCOPE = {
+			add_resource = {
+				type = rubber
+				amount = 4
+			}
+		}
+	}
+	option = {
+		name = chaos.138.c
+		ai_chance = { factor = 1 }
+		CAPITAL_SCOPE = {
+			add_resource = {
+				type = steel
+				amount = 4
+			}
+		}
 	}
 }
 
@@ -5535,9 +5740,23 @@ country_event = {
 		ai_chance = { factor = 1 }
 
 		LIT = { set_cosmetic_tag = BAL_UNIFIED }
-		TUR = { set_cosmetic_tag = OTT_UNIFIED_communism }
+		TUR = {
+			random_list = {
+				1 = { set_cosmetic_tag = OTT_UNIFIED_communism }
+				1 = { set_cosmetic_tag = TUR_PROVISIONARY_democratic }
+				1 = { set_cosmetic_tag = TUR_GREATER_TURKEY_fascism }
+				1 = { set_cosmetic_tag = TRN_democratic }
+			}
+		}
 		ITA = { set_cosmetic_tag = SPQR_UNIFIED }
-		GRE = { set_cosmetic_tag = BYZ_UNIFIED }
+		GRE = { 
+			random_list = {
+				1 = { set_cosmetic_tag = BYZ_UNIFIED }
+				1 = { set_cosmetic_tag = GRE_stalinist }
+				1 = { set_cosmetic_tag = GRE_GREATER_GREECE_democratic }
+				1 = { set_cosmetic_tag = GRE_dem_monarchy_neutrality }
+			}
+		}
 		SAU = { set_cosmetic_tag = ARA_UNIFIED }
 		MAN = { set_cosmetic_tag = MAN_restored }
 		ENG = { set_cosmetic_tag = ENG_imperial_federation_india_unified }
@@ -5545,19 +5764,47 @@ country_event = {
 		SPR = { set_cosmetic_tag = SPR_anarchist_spain }
 		NZL = { set_cosmetic_tag = united_polynesia }
 		YUG = { set_cosmetic_tag = dalmatia }
-		BUL = { set_cosmetic_tag = UBF_united_balkan_federation_democratic }
+		BUL = {
+			random_list = {
+				1 = { set_cosmetic_tag = UBF_united_balkan_federation_democratic }
+				1 = { set_cosmetic_tag = TBE_third_bulgarian_empire_fascism }
+			}
+		}
 		POL = { set_cosmetic_tag = PLC_UNIFIED_RUS }
 		LAT = { set_cosmetic_tag = OSTLAND }
-		TAN = { set_cosmetic_tag = turkestan_united }
-		ETH = { set_cosmetic_tag = greater_gojjam }
+		ETH = { 
+			random_list = {
+				1 = { set_cosmetic_tag = greater_gojjam }
+				1 = { set_cosmetic_tag = ETH_African_Union }
+				1 = { set_cosmetic_tag = empire_of_axum }
+			}
+		}
 		SWI = { set_cosmetic_tag = SWI_helvetic_republic }
-		SAU = { set_cosmetic_tag = ARA_UNIFIED }
 		INS = { drop_cosmetic_tag = yes }
-		RAJ = { set_cosmetic_tag = MAJ_UNIFIED }
+		RAJ = { 
+			random_list = {
+				1 = { set_cosmetic_tag = MAJ_UNIFIED }
+				1 = { set_cosmetic_tag = RAJ_mughal_empire }
+				1 = { set_cosmetic_tag = RAJ_timurid_empire }
+				1 = { set_cosmetic_tag = RAJ_eic_tag }
+			}
+		}
 		SIA = { set_cosmetic_tag = RAT_UNIFIED }
 		BRA = { set_cosmetic_tag = YUG_puppet_1 }
 		CHI = { set_cosmetic_tag = CYP_UK }
 		ARG = { set_cosmetic_tag = GER_greater_german_reich }
+		TAN = {
+			random_list = {
+				1 = { set_cosmetic_tag = turkestan_united }
+				1 = { set_cosmetic_tag = siberia_unified }		
+			}
+		}
+		SWE = { set_cosmetic_tag = SWE_nordic_defense_council }
+		random_list = {
+			1 = { CUB = { set_cosmetic_tag = antilles } }
+			1 = { HAI = { set_cosmetic_tag = antilles } }
+			1 = { DOM = { set_cosmetic_tag = antilles } }
+		}
 		random_list = {
 			1 = { HUN = { set_cosmetic_tag = HUN_EMPIRE } }
 			1 = { AUS = { set_cosmetic_tag = HUN_EMPIRE } }
@@ -5573,6 +5820,14 @@ country_event = {
 			1 = { ENG = { set_cosmetic_tag = EUR_UNIFIED } }
 			1 = { CZE = { set_cosmetic_tag = EUR_UNIFIED } }
 		}
+		random_list = {
+			1 = { SAU = { set_cosmetic_tag = ARA_UNIFIED } }
+			1 = { KUW = { set_cosmetic_tag = ARA_UNIFIED } }
+			1 = { SYR = { set_cosmetic_tag = ARA_UNIFIED } }
+			1 = { JOR = { set_cosmetic_tag = ARA_UNIFIED } }
+			1 = { PAL = { set_cosmetic_tag = ARA_UNIFIED } }
+		}
+		COG = { set_cosmetic_tag = latin_africa }
 	}
 }
 
@@ -5783,6 +6038,9 @@ country_event = {
 					}
 					controller = {
 						is_ai = yes
+					}
+					owner = {
+						NOT = { tag = POL }
 					}
 				}
 				POL = {
@@ -6831,16 +7089,14 @@ country_event = {
 				limit = { is_on_continent = south_america }
 				set_temp_variable = { res_min = 2 }
 				set_temp_variable = { res_max = 6 }
-				random_list = {
-					1 = {}
-					2 = { add_random_resource = yes }
-				}
+				set_temp_variable = { zero_weight = 0.5 }
+				add_random_resource = yes
+
 				set_temp_variable = { res_min = 5 }
 				set_temp_variable = { res_max = 14 }
-				random_list = {
-					10 = {}
-					1 = { add_random_resource = yes }
-				}
+				set_temp_variable = { zero_weight = 10 }
+				set_temp_variable = { iters = 2 }
+				add_random_resource = yes
 			}
 
 		}
@@ -7644,16 +7900,13 @@ country_event = {
 					5 = { add_manpower = 2000000 }
 					1 = { add_manpower = 5000000 }
 				}
-				set_variable = { res_min = 2 }
-				set_variable = { res_max = 10 }
-				random_list = {
-					2 = {}
-					1 = { add_random_resource = yes }
-				}
-				random_list = {
-					5 = {}
-					1 = { add_random_resource = yes }
-				}
+				set_temp_variable = { res_min = 2 }
+				set_temp_variable = { res_max = 10 }
+				set_temp_variable = { zero_weight = 2 }
+				add_random_resource = yes
+				set_temp_variable = { zero_weight = 5 }
+				add_random_resource = yes
+				
 			}
 
 			#inland states
@@ -7718,16 +7971,12 @@ country_event = {
 					5 = { add_manpower = 1000000 }
 					1 = { add_manpower = 2000000 }
 				}
-				set_variable = { res_min = 1 }
-				set_variable = { res_max = 6 }
-				random_list = {
-					3 = {}
-					1 = { add_random_resource = yes }
-				}
-				random_list = {
-					8 = {}
-					1 = { add_random_resource = yes }
-				}
+				set_temp_variable = { res_min = 1 }
+				set_temp_variable = { res_max = 6 }
+				set_temp_variable = { zero_weight = 3 }
+				add_random_resource = yes
+				set_temp_variable = { zero_weight = 8 }
+				add_random_resource = yes
 			}
 		}
 
@@ -7917,6 +8166,7 @@ country_event = {
 			NOT = { country_exists = UNC }
 		}
 		name = chaos.173.a
+		#don't let ai pick this
 		ai_chance = { factor = 0 }
 		custom_effect_tooltip = chaos.173.a.tt1
 		custom_effect_tooltip = chaos.n
@@ -8366,6 +8616,7 @@ country_event = {
 		set_temp_variable = { core = 1 }
 		MON = {
 			transfer_ai_states = yes
+			load_focus_tree = chaos_focus
 		}
 	}
 }
@@ -8457,9 +8708,16 @@ country_event = {
 		name = chaos.188.a
 		every_country = {
 			every_country = {
-				remove_wargoal = {
-					type = all
-					target = PREV
+				limit = {
+					PREV = {
+						has_wargoal_against = PREV
+					}
+				}
+				PREV = {
+					remove_wargoal = {
+						type = all
+						target = PREV
+					}
 				}
 			}
 		}
@@ -8507,7 +8765,7 @@ country_event = {
 	option = {
 		name = chaos.191.a
 		division_template = {
-			name = "Chaos Division"
+			name = "Illegal Division"
 			priority = 1
 			division_names_group = POL_INF_01
 			regiments = {
@@ -8600,7 +8858,16 @@ country_event = {
 	option = {
 		name = chaos.194.a
 		every_country = {
-			every_country = {
+			every_other_country = {
+				limit = {
+					# prevent log spam
+					NOT = { has_war_with = PREV }
+					NOT = { has_market_access_with = PREV }
+					NOT = { is_subject_of = PREV }
+					NOT = { has_subject = PREV }
+					NOT = { is_embargoed_by = PREV }
+					NOT = { is_embargoing = PREV }
+				}
 				give_market_access = PREV
 			}
 		}
@@ -8715,3 +8982,1239 @@ country_event = {
 		}
 	}
 }
+
+#enemies get tanks
+country_event = {
+	id = chaos.199
+	title = chaos.199.t
+	desc = chaos.199.d
+	is_triggered_only = yes
+	option = {
+		name = chaos.199.a
+		every_country = {
+			limit = {
+				has_war_with = ROOT
+			}
+
+
+			hidden_effect = {
+				set_technology = { tech_support = 1 }
+				set_technology = { gw_artillery = 1 }
+				set_technology = { interwar_antiair = 1 }
+				set_technology = { tech_trucks = 1 }
+				set_technology = { motorised_infantry = 1 }
+
+				if = {
+					limit = { 
+						has_dlc = "No Step Back"
+					}
+					set_technology = { gwtank_chassis = 1 }
+					set_technology = { basic_medium_tank_chassis = 1 }
+					set_technology = { improved_medium_tank_chassis = 1 }
+					set_technology = { armor_tech_1 = 1 }
+					create_equipment_variant = {
+						name = "Panzer IV"
+						type = medium_tank_chassis_2
+						modules = {
+							main_armament_slot = tank_close_support_gun
+							turret_type_slot = tank_medium_three_man_tank_turret
+							suspension_type_slot = tank_bogie_suspension
+							armor_type_slot = tank_welded_armor
+							engine_type_slot = tank_gasoline_engine
+							special_type_slot_1 = tank_radio_1
+							special_type_slot_2 = expanded_fuel_tank
+							special_type_slot_3 = additional_machine_guns
+						}
+						upgrades = {
+							tank_nsb_engine_upgrade = 2
+							tank_nsb_armor_upgrade = 6
+						}
+						icon = "GFX_GER_basic_medium_tank_medium"
+					}
+				}
+				else = {
+					set_technology = { improved_medium_tank = 1 }
+				}
+			}
+
+			division_template = {
+				name = "Tank Division"
+				priority = 1
+				division_names_group = POL_INF_01
+				regiments = {
+					medium_armor = { x = 0 y = 0 }
+					medium_armor = { x = 0 y = 1 }
+					medium_armor = { x = 0 y = 2 }
+					medium_armor = { x = 1 y = 0 }
+					medium_armor = { x = 1 y = 1 }
+					medium_armor = { x = 1 y = 2 }
+					medium_armor = { x = 2 y = 0 }
+					medium_armor = { x = 2 y = 1 }
+					medium_armor = { x = 2 y = 2 }
+					motorized = { x = 3 y = 0 }
+					motorized = { x = 3 y = 1 }
+					motorized = { x = 3 y = 2 }
+					motorized = { x = 4 y = 0 }
+					motorized = { x = 4 y = 1 }
+					motorized = { x = 4 y = 2 }
+				}
+				support = {
+					logistics_company = { x = 0 y = 0 }
+					engineer = { x = 0 y = 1 }
+					anti_air = { x = 0 y = 2 }
+					artillery = { x = 0 y = 3 }
+				}
+			}
+
+			random_owned_controlled_state = {
+				limit = { PREV = { has_full_control_of_state = PREV } }
+				create_unit = {
+					division = "name = \"Tank Division\" division_template = \"Tank Division\" start_experience_factor = 0.4" 
+					owner = PREV
+				}
+			}
+			
+			hidden_effect = {
+				random_list = {
+					1 = {
+						random_owned_controlled_state = {
+							limit = { PREV = { has_full_control_of_state = PREV } }
+							create_unit = {
+								division = "name = \"Tank Division\" division_template = \"Tank Division\" start_experience_factor = 0.4" 
+								owner = PREV
+							}
+						}
+						random_owned_controlled_state = {
+							limit = { PREV = { has_full_control_of_state = PREV } }
+							create_unit = {
+								division = "name = \"Tank Division\" division_template = \"Tank Division\" start_experience_factor = 0.4" 
+								owner = PREV
+							}
+						}
+					}
+					49 = {
+						random_owned_controlled_state = {
+							limit = { PREV = { has_full_control_of_state = PREV } }
+							create_unit = {
+								division = "name = \"Tank Division\" division_template = \"Tank Division\" start_experience_factor = 0.4" 
+								owner = PREV
+							}
+						}
+					}
+					50 = {}
+				}
+			}
+
+		}
+	}
+}
+
+# our scientists are amazing
+country_event = {
+	id = chaos.200
+	title = chaos.200.t
+	desc = chaos.200.d
+
+	is_triggered_only = yes
+	option = {
+		name = chaos.200.a
+		trigger = {
+			has_any_scientists = yes
+		}
+		every_scientist = {
+			if = {
+				limit = {
+					has_scientist_level = { level > 0 specialization = specialization_nuclear }
+				}
+				add_scientist_xp = { experience = 10000 specialization = specialization_nuclear }
+			}
+			if = {
+				limit = {
+					has_scientist_level = { level > 0 specialization = specialization_land }
+				}
+				add_scientist_xp = { experience = 10000 specialization = specialization_land }
+			}
+			if = {
+				limit = {
+					has_scientist_level = { level > 0 specialization = specialization_naval }
+				}
+				add_scientist_xp = { experience = 10000 specialization = specialization_naval }
+			}
+			if = {
+				limit = {
+					has_scientist_level = { level > 0 specialization = specialization_air }
+				}
+				add_scientist_xp = { experience = 10000 specialization = specialization_air }
+			}
+		}
+	}
+	option = {
+		name = chaos.200.b
+		trigger = {
+			NOT = { has_any_scientists = yes }
+		}
+		add_political_power = 25
+	}
+}
+
+# random mio gains size
+country_event = {
+	id = chaos.201
+	title = chaos.201.t
+	desc = chaos.201.d
+
+	is_triggered_only = yes
+	option = {
+		name = chaos.201.a
+		set_temp_variable_to_random = { var = size min = 1 max = 9 integer = yes }
+		custom_effect_tooltip = {
+			localization_key = chaos.201.a.tt
+			SIZES = "[?size]"
+		}
+		hidden_effect = { # normal tooltip displays the wrong mio, hide to prevent confusion
+			random_military_industrial_organization = {
+				limit = {
+					has_mio_size < 12
+				}
+				add_mio_size = size
+			}
+		}
+	}
+}
+
+# random mio gets better research
+country_event = {
+	id = chaos.202
+	title = chaos.202.t
+	desc = chaos.202.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = chaos.202.a
+		set_temp_variable_to_random = { var = bonus min = 1 max = 8 integer = yes }
+		multiply_temp_variable = { bonus = 0.025 }
+		set_temp_variable = { bonus_display = bonus }
+		multiply_temp_variable = { bonus_display = 100 }
+		custom_effect_tooltip = { 
+			localization_key = chaos.202.a.tt
+			BONUS = "[?bonus_display]%"
+		}
+		hidden_effect = { # normal tooltip displays the wrong mio, hide to prevent confusion
+			random_military_industrial_organization = {
+				add_mio_research_bonus = bonus
+			}
+		}
+	}
+}
+
+# +1 operative slot
+country_event = {
+	id = chaos.203
+	title = chaos.203.t
+	desc = chaos.203.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = chaos.203.a
+		add_ideas = chaos_operative_slot
+	}
+}
+
+#no compliance
+country_event = {
+	id = chaos.204
+	title = chaos.204.t
+	desc = chaos.204.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = chaos.204.a
+		every_country = {
+			add_timed_idea = {
+				idea = chaos_no_compliance
+				days = 70
+			}
+		}
+	}
+}
+
+#colin collin the hedonist
+country_event = {
+	id = chaos.205
+	title = chaos.205.t
+	desc = chaos.205.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = chaos.205.a
+		if = {
+			limit = {
+				has_government = democratic
+			}
+			create_country_leader = {
+				name = "Colin Collin"
+				desc = ""
+				picture = GFX_portrait_europe_generic_6
+				expire = "1990.1.1"
+				ideology = conservatism
+				traits = {
+					dealbroker
+					ARG_university_rector
+					hedonist
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_government = fascism
+			}
+			create_country_leader = {
+				name = "Colin Collin"
+				desc = ""
+				picture = GFX_portrait_europe_generic_6
+				expire = "1990.1.1"
+				ideology = falangism
+				traits = {
+					hedonist
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_government = communism
+			}
+			create_country_leader = {
+				name = "Colin Collin"
+				desc = ""
+				picture = GFX_portrait_europe_generic_6
+				expire = "1990.1.1"
+				ideology = marxism
+				traits = {
+					hedonist
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_government = neutrality
+			}
+			create_country_leader = {
+				name = "Colin Collin"
+				desc = ""
+				picture = GFX_portrait_europe_generic_6
+				expire = "1990.1.1"
+				ideology = despotism
+				traits = {
+					hedonist
+				}
+			}
+		}
+	}
+}
+
+#invisible submarines
+country_event = {
+	id = chaos.206
+	title = chaos.206.t
+	desc = chaos.206.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = chaos.206.a
+		add_timed_idea = {
+			idea = chaos_invis_submarine
+			days = 100
+		}
+	}
+}
+
+#no elections
+country_event = {
+	id = chaos.207
+	title = chaos.207.t
+	desc = chaos.207.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = chaos.207.a
+		trigger = {
+			has_elections = yes
+		}
+		set_politics = {
+			ruling_party = var:current_party_ideology_group
+			elections_allowed = no
+		}
+	}
+
+	option = {
+		name = chaos.207.b
+		trigger = {
+			NOT = { has_elections = yes }
+		}
+		add_political_power = 35
+	}
+}
+
+#civil war
+country_event = {
+	id = chaos.208
+	title = chaos.208.t
+	desc = chaos.208.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = chaos.208.a
+		if = {
+			limit = {
+				NOT = { has_government = fascism }
+			}
+			start_civil_war = {
+				ideology = fascism
+				size = 0.05
+				keep_unit_leaders_trigger = {
+					always = yes
+				}
+				keep_scientists_trigger = {
+					always = yes
+				}
+				keep_political_leader = yes
+				keep_political_party_members = yes
+				keep_all_characters = yes
+			}
+		}
+		else = {
+			start_civil_war = {
+				ruling_party = communism
+				size = 0.05
+				keep_unit_leaders_trigger = {
+					always = yes
+				}
+				keep_scientists_trigger = {
+					always = yes
+				}
+				keep_political_leader = yes
+				keep_political_party_members = yes
+				keep_all_characters = yes
+			}
+		}
+	}
+}
+
+#lmao
+country_event = {
+	id = chaos.209
+	title = chaos.209.t
+	desc = chaos.209.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = chaos.209.a
+		PRC.PRC_mao_zedong = {
+			set_character_name = "Lmao Zedong"
+		}
+	}
+}
+
+# shining example of european democracy / deport hungarians
+country_event = {
+	id = chaos.210
+	title = chaos.210.t
+	desc = chaos.210.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = chaos.210.a
+		add_stability = 0.05
+		add_political_power = 40
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.15
+		}
+	}
+	option = {
+		name = chaos.210.b
+		trigger = {
+			NOT = { tag = HUN }
+		}
+		43 = {
+			add_manpower = -100000
+		}
+		CAPITAL_SCOPE = {
+			add_manpower = 100000
+		}
+	}
+	option = {
+		name = chaos.210.c
+		trigger = {
+			tag = HUN
+		}
+		add_manpower = 15000
+	}
+}
+
+#supersonic jets
+country_event = {
+	id = chaos.211
+	title = chaos.211.t
+	desc = chaos.211.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = chaos.211.a
+		every_country = {
+			complete_special_project = sp:sp_air_supersonic_jet
+		}
+	}
+}
+
+# picture of lenin
+country_event = {
+	id = chaos.212
+	title = chaos.212.t
+	desc = chaos.212.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = chaos.212.a
+		add_ideas = chaos_picture_of_lenin
+	}
+}
+
+# aluminium shortage
+country_event = {
+	id = chaos.213
+	title = chaos.213.t
+	desc = chaos.213.d
+
+	is_triggered_only = yes
+
+	option = {
+		trigger = {
+			NOT = { has_global_flag = ChaosAluminiumShortage }
+		}
+		name = chaos.213.a
+
+		#uk
+		add_resource = {
+			type = aluminium
+			amount = -4
+			state = 120
+		}
+
+		#france
+		add_resource = {
+			type = aluminium
+			amount = -3
+			state = 29
+		}
+		add_resource = {
+			type = aluminium
+			amount = -5
+			state = 27
+		}
+		add_resource = {
+			type = aluminium
+			amount = -4
+			state = 19
+		}
+		add_resource = {
+			type = aluminium
+			amount = -18
+			state = 20
+		}
+		add_resource = {
+			type = aluminium
+			amount = -5
+			state = 27
+		}
+		add_resource = {
+			type = aluminium
+			amount = -13
+			state = 32
+		}
+		add_resource = {
+			type = aluminium
+			amount = -32
+			state = 21
+		}
+		add_resource = {
+			type = aluminium
+			amount = -23
+			state = 22
+		}
+
+		#switzerland
+		add_resource = {
+			type = aluminium
+			amount = -9
+			state = 845
+		}
+		add_resource = {
+			type = aluminium
+			amount = -8
+			state = 846
+		}
+		add_resource = {
+			type = aluminium
+			amount = -7
+			state = 151
+		}
+
+		#italy
+		add_resource = {
+			type = aluminium
+			amount = -7
+			state = 158
+		}
+		add_resource = {
+			type = aluminium
+			amount = -6
+			state = 39
+		}
+		add_resource = {
+			type = aluminium
+			amount = -5
+			state = 160
+		}
+		add_resource = {
+			type = aluminium
+			amount = -3
+			state = 161
+		}
+		add_resource = {
+			type = aluminium
+			amount = -3
+			state = 117
+		}
+
+		#germany
+		add_resource = {
+			type = aluminium
+			amount = -7
+			state = 42
+		}
+		add_resource = {
+			type = aluminium
+			amount = -5
+			state = 27
+		}
+		add_resource = {
+			type = aluminium
+			amount = -9
+			state = 52
+		}
+		add_resource = {
+			type = aluminium
+			amount = -6
+			state = 68
+		}
+		add_resource = {
+			type = aluminium
+			amount = -7
+			state = 66
+		}
+		add_resource = {
+			type = aluminium
+			amount = -3
+			state = 67
+		}
+
+		#denmark
+		add_resource = {
+			type = aluminium
+			amount = -4
+			state = 101
+		}
+
+		#norway
+		add_resource = {
+			type = aluminium
+			amount = -5
+			state = 142
+		}
+		add_resource = {
+			type = aluminium
+			amount = -1
+			state = 922
+		}
+		add_resource = {
+			type = aluminium
+			amount = -1
+			state = 920
+		}
+
+		#hungary
+		add_resource = {
+			type = aluminium
+			amount = -21
+			state = 43
+		}
+		add_resource = {
+			type = aluminium
+			amount = -16
+			state = 155
+		}
+		add_resource = {
+			type = aluminium
+			amount = -9
+			state = 974
+		}
+
+		#yugoslavia
+		add_resource = {
+			type = aluminium
+			amount = -32
+			state = 105
+		}
+		add_resource = {
+			type = aluminium
+			amount = -5
+			state = 106
+		}
+
+		#greece
+		add_resource = {
+			type = aluminium
+			amount = -14
+			state = 47
+		}
+
+		#malaysia
+		add_resource = {
+			type = aluminium
+			amount = -7
+			state = 336
+		}
+
+		#indonesia
+		add_resource = {
+			type = aluminium
+			amount = -11
+			state = 672
+		}
+
+		#soviets
+		add_resource = {
+			type = aluminium
+			amount = -7
+			state = 400
+		}
+		add_resource = {
+			type = aluminium
+			amount = -12
+			state = 581
+		}
+		add_resource = {
+			type = aluminium
+			amount = -4
+			state = 586
+		}
+		add_resource = {
+			type = aluminium
+			amount = -11
+			state = 567
+		}
+		add_resource = {
+			type = aluminium
+			amount = -2
+			state = 398
+		}
+
+		#canada
+		add_resource = {
+			type = aluminium
+			amount = -4
+			state = 682
+		}
+		add_resource = {
+			type = aluminium
+			amount = -2
+			state = 683
+		}
+		add_resource = {
+			type = aluminium
+			amount = -1
+			state = 466
+		}
+
+		#usa
+		add_resource = {
+			type = aluminium
+			amount = -3
+			state = 261
+		}
+		add_resource = {
+			type = aluminium
+			amount = -6
+			state = 372
+		}
+		add_resource = {
+			type = aluminium
+			amount = -5
+			state = 373
+		}
+		add_resource = {
+			type = aluminium
+			amount = -9
+			state = 374
+		}
+		add_resource = {
+			type = aluminium
+			amount = -23
+			state = 375
+		}
+		add_resource = {
+			type = aluminium
+			amount = -13
+			state = 376
+		}
+		add_resource = {
+			type = aluminium
+			amount = -1
+			state = 377
+		}
+		add_resource = {
+			type = aluminium
+			amount = -4
+			state = 378
+		}
+		add_resource = {
+			type = aluminium
+			amount = -11
+			state = 379
+		}
+
+		#iraq
+		add_resource = {
+			type = aluminium
+			amount = -3
+			state = 291
+		}
+
+		#manchukuo
+		add_resource = {
+			type = aluminium
+			amount = -2
+			state = 328
+		}
+
+		#guyanas
+		add_resource = {
+			type = aluminium
+			amount = -29
+			state = 687
+		}
+		add_resource = {
+			type = aluminium
+			amount = -26
+			state = 309
+		}
+
+		set_global_flag = ChaosAluminiumShortage
+	}
+	option = {
+		name = chaos.213.b
+		trigger = {
+			has_global_flag = ChaosAluminiumShortage
+		}
+		ai_chance = { factor = 1 }
+
+		every_country = {
+			add_stability = -0.01
+		}
+	}
+}
+
+#country has lots of resources
+country_event = {
+	id = chaos.214
+	title = chaos.214.t
+	desc = chaos.214.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = chaos.214.a
+		random_other_country = {
+			effect_tooltip = {
+				every_owned_state = {
+					custom_effect_tooltip = chaos.214.a.tt
+				}
+			}
+			this = {
+				random_owned_controlled_state = {
+					set_temp_variable = { res_min = 5 }
+					set_temp_variable = { res_max = 12 }
+					set_temp_variable = { iters = 3 }
+					add_random_resource = yes
+				}
+				random_owned_controlled_state = {
+					set_temp_variable = { res_min = 3 }
+					set_temp_variable = { res_max = 9 }
+					set_temp_variable = { iters = 3 }
+					add_random_resource = yes
+				}
+				random_owned_controlled_state = {
+					set_temp_variable = { res_min = 1 }
+					set_temp_variable = { res_max = 4 }
+					add_random_resource = yes
+				}
+
+				if = {
+					limit = { num_of_controlled_states > 3 }
+					random_owned_controlled_state = {
+						set_temp_variable = { res_min = 5 }
+						set_temp_variable = { res_max = 12 }
+						set_temp_variable = { zero_weight = 2 }
+						set_temp_variable = { iters = 3 }
+						add_random_resource = yes
+					}
+				}
+				if = {
+					limit = { num_of_controlled_states > 4 }
+					random_owned_controlled_state = {
+						set_temp_variable = { res_min = 2 }
+						set_temp_variable = { res_max = 9 }
+						set_temp_variable = { zero_weight = 2 }
+						set_temp_variable = { iters = 2 }
+						add_random_resource = yes
+					}
+				}
+				if = {
+					limit = { num_of_controlled_states > 5 }
+					random_owned_controlled_state = {
+						set_temp_variable = { res_min = 1 }
+						set_temp_variable = { res_max = 4 }
+						set_temp_variable = { zero_weight = 1 }
+						set_temp_variable = { iters = 2 }
+						add_random_resource = yes
+					}
+				}
+				if = {
+					limit = { num_of_controlled_states > 8 }
+					random_owned_controlled_state = {
+						set_temp_variable = { res_min = 5 }
+						set_temp_variable = { res_max = 22 }
+						set_temp_variable = { zero_weight = 0 }
+						add_random_resource = yes
+					}
+				}
+				if = {
+					limit = { num_of_controlled_states > 10 }
+					random_owned_controlled_state = {
+						set_temp_variable = { res_min = 1 }
+						set_temp_variable = { res_max = 3 }
+						set_temp_variable = { zero_weight = 3 }
+						set_temp_variable = { iters = 2 }
+						add_random_resource = yes
+					}
+					random_owned_controlled_state = {
+						set_temp_variable = { res_min = 1 }
+						set_temp_variable = { res_max = 3 }
+						set_temp_variable = { zero_weight = 1 }
+						set_temp_variable = { iters = 4 }
+						add_random_resource = yes
+					}
+					random_owned_controlled_state = {
+						set_temp_variable = { res_min = 1 }
+						set_temp_variable = { res_max = 3 }
+						set_temp_variable = { zero_weight = 1 }
+						set_temp_variable = { iters = 5 }
+						add_random_resource = yes
+					}
+				}
+				if = {
+					limit = { num_of_controlled_states > 16 }
+					random_owned_controlled_state = {
+						set_temp_variable = { res_min = 8 }
+						set_temp_variable = { res_max = 31 }
+						set_temp_variable = { iters = 2 }
+						add_random_resource = yes
+					}
+				}
+			}
+		}
+	}
+}
+
+# buy stability
+country_event = {
+	id = chaos.215
+	title = chaos.215.t
+	desc = chaos.215.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = chaos.215.a
+		ai_chance = { factor = 1 }
+		add_political_power = -10
+		add_stability = 0.05
+	}
+
+	option = {
+		name = chaos.215.b
+		ai_chance = { 
+			factor = 1
+			modifier = {
+				has_stability < 0.6
+				factor = 2
+			}
+		}
+		add_political_power = -50
+		add_stability = 0.1
+	}
+
+	option = {
+		name = chaos.215.c
+		ai_chance = { 
+			factor = 1
+			modifier = {
+				has_stability < 0.5
+				factor = 4
+			}
+		}
+		add_political_power = -120
+		add_stability = 0.2
+	}
+
+	option = {
+		name = chaos.215.e
+		ai_chance = { 
+			factor = 1
+			modifier = {
+				has_stability < 0.4
+				factor = 10
+			}
+		}
+		add_political_power = -300
+		add_stability = 0.45
+	}
+}
+
+# random national spirit
+country_event = {
+	id = chaos.216
+	title = chaos.216.t
+	desc = chaos.216.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = chaos.216.a
+		custom_effect_tooltip = chaos.216.a.tt
+		hidden_effect = {
+			add_random_idea = yes
+		}
+	}
+}
+
+# add random stability
+country_event = {
+	id = chaos.217
+	title = chaos.217.t
+	desc = chaos.217.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = chaos.217.a
+		random_list = {
+			1 = { add_stability = 0.1 }
+			1 = { add_stability = 0.15 }
+			1 = { add_stability = 0.2 }
+			1 = { add_stability = 0.25 }
+		}
+	}
+}
+
+# swap stability and war support
+country_event = {
+	id = chaos.218
+	title = chaos.218.t
+	desc = chaos.218.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = chaos.218.a
+		set_temp_variable = { stab = var:stability }
+		set_stability = var:has_war_support 
+		set_war_support = stab
+	}
+}
+
+# swap xp
+country_event = {
+	id = chaos.219
+	title = chaos.219.t
+	desc = chaos.219.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = chaos.219.a
+		set_temp_variable = { armyxp = var:army_experience }
+		set_temp_variable = { navyxp = var:navy_experience }
+		set_temp_variable = { airxp = var:air_experience }
+
+		hidden_effect = {
+			clear_army_xp = yes
+			clear_navy_xp = yes
+			clear_air_xp = yes
+		}
+
+		army_experience = airxp
+		navy_experience = armyxp
+		air_experience = navyxp
+	}
+}
+
+# free convoys
+country_event = {
+	id = chaos.220
+	title = chaos.220.t
+	desc = chaos.220.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = chaos.220.a
+		set_variable_to_random = { var = x min = 1 max = 100 integer = yes }
+		add_equipment_to_stockpile = {
+			type = convoy
+			amount = var:x
+			producer = ROOT
+		}
+	}
+}
+
+# portuguese india
+country_event = {
+	id = chaos.221
+	title = chaos.221.t
+	desc = chaos.221.d
+
+	is_triggered_only = yes
+
+	option = {
+		trigger = {
+			321 = {
+				OWNER = {
+					check_variable = { var:num_owned_states > 1 } 
+				}
+			}
+		}
+		name = chaos.221.a
+		321 = {
+			OWNER = {
+				set_temp_variable = { country_to_initiate = RAJ }
+				custom_effect_tooltip = compliance_80_effect_tooltip
+
+				#modified copy of vanilla instantiate_collaboration_government
+				hidden_effect = {
+					set_variable = { collaboration_formed@var:country_to_initiate = 1 }
+
+					if = {
+						# if country_to_initiate does not exist, simply release it as a puppet
+						limit = {
+							var:country_to_initiate = {
+								exists = no
+							}
+						}
+						var:country_to_initiate = { 
+							set_variable = { collaboration_formed_by = PREV }
+							transfer_state = 321
+						}
+						set_autonomy = {
+							target = var:country_to_initiate
+							autonomy_state = autonomy_collaboration_government
+							freedom_level = 0.5
+						}
+					}
+					else = {
+						# if country_to_initiate exists, create a dynamic country as our new puppet
+
+						create_dynamic_country = {
+							original_tag = country_to_initiate
+
+							set_variable = { collaboration_formed_by = PREV }
+							set_temp_variable = { new_country = this }
+
+							PREV = {
+								var:new_country = {
+									transfer_state = 321
+								}
+
+								puppet = new_country
+
+								set_autonomy = {
+									target = new_country
+									autonomy_state = autonomy_collaboration_government
+									freedom_level = 0.5
+								}
+							}
+						}
+					}
+				}
+
+				random_subject_country = {
+					limit = {
+						original_tag = RAJ
+						is_dynamic_country = yes
+					}
+					add_manpower = 1
+					every_owned_state = {
+						limit = {
+							NOT = { state = 321 }
+						}
+						transfer_state_to = PREV.PREV
+					}
+				}
+			}
+		}
+	}
+	option = {
+		trigger = {
+			321 = {
+				OWNER = {
+					check_variable = { var:num_owned_states < 2 } 
+				}
+			}
+		}
+		name = chaos.221.b
+		add_political_power = -1
+	}
+}
+
+# a random general gets supply grace
+country_event = {
+	id = chaos.222
+	title = chaos.222.t
+	desc = chaos.222.d
+
+	is_triggered_only = yes
+	option = {
+		name = chaos.222.a	
+		random_army_leader = {
+			limit = {
+				is_assigned = yes 
+			}
+			supply_units = 120
+		}
+	}
+}
+
+# executing all raids at once
+# per albin bus but for everyone

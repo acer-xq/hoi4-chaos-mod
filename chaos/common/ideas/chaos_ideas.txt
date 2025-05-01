@@ -653,6 +653,10 @@ ideas = {
 			modifier = {
 				production_speed_bunker_factor = 0.1
 				production_speed_coastal_bunker_factor = 0.1
+				land_bunker_effectiveness_factor = 0.1
+				coastal_bunker_effectiveness_factor = 0.1
+				bunker_max_level_terrain_limit = 1
+				coastal_bunker_max_level_terrain_limit = 1
 				special_forces_cap = 0.02
 			}
 		}
@@ -669,6 +673,10 @@ ideas = {
 					build_cost_ic = -0.1
 					instant = yes
 				}
+			}
+			modifier = {
+				unit_infantry_design_cost_factor = -0.5
+				unit_artillery_brigade_design_cost_factor = -0.5
 			}
 		}
 		chaos_egalite = {
@@ -697,24 +705,139 @@ ideas = {
 			}
 		}
 
-		chaos_ability_brick_idea = {
-			picture = FRA_la_deluge
-			allowed = { always = yes }
-			modifier = {
-				custom_modifier_tooltip = chaos_can_use_ability_brick_tt
-				army_speed_factor = -0.5
-				cas_damage_reduction = 0.45
-				max_dig_in = 10
-				pocket_penalty = -0.3
-			}
-		}
-
 		chaos_construction_boost_limit = {
 			picture = generic_central_management
 			allowed = { always = yes }
 			modifier = {
 				cic_construction_boost_factor = 0.5
 				cic_construction_boost = 0.15
+			}
+		}
+
+		chaos_military_excellency = {
+			allowed = {
+			}
+	
+			allowed_civil_war = {
+				always = yes
+			}
+	
+			picture = NORDIC_army_monarchist
+			
+			removal_cost = -1
+			
+			modifier = {
+				army_attack_factor = 0.02
+				army_org_factor = 0.02
+				conscription = 0.006
+			}
+		}
+
+		chaos_amphibious_operations = {
+			allowed = {}
+			allowed_civil_war = { always = yes }
+			picture = NOR_norsk_hydro
+			removal_cost = -1
+
+			modifier = {
+				industrial_capacity_dockyard = 0.05
+				naval_invasion_prep_speed = 0.1
+				naval_invasion_penalty = -0.05
+				marines_special_forces_contribution_factor = -0.1
+			}
+		}
+
+		chaos_executive_yuan = {
+			allowed = {}
+			allowed_civil_war = { always = yes }
+			picture = generic_constitutional_guarantees
+			removal_cost = -1
+
+			modifier = {
+				political_power_gain = 0.25
+				military_industrial_organization_funds_gain = 0.1
+				military_industrial_organization_research_bonus = 0.1
+			}
+		}
+
+		chaos_stable_economy = {
+			picture = chi_hyper_inflation
+		
+			allowed = {
+				always = no
+			}
+
+			removal_cost = -1
+			
+			modifier = {
+				industrial_capacity_factory = 0.1
+				consumer_goods_factor = -0.06
+				global_building_slots = 1
+			}
+		}
+
+		chaos_mining_industry = {
+			picture = generic_exploit_mines
+			allowed = {
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost = -1
+			
+			modifier = {
+				local_resources_factor = 0.10
+				country_resource_steel = 2
+				country_resource_oil = 2
+				country_resource_aluminium = 2
+				fuel_gain_factor = 0.05
+			}
+		}
+
+		chaos_operative_slot = {
+			picture = CHL_cesiv
+			allowed = {}
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+
+			modifier = {
+				operative_slot = 1
+			}
+		}
+
+		chaos_no_compliance = {
+			picture = chi_war_of_resistance3
+			allowed = {}
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+
+			modifier = {
+				no_compliance_gain = 1
+			}
+		}
+
+		chaos_invis_submarine = {
+			picture = SOV_mine_warfare
+			allowed = {}
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+
+			modifier = {
+				navy_visibility = -0.5
+				sub_retreat_speed = 0.5
+				naval_torpedo_reveal_chance_factor = -0.5
+				naval_speed_factor = 0.1
+			}
+		}
+
+		chaos_picture_of_lenin = {
+			picture = leningrad_polytechnical_institute
+			allowed = {}
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+
+			modifier = {
+				weekly_manpower = 500
 			}
 		}
 	}

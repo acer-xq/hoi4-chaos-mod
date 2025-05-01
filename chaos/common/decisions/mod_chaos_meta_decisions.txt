@@ -340,14 +340,10 @@ mod_chaos_meta_3 = {
 		visible = { is_ai = no }
 
 		complete_effect = {
-			hidden_effect = {	
-				every_country = {
-					limit = {
-						has_focus_tree = generic_focus
-					}
-					load_focus_tree = chaos_focus
-				}
-				add_to_temp_array = { e = 26 } #random ideology for every country
+			hidden_effect = {
+				add_to_temp_array = { e = 183 } #oil shortage
+				add_to_temp_array = { e = 137 } #rubber shortage
+				add_to_temp_array = { e = 213 } #aluminium shortage
 				specific_chaos_events = yes
 			}
 		}
@@ -820,6 +816,31 @@ mod_chaos_meta_3 = {
 						}
 					}
 
+				}
+			}
+		}
+	}
+
+	sce_11 = {
+		icon = gre_faction_management
+
+		visible = { is_ai = no }
+
+		complete_effect = {	
+			hidden_effect = {
+				every_country = {
+					add_random_idea = yes
+					add_random_idea = yes
+					add_random_idea = yes
+					add_random_idea = yes
+					add_random_idea = yes
+					add_random_idea = yes
+					add_random_idea = yes
+					add_random_idea = yes
+					add_random_idea = yes
+					add_random_idea = yes
+					add_random_idea = yes
+					add_random_idea = yes
 				}
 			}
 		}

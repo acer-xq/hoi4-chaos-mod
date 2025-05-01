@@ -108,6 +108,15 @@ create_docks = {
 	}
 }
 
+# args: count
+create_infrastructure = {
+	add_building_construction = {
+		type = infrastructure
+		level = count?1
+		instant_build = yes
+	}
+}
+
 # args: countc countm countd
 create_factories = {
 	set_temp_variable = { total = countc?0 }
@@ -274,7 +283,8 @@ improve_random_african_city = {
 			if = { limit = { state = 271 } set_victory_points = { province = 5010 value = 20 } }
 			if = { limit = { state = 447 } set_victory_points = { province = 4076 value = 30 } }
 			if = { limit = { state = 448 } set_victory_points = { province = 1149 value = 20 } }
-			if = { limit = { state = 546 } set_victory_points = { province = 2196 value = 25 } }
+			if = { limit = { state = 546 } set_victory_points = { province = 2196 value = 20 } }
+			if = { limit = { state = 547 } set_victory_points = { province = 1939 value = 25 } }
 			random_list = {
 				1 = { add_resource = { type = steel amount = 6 } }
 				1 = { add_resource = { type = steel amount = 7 } }
@@ -379,14 +389,12 @@ add_random_leader_trait = {
 	}
 }
 
-# also completes specific focuses and sets certain variables to make them playable
+# NO LONGER WORKS WITH MOST TREES
+# characters break and usually cause a crash
 load_random_focus_tree = {
 	custom_effect_tooltip = load_random_focus_tree_tt
 	hidden_effect = {	
 		random_list = {	
-			1 = { 
-				load_focus_tree = german_focus
-			}
 			1 = {
 				load_focus_tree = british_focus
 			}
@@ -416,10 +424,6 @@ load_random_focus_tree = {
 					complete_national_focus = RAJ_industrial_expansion
 					unlock_national_focus = RAJ_tata_steel
 					unlock_national_focus = RAJ_assam_oil
-			}
-			1 = {
-				load_focus_tree = hungarian_focus
-				complete_national_focus = HUN_naval_warfare
 			}
 			1 = {
 				load_focus_tree = czech_focus
@@ -607,15 +611,328 @@ upgrade_state_category = {
 	}
 }
 
-# args: res_min, res_max
+# args: res_min, res_max, zero_weight, iters
 add_random_resource = {
-	set_variable_to_random = { var = res_amt min = res_min?1 max = res_max?10 integer = yes }
-	random_list = {
-		1 = { add_resource = { type = oil amount = res_amt } set_variable = { res_type = 1 } }
-		1 = { add_resource = { type = aluminium amount = res_amt } set_variable = { res_type = 2 } }
-		1 = { add_resource = { type = rubber amount = res_amt } set_variable = { res_type = 3 } }
-		1 = { add_resource = { type = tungsten amount = res_amt } set_variable = { res_type = 4 } }
-		1 = { add_resource = { type = steel amount = res_amt } set_variable = { res_type = 5 } }
-		1 = { add_resource = { type = chromium amount = res_amt } set_variable = { res_type = 6 } }
+	for_loop_effect = {
+		end = iters?1
+		set_temp_variable_to_random = { var = res_amt min = res_min?1 max = res_max?10 integer = yes }
+		multiply_temp_variable = { zero_weight?0 = 6 }
+		random_list = {
+			zero_weight = { }
+			1 = { add_resource = { type = oil amount = res_amt } }
+			1 = { add_resource = { type = aluminium amount = res_amt } }
+			1 = { add_resource = { type = rubber amount = res_amt } }
+			1 = { add_resource = { type = tungsten amount = res_amt } }
+			1 = { add_resource = { type = steel amount = res_amt } }
+			1 = { add_resource = { type = chromium amount = res_amt } }
+		}
 	}
+}
+
+add_random_idea = {
+	random_list = {
+		1 = { add_ideas = AFG_mohammad_zahir_shah_ns_upgrade_1 }
+		1 = { add_ideas = AFG_renew_soviet_trade_agreement }
+		1 = { add_ideas = AFG_infrastructure_investment }
+		1 = { add_ideas = AFG_expanded_education }
+		1 = { add_ideas = AFG_republic_idea }
+		1 = { add_ideas = AFG_aid_communists_cw }
+		1 = { add_ideas = AFG_sov_attack_bonus }
+		1 = { add_ideas = AFG_counter_elite_on_the_rise }
+		1 = { add_ideas = ARG_infamous_decade_3_idea }
+		1 = { add_ideas = ARG_towards_a_greater_argentina_idea }
+		1 = { add_ideas = ARG_invest_in_roads_idea }
+		1 = { add_ideas = ARG_resource_extration_focus }
+		1 = { add_ideas = ARG_raf_cooperation_idea }
+		1 = { add_ideas = ARG_argentine_beef_trade_idea }
+		1 = { add_ideas = ARG_subdue_dissension_idea }
+		1 = { add_ideas = ARG_anti_american_propaganda_idea }
+		1 = { add_ideas = ARG_war_division_idea }
+		1 = { add_ideas = ARG_state_atheism_idea }
+		1 = { add_ideas = ARG_socialist_volunteers_idea }
+		1 = { add_ideas = ARG_united_workers_idea }
+		1 = { add_ideas = AST_standard_gauge_railway }
+		1 = { add_ideas = AST_great_depression_3 }
+		1 = { add_ideas = AST_invest_in_victory }
+		1 = { add_ideas = AST_australian_womens_army_service }
+		1 = { add_ideas = AST_australian_arms_production }
+		1 = { add_ideas = AST_arms_for_the_revolution }
+		1 = { add_ideas = AUS_widespread_unemployment }
+		1 = { add_ideas = AUS_phonix_insurance }
+		1 = { add_ideas = AUS_women_in_academia }
+		1 = { add_ideas = AUS_host_of_communist_dissidents }
+		1 = { add_ideas = AUS_austrofascism_fake_ns }
+		1 = { add_ideas = AUS_infrastructure_effort_idea }
+		1 = { add_ideas = AUS_guarding_the_coast_idea }
+		1 = { add_ideas = AUS_alpine_federation_against_fascism }
+		1 = { add_ideas = BALTIC_economic_union_1 }
+		1 = { add_ideas = LIT_baltic_defence_army }
+		1 = { add_ideas = BALTIC_axis_investments_idea_1 }
+		1 = { add_ideas = BALTIC_new_red_riflemen }
+		1 = { add_ideas = BEL_economic_recovery_ns }
+		1 = { add_ideas = BEL_language_barriers_fas_fr_ns }
+		1 = { add_ideas = BEL_traditional_family_values_ns }
+		1 = { add_ideas = BEL_dame_blanche_ns }
+		1 = { add_ideas = BEL_legacy_of_the_great_war_ns }
+		1 = { add_ideas = BEL_pressurized_cabins_ns }
+		1 = { add_ideas = BEL_maritime_support_ns }
+		1 = { add_ideas = BEL_cog_diamond_investment_into_construction }
+		1 = { add_ideas = BEL_pax_belgica_ns }
+		1 = { add_ideas = BEL_interpreters_ns }
+		1 = { add_ideas = BOL_plurinational_democracy }
+		1 = { add_ideas = BRA_defense_of_the_fatherland_idea }
+		1 = { add_ideas = BRA_rail_investment }
+		1 = { add_ideas = BRA_radio_nacional_idea }
+		1 = { add_ideas = BRA_anaue_idea }
+		1 = { add_ideas = BRA_ethical_internationalism_idea }
+		1 = { add_ideas = BRA_separatism_idea }
+		1 = { add_ideas = BRA_international_crisis }
+		1 = { add_ideas = BRA_presidential_republic }
+		1 = { add_ideas = BRA_court_the_military_idea }
+		1 = { add_ideas = BRA_collectivized_agriculture }
+		1 = { add_ideas = BRA_article_138 }
+		1 = { add_ideas = BRA_king_vassouras }
+		1 = { add_ideas = BRA_us_of_south_america }
+		1 = { add_ideas = BRA_war_bonds }
+		1 = { add_ideas = british_austerity_idea }
+		1 = { add_ideas = ENG_blackouts_idea }
+		1 = { add_ideas = ENG_desperate_defense_of_the_homeland }
+		1 = { add_ideas = ENG_colonial_elite }
+		1 = { add_ideas = british_convoy_discount }
+		1 = { add_ideas = ENG_chiefs_of_staff_committee_idea }
+		1 = { add_ideas = ENG_guided_by_britain_raj_1 }
+		1 = { add_ideas = ENG_prepare_for_the_inevitable_and_wartime_industry_idea }
+		1 = { add_ideas = ENG_a_change_in_course_idea }
+		1 = { add_ideas = ENG_imperial_conscription_idea }
+		1 = { add_ideas = ENG_tackle_fascism_idea_1 }
+		1 = { add_ideas = ENG_trade_union_factory_worker_support }
+		1 = { add_ideas = ENG_trade_union_war_propaganda_support }
+		1 = { add_ideas = ENG_exiled_royal_family }
+		1 = { add_ideas = ENG_imperial_conference_defense_1 }
+		1 = { add_ideas = ENG_imperial_conference_economy_2 }
+		1 = { add_ideas = ENG_joint_air_training_scheme }
+		1 = { add_ideas = idea_RAJ_armed_peasantry }
+		1 = { add_ideas = idea_RAJ_decentralzied_leadership }
+		1 = { add_ideas = idea_RAJ_bhoodan_movement }
+		1 = { add_ideas = idea_RAJ_timurid_bureaucracy }
+		1 = { add_ideas = idea_RAJ_increased_worker_safety }
+		1 = { add_ideas = idea_RAJ_union_busting }
+		1 = { add_ideas = idea_RAJ_night_shifts }
+		1 = { add_ideas = idea_RAJ_pmc_3 }
+		1 = { add_ideas = idea_RAJ_tryst_with_destiny }
+		1 = { add_ideas = idea_RAJ_azad_hind_fervor }
+		1 = { add_ideas = idea_RAJ_literacy_effort_2 }
+		1 = { add_ideas = idea_RAJ_military_pensions }
+		1 = { add_ideas = idea_RAJ_a_tiger_unchained }
+		1 = { add_ideas = idea_RAJ_standardized_rations }
+		1 = { add_ideas = idea_RAJ_indian_legion }
+		1 = { add_ideas = idea_RAJ_anti_imperialism }
+		1 = { add_ideas = idea_RAJ_PAK_british_anti_communist_investments }
+		1 = { add_ideas = idea_RAJ_the_peoples_liberation_army_4 }
+		1 = { add_ideas = idea_RAJ_under_the_yoke_of_peacock_throne }
+		1 = { add_ideas = idea_RAJ_taking_over_administraive_rights }
+		1 = { add_ideas = idea_RAJ_mass_production }
+		1 = { add_ideas = idea_RAJ_long_range_sea_operations }
+		1 = { add_ideas = idea_RAJ_the_indian_national_army }
+		1 = { add_ideas = idea_RAJ_thunder_elephants_no_gdr }
+		1 = { add_ideas = idea_RAJ_indian_army_doctrine_ger }
+		1 = { add_ideas = RAJ_imperial_industry_initiative }
+		1 = { add_ideas = RAJ_congress_productivity_effort_ns }
+		1 = { add_ideas = BUL_bulgarian_irredentism }
+		1 = { add_ideas = BUL_zveno_ns }
+		1 = { add_ideas = BUL_paramilitary_organizations }
+		1 = { add_ideas = BUL_brannik }
+		1 = { add_ideas = BUL_bulgarian_patriarchate_restored }
+		1 = { add_ideas = BUL_national_industry_01 }
+		1 = { add_ideas = BUL_tobacco_exports }
+		1 = { add_ideas = BUL_aircraft_repair_facilities }
+		1 = { add_ideas = BUL_bulgarian_army_01 }
+		1 = { add_ideas = BUL_prussia_of_the_balkans_02 }
+		1 = { add_ideas = BUL_supremacy_on_the_bosporus }
+		1 = { add_ideas = BUL_volunteers_in_spain_nationalist }
+		1 = { add_ideas = BUL_government_reforms_communists_01 }
+		1 = { add_ideas = BUL_defying_moscow }
+		1 = { add_ideas = BUL_total_war }
+		1 = { add_ideas = BUL_the_bulgarian_threat }
+		1 = { add_ideas = BUL_nationalist_propaganda }
+		1 = { add_ideas = BUL_defender_of_the_balkans }
+		1 = { add_ideas = BUL_government_reforms_democratic_02 }
+		1 = { add_ideas = CAN_defence_of_canada_regulations_democratic }
+		1 = { add_ideas = CAN_war_bonds_1 }
+		1 = { add_ideas = CAN_wartime_prices_and_trade_board }
+		1 = { add_ideas = CAN_the_plan }
+		1 = { add_ideas = CAN_swastika_clubs }
+		1 = { add_ideas = CAN_degauss_ship_hulls }
+		1 = { add_ideas = CAN_dollar_a_year_men }
+		1 = { add_ideas = CAN_dominion_rifle_association_idea }
+		1 = { add_ideas = CHL_the_mapuche_conflict_calmed }
+		1 = { add_ideas = idea_CHL_repubican_guard }
+		1 = { add_ideas = CHL_german_compensation_idea }
+		1 = { add_ideas = CHL_high_quality_nitrate }
+		1 = { add_ideas = CHL_national_falange }
+		1 = { add_ideas = CHL_imposed_new_taxes }
+		1 = { add_ideas = CHL_socialist_youth_idea }
+		1 = { add_ideas = CHL_democratic_alliance_in_power }
+		1 = { add_ideas = CHL_laissez_faire }
+		1 = { add_ideas = CHL_stricter_labor_laws }
+		1 = { add_ideas = CHL_democratic_volunteer_corps }
+		1 = { add_ideas = CHL_the_true_enemy_idea }
+		1 = { add_ideas = CHL_fascist_assault_and_provinces_department }
+		1 = { add_ideas = CHL_an_empire_in_the_pacific_idea }
+		1 = { add_ideas = CHL_pan_hispanic_rhetoric_2 }
+		1 = { add_ideas = CHL_patagonian_giants }
+		1 = { add_ideas = CHL_mapuche_ancestral_resistance_good }
+		1 = { add_ideas = CHL_crusade_against_imperialism_idea }
+		1 = { add_ideas = CHL_french_investments }
+		1 = { add_ideas = CHL_payment_for_aid }
+		1 = { add_ideas = CHL_araucanian_aristocracy }
+		1 = { add_ideas = CHL_puppeteering_idea }
+		1 = { add_ideas = german_advisors }
+		1 = { add_ideas = CHI_chinese_unity_1 }
+		1 = { add_ideas = CHI_hyper_inflation_1 }
+		1 = { add_ideas = CHI_legislative_yuan }
+		1 = { add_ideas = CHI_war_of_resistance_2 }
+		1 = { add_ideas = CHI_military_affairs_commission }
+		1 = { add_ideas = CHI_war_of_anti_imperialism }
+		1 = { add_ideas = CHI_chinese_general_staff }
+		1 = { add_ideas = CHI_french_drill }
+		1 = { add_ideas = CHI_modern_logistics }
+		1 = { add_ideas = CHI_construction_battalions }
+		1 = { add_ideas = CHI_embrace_the_opium_trade }
+		1 = { add_ideas = CHI_warlord_state_idea_cav }
+		1 = { add_ideas = CHI_public_works }
+		1 = { add_ideas = CHI_defensive_posture }
+		1 = { add_ideas = PRC_low_popular_support_1 }
+		1 = { add_ideas = PRC_central_military_commission }
+		1 = { add_ideas = PRC_government_corruption }
+		1 = { add_ideas = COG_the_invisible_roof_lower_research_debuff }
+		1 = { add_ideas = COG_copper_cartridges_idea }
+		1 = { add_ideas = COG_heat_resistant_cobalt_small_idea }
+		1 = { add_ideas = COG_short_term_massive_debt_recieved }
+		1 = { add_ideas = COG_kongo_volunteer_force_idea }
+		1 = { add_ideas = COG_ruanda_urundian_conscription_drive_idea }
+		1 = { add_ideas = COG_vast_decentralized_state_idea_5 }
+		1 = { add_ideas = COG_banque_du_congo_belge_idea }
+		1 = { add_ideas = COG_emigration_to_katanga_idea }
+		1 = { add_ideas = COG_anti_colonialist_propaganda_idea }
+		1 = { add_ideas = COG_devout_catholic_kingdom_idea }
+		1 = { add_ideas = COG_traditional_masks_and_armor_idea }
+		1 = { add_ideas = COG_cooperating_with_the_congolese_churches }
+		1 = { add_ideas = COG_bouvandji }
+		1 = { add_ideas = COG_tutsi_warrior_training_idea }
+		1 = { add_ideas = COG_cattle_chiefs }
+		1 = { add_ideas = COG_ethiopia_supporting_independence_idea }
+		1 = { add_ideas = CZE_democratic_bastion }
+		1 = { add_ideas = CZE_beacon_of_liberty }
+		1 = { add_ideas = CZE_german_millitary_cooperation_focus }
+		1 = { add_ideas = CZE_air_focus }
+		1 = { add_ideas = CZE_export_focus1 }
+		1 = { add_ideas = CZE_fortification_focus2 }
+		1 = { add_ideas = CZE_national_fascism_idea }
+		1 = { add_ideas = CZE_planning_bonus }
+		1 = { add_ideas = DEN_danish_produce_ns }
+		1 = { add_ideas = DEN_fromandskorpset_ns }
+		1 = { add_ideas = DEN_securing_sweden_ns }
+		1 = { add_ideas = DEN_communist_propaganda_ns }
+		1 = { add_ideas = EST_exploit_the_banks_idea }
+		1 = { add_ideas = EST_corporate_chambers_idea }
+		1 = { add_ideas = EST_vaps_idea_1 }
+		1 = { add_ideas = EST_republican_defence_league_idea }
+		1 = { add_ideas = EST_vapsid_youth_idea }
+		1 = { add_ideas = ETH_war_support_idea }
+		1 = { add_ideas = ETH_djibouti_sale_idea }
+		1 = { add_ideas = ETH_italian_offensive_idea }
+		1 = { add_ideas = ETH_survival_against_all_odds_idea }
+		1 = { add_ideas = ETH_conservative_high_command_idea }
+		1 = { add_ideas = ETH_coffee_exports_idea }
+		1 = { add_ideas = ETH_the_heroes_of_adwa_idea }
+		1 = { add_ideas = ETH_the_heroes_of_adwa_upgraded_idea }
+		1 = { add_ideas = ETH_italian_settlers_idea }
+		1 = { add_ideas = ETH_customs_barrier_ITA_idea }
+		1 = { add_ideas = ETH_red_army_engineers }
+		1 = { add_ideas = ETH_scavenging_tactics_idea }
+		1 = { add_ideas = ETH_communist_international_brigades }
+		1 = { add_ideas = ETH_raid_italian_depots_idea }
+		1 = { add_ideas = ETH_education_reform }
+		1 = { add_ideas = ETH_political_officers }
+		1 = { add_ideas = ETH_mass_transit_idea }
+		1 = { add_ideas = ETH_ethiopian_officers_idea }
+		1 = { add_ideas = winter_war_ns }
+		1 = { add_ideas = FIN_sisu_3 }
+		1 = { add_ideas = FIN_infrastructure_effort }
+		1 = { add_ideas = FIN_sami_pathfinders }
+		1 = { add_ideas = FIN_repurposed_small_industries }
+		1 = { add_ideas = FIN_militarized_society }
+		1 = { add_ideas = FIN_international_volunteers }
+		1 = { add_ideas = FIN_popular_support_for_the_revolution }
+		1 = { add_ideas = FIN_low_army_morale }
+		1 = { add_ideas = FIN_social_democratic_womens_union }
+		1 = { add_ideas = FIN_baltic_sea_focus }
+		1 = { add_ideas = FIN_patriotic_peoples_movement_ns_1 }
+		1 = { add_ideas = FRA_inefficient_economy_1 }
+		1 = { add_ideas = FRA_devalue_the_franc }
+		1 = { add_ideas = FRA_anti_fascist_immigrants }
+		1 = { add_ideas = FRA_revolutionary_zeal }
+		1 = { add_ideas = FRA_agricultural_protectionism }
+		1 = { add_ideas = FRA_travail }
+		1 = { add_ideas = FRA_venerate_the_craftsman }
+		1 = { add_ideas = GER_rocketry_idea }
+		1 = { add_ideas = GRE_farmer_culture }
+		1 = { add_ideas = GRE_industrializing_society }
+		1 = { add_ideas = GRE_rural_exodus }
+		1 = { add_ideas = GRE_schachtplan_fascistised }
+		1 = { add_ideas = GRE_megali_idea_triumphant }
+		1 = { add_ideas = GRE_political_instability_metaxas }
+		1 = { add_ideas = GRE_george_ii_restrained }
+		1 = { add_ideas = GRE_eee_in_government }
+		1 = { add_ideas = GRE_protectors_of_the_mediterranean_spirit }
+		1 = { add_ideas = GRE_hellenic_army }
+		1 = { add_ideas = GRE_macedonian_farmlands_idea }
+		1 = { add_ideas = GRE_venerate_the_ancient_hellenes_3 }
+		1 = { add_ideas = GRE_socialist_economy_spirit }
+		1 = { add_ideas = GRE_socialist_economy_4 }
+		1 = { add_ideas = GRE_red_militias_spirit }
+		1 = { add_ideas = HUN_levente_associations_act_of_defense }
+		1 = { add_ideas = HABSBURG_an_imperium_restored }
+		1 = { add_ideas = HUN_the_volksbund_idea }
+		1 = { add_ideas = HUN_horthyist_royal_guard }
+		1 = { add_ideas = HUN_ward_against_extremism_idea }
+		1 = { add_ideas = HUN_mobile_army_efforts_idea }
+		1 = { add_ideas = HUN_scientist_influx_idea }
+		1 = { add_ideas = HUN_revaluing_the_pengo }
+		1 = { add_ideas = HUN_agrarian_tradition }
+		1 = { add_ideas = HUN_restricted_voting_rights }
+		1 = { add_ideas = HUN_more_power_to_the_regent_idea }
+		1 = { add_ideas = ICE_international_brigades }
+		1 = { add_ideas = ICE_the_icelandic_economy_modifier_fake_idea }
+		1 = { add_ideas = ICE_marine_corps }
+		1 = { add_ideas = ICE_thungur_hnifur }
+		1 = { add_ideas = ICE_civilian_fleet }
+		1 = { add_ideas = IRQ_agrarian_society_4 }
+		1 = { add_ideas = IRQ_iraq_currency_board_idea_2 }
+		1 = { add_ideas = IRQ_strenghtened_the_dinar }
+		1 = { add_ideas = IRQ_armed_tribes_idea }
+		1 = { add_ideas = IRQ_scavenging_tactics_idea }
+		1 = { add_ideas = IRQ_USA_attack_bonus }
+		1 = { add_ideas = IRQ_pan_arab_crackdown }
+		1 = { add_ideas = IRQ_rally_the_arab_world_idea }
+	}
+}
+
+clear_army_xp = {
+	set_temp_variable = { x = var:army_experience }
+	multiply_temp_variable = { x = -1 }
+	army_experience = x
+}
+
+clear_navy_xp = {
+	set_temp_variable = { x = var:navy_experience }
+	multiply_temp_variable = { x = -1 }
+	navy_experience = x
+}
+
+clear_air_xp = {
+	set_temp_variable = { x = var:air_experience }
+	multiply_temp_variable = { x = -1 }
+	air_experience = x
 }

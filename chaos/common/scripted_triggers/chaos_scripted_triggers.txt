@@ -63,3 +63,34 @@ is_on_same_continent_as_PREV = {
 		}
 	}
 }
+
+has_any_scientists = {
+	OR = {
+		any_scientist = {
+			has_scientist_level = {
+				level > -1
+				specialization = specialization_nuclear
+			}
+		}
+		any_scientist = {
+			has_scientist_level = {
+				level > -1
+				specialization = specialization_land
+			}
+		}
+		any_scientist = {
+			has_scientist_level = {
+				level > -1
+				specialization = specialization_naval
+			}
+		}
+		any_scientist = {
+			has_scientist_level = {
+				level > -1
+				specialization = specialization_air
+			}
+		}
+	}
+
+
+}
