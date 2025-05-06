@@ -12,10 +12,8 @@ chaos_event = {
 
 # args: eventnum
 specific_chaos_event = {
-	log = "[ROOT.GetName]: Calling chaos effect [?eventnum|.0]"
 	meta_effect = {
 		text = {
-			country_event = { id = chaos.[EVENT_NUM] }
 			# disgusting hack to extract the event title to somewhere it can be accessed
 			UNC = {
 				set_character_name = {
@@ -23,9 +21,11 @@ specific_chaos_event = {
 					name = chaos.[EVENT_NUM].t
 				}
 			}
+			country_event = { id = chaos.[EVENT_NUM] }
 		}
 		EVENT_NUM = "[?eventnum|.0]"
 	}
+	log = "[ROOT.GetName]: Calling chaos effect [?eventnum|.0] ([UNC.dummy.GetName])"
 	set_variable = { global.CHAOS_LAST_EFFECT = eventnum }
 }
 
@@ -279,6 +279,15 @@ random_value = {
 			1 = { set_temp_variable = { x = 219 } }
 			1 = { set_temp_variable = { x = 220 } }
 			1 = { set_temp_variable = { x = 221 } }
+			1 = { set_temp_variable = { x = 222 } }
+			1 = { set_temp_variable = { x = 223 } }
+			1 = { set_temp_variable = { x = 224 } }
+			1 = { set_temp_variable = { x = 225 } }
+			1 = { set_temp_variable = { x = 226 } }
+			1 = { set_temp_variable = { x = 227 } }
+			1 = { set_temp_variable = { x = 228 } }
+			1 = { set_temp_variable = { x = 229 } }
+			1 = { set_temp_variable = { x = 230 } }
 		}
 	}
 }

@@ -400,6 +400,8 @@ mod_chaos_meta_3 = {
 			hidden_effect = {
 				add_stability = 0.25
 				add_war_support = 0.25
+				add_command_power = 50
+				add_manpower = 100000
 				upgrade_economy_law = yes
 				add_political_power = 150
 				add_ideas = chaos_devil_1
@@ -408,6 +410,8 @@ mod_chaos_meta_3 = {
 				add_ideas = chaos_devil_4
 				add_ideas = chaos_devil_5
 				add_ideas = chaos_devil_6
+				add_ideas = chaos_devil_7
+				add_ideas = chaos_devil_8
 			}
 		}
 	}
@@ -512,6 +516,11 @@ mod_chaos_meta_3 = {
 						set_capital = { state = 447 }
 					}
 					if = {
+						limit = { controls_state = 548 }
+						set_capital = { state = 548 }
+						add_victory_points = { province = 12989 value = 9 }
+					}
+					if = {
 						limit = { controls_state = 271 }
 						set_capital = { state = 271 }
 						add_victory_points = { province = 5010 value = 5 }
@@ -524,7 +533,7 @@ mod_chaos_meta_3 = {
 					if = {
 						limit = { controls_state = 547 }
 						set_capital = { state = 547 }
-						add_victory_points = { province = 1939 value = 5 }
+						add_victory_points = { province = 1939 value = 8 }
 					}
 					if = {
 						limit = { controls_state = 458 }
@@ -622,7 +631,7 @@ mod_chaos_meta_3 = {
 				# modified 166
 				hidden_effect = {
 					#coastal states
-					every_state = {
+					every_owned_state = {
 						limit = {
 							is_on_continent = africa
 							is_coastal = yes
@@ -672,8 +681,10 @@ mod_chaos_meta_3 = {
 							10 = { add_manpower = 500000 }
 							3 = { add_manpower = 1000000 }
 						}
-						set_variable = { res_min = 1 }
-						set_variable = { res_max = 8 }
+						set_temp_variable = { res_min = 3 }
+						set_temp_variable = { res_max = 12 }
+						set_temp_variable = { iters = 4 }
+						set_temp_variable = { zero_weight = 1 }
 						random_list = {
 							2 = {}
 							1 = { add_random_resource = yes }
@@ -685,7 +696,7 @@ mod_chaos_meta_3 = {
 					}
 		
 					#inland states
-					every_state = {
+					every_owned_state = {
 						limit = {
 							is_on_continent = africa
 							is_coastal = no
@@ -727,8 +738,10 @@ mod_chaos_meta_3 = {
 							10 = { add_manpower = 250000 }
 							5 = { add_manpower = 500000 }
 						}
-						set_variable = { res_min = 1 }
-						set_variable = { res_max = 6 }
+						set_temp_variable = { res_min = 1 }
+						set_temp_variable = { res_max = 6 }
+						set_temp_variable = { iters = 2 }
+						set_temp_variable = { zero_weight = 0.5 }
 						random_list = {
 							3 = {}
 							1 = { add_random_resource = yes }

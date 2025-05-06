@@ -91,6 +91,12 @@ has_any_scientists = {
 			}
 		}
 	}
+}
 
-
+has_chaos_famine = {
+	OR = {
+		has_idea = chaos_famine_1
+		has_idea = chaos_famine_2
+		has_idea = chaos_famine_3
+	}
 }

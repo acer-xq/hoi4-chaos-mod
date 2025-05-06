@@ -15,3 +15,26 @@ res_eff = {
 
 	local_resources = res_eff_amount
 }
+
+chaos_ww1 = {
+	icon = GFX_unplanned_offensive
+	attacker_modifier = yes
+
+	air_cas_present_factor = -0.75
+	army_attack_factor = -0.9
+	army_speed_factor = -0.75
+	ground_attack_factor = -0.75
+	local_org_regain = -0.5
+	dig_in_speed = 2
+	max_dig_in = 12
+}
+
+chaos_devil_8_bonus_idea = {
+	icon = chaos_devil
+	remove_trigger = {
+        NOT = {
+            has_idea = chaos_devil_8
+        }
+    }
+	production_factory_max_efficiency_factor = chaos_devil_8_bonus
+}

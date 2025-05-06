@@ -27,3 +27,7 @@
  chaos_focus.10.t:0 "Shadow Scheme Factories Taken in Use"
  chaos_focus.10.d:1 "The careful preparations we took in the Shadow Scheme to ease the transition of our civilian factories to full war-time industry have now paid off. The new factories are already much more efficient than could reasonably have been expected within this time-frame."
  chaos_focus.10.a:0 "What fortuitous foresight we had!"
+ chaos_focus.11.t:0 "Motion of No Confidence"
+ chaos_focus.11.d:0 "A motion of no confidence has been brought against [?country_leader.GetName]."
+ chaos_focus.11.a:0 "It passes"
+ chaos_focus.11.b:0 "It fails"

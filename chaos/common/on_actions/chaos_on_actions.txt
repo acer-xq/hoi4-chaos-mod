@@ -1,7 +1,7 @@
 on_actions = {
     on_startup = {
         effect = {
-            set_variable = { global.CHAOS_NUM_EFFECTS = 198 }
+            set_variable = { global.CHAOS_NUM_EFFECTS = 229 }
             set_variable = { global.CHAOS_LAST_EFFECT = 0 }
             set_variable = { global.CHAOS_EVENT_COUNTER_MAX = 35 }
             set_variable = { global.CHAOS_UI_SELECTED_EFFECT_ID = 1 }
@@ -29,19 +29,234 @@ on_actions = {
         effect = {
             if = {
                 limit = {
-                    check_variable = { chaos_event_counter?-1 > 0 }
+                    check_variable = { chaos_event_counter?-1 > 1 }
                 }
                 subtract_from_variable = { chaos_event_counter = 1 }
             }
             else_if = {
                 limit = {
-                    check_variable = { chaos_event_counter?-1 = 0 }
+                    check_variable = { chaos_event_counter?-1 = 1 }
                 }
                 chaos_event = yes
                 set_variable = { chaos_event_counter = var:global.CHAOS_EVENT_COUNTER_MAX }
             }
         }
     }
+
+    on_weekly = {
+        effect = {
+            if = {
+                limit = {
+                    has_idea = chaos_famine_1
+                }
+                random_neighbor_country = {
+                    limit = { has_chaos_famine = no }
+                    random_list = {
+                        3 = {
+                            modifier = {
+                                factor = 2.5
+                                OR = {
+                                    has_idea = war_economy
+                                    has_idea = tot_economic_mobilisation
+                                }
+                            }
+                            modifier = {
+                                factor = 2
+                                has_idea = partial_economic_mobilisation
+                            }
+                            modifier = {
+                                factor = 0.5
+                                OR = {
+                                    has_idea = undisturbed_isolation
+                                    has_idea = isolation
+                                }
+                            }
+                            log = "Famine spread 1 -> 1 [PREV.GetName] -> [THIS.GetName]"
+                            add_timed_idea = {
+                                idea = chaos_famine_1
+                                days = 70
+                            }
+                        }
+                        12 = {
+                            modifier = {
+                                factor = 2
+                                OR = {
+                                    has_idea = war_economy
+                                    has_idea = tot_economic_mobilisation
+                                }
+                            }
+                            modifier = {
+                                factor = 1.5
+                                has_idea = partial_economic_mobilisation
+                            }
+                            modifier = {
+                                factor = 0.5
+                                OR = {
+                                    has_idea = undisturbed_isolation
+                                    has_idea = isolation
+                                }
+                            }
+                            log = "Famine spread 1 -> 2 [PREV.GetName] -> [THIS.GetName]"
+                            add_timed_idea = {
+                                idea = chaos_famine_2
+                                days = 70
+                            }
+                        }
+                        85 = { }
+                    }
+                }
+            }
+            else_if = {
+                limit = {
+                    has_idea = chaos_famine_2
+                }
+                random_neighbor_country = {
+                    limit = { has_chaos_famine = no }
+                    random_list = {
+                        0.5 = {
+                            modifier = {
+                                factor = 3
+                                OR = {
+                                    has_idea = war_economy
+                                    has_idea = tot_economic_mobilisation
+                                }
+                            }
+                            modifier = {
+                                factor = 2
+                                has_idea = partial_economic_mobilisation
+                            }
+                            modifier = {
+                                factor = 0
+                                OR = {
+                                    has_idea = undisturbed_isolation
+                                    has_idea = isolation
+                                }
+                            }
+                            log = "Famine spread 2 -> 1 [PREV.GetName] -> [THIS.GetName]"
+                            add_timed_idea = {
+                                idea = chaos_famine_1
+                                days = 70
+                            }
+                        }
+                        4 = {
+                            modifier = {
+                                factor = 2.5
+                                OR = {
+                                    has_idea = war_economy
+                                    has_idea = tot_economic_mobilisation
+                                }
+                            }
+                            modifier = {
+                                factor = 2
+                                has_idea = partial_economic_mobilisation
+                            }
+                            modifier = {
+                                factor = 0.75
+                                OR = {
+                                    has_idea = undisturbed_isolation
+                                    has_idea = isolation
+                                }
+                            }
+                            log = "Famine spread 2 -> 2 [PREV.GetName] -> [THIS.GetName]"
+                            add_timed_idea = {
+                                idea = chaos_famine_2
+                                days = 70
+                            }
+                        }
+                        10 = {
+                            modifier = {
+                                factor = 2
+                                OR = {
+                                    has_idea = war_economy
+                                    has_idea = tot_economic_mobilisation
+                                }
+                            }
+                            modifier = {
+                                factor = 1.5
+                                has_idea = partial_economic_mobilisation
+                            }
+                            modifier = {
+                                factor = 0.75
+                                OR = {
+                                    has_idea = undisturbed_isolation
+                                    has_idea = isolation
+                                }
+                            }
+                            log = "Famine spread 2 -> 3 [PREV.GetName] -> [THIS.GetName]"
+                            add_timed_idea = {
+                                idea = chaos_famine_3
+                                days = 70
+                            }
+                        }
+                        85.5 = { }
+                    }
+                }
+            }
+            else_if = {
+                limit = {
+                    has_idea = chaos_famine_3
+                }
+                random_neighbor_country = {
+                    limit = { has_chaos_famine = no }
+                    random_list = {
+                        1 = {
+                            modifier = {
+                                factor = 3
+                                OR = {
+                                    has_idea = war_economy
+                                    has_idea = tot_economic_mobilisation
+                                }
+                            }
+                            modifier = {
+                                factor = 2
+                                has_idea = partial_economic_mobilisation
+                            }
+                            modifier = {
+                                factor = 0
+                                OR = {
+                                    has_idea = undisturbed_isolation
+                                    has_idea = isolation
+                                }
+                            }
+                            log = "Famine spread 3 -> 2 [PREV.GetName] -> [THIS.GetName]"
+                            add_timed_idea = {
+                                idea = chaos_famine_2
+                                days = 70
+                            }
+                        }
+                        4 = {
+                            modifier = {
+                                factor = 2
+                                OR = {
+                                    has_idea = war_economy
+                                    has_idea = tot_economic_mobilisation
+                                }
+                            }
+                            modifier = {
+                                factor = 1.5
+                                has_idea = partial_economic_mobilisation
+                            }
+                            modifier = {
+                                factor = 0.75
+                                OR = {
+                                    has_idea = undisturbed_isolation
+                                    has_idea = isolation
+                                }
+                            }
+                            log = "Famine spread 3 -> 3 [PREV.GetName] -> [THIS.GetName]"
+                            add_timed_idea = {
+                                idea = chaos_famine_3
+                                days = 70
+                            }
+                        }
+                        95 = { }
+                    }
+                }
+            }
+        }
+    }
+
+
 
     # ROOT = new controller
     # FROM = old controller
@@ -84,7 +299,7 @@ on_actions = {
         effect = {
             if = {
                 limit = { has_idea = chaos_devil_1 }
-                add_stability = -0.03
+                add_stability = -0.02
                 random_state = {
                     limit = {
                         NOT = { is_core_of = ROOT }
@@ -95,7 +310,7 @@ on_actions = {
             }
             if = {
                 limit = { has_idea = chaos_devil_2 }
-                add_war_support = -0.04
+                add_war_support = -0.03
                 random_list = {
                     1 = {
                         add_offsite_building = { type = industrial_complex level = 1 }
@@ -113,7 +328,7 @@ on_actions = {
             }
             if = {
                 limit = { has_idea = chaos_devil_3 }
-                add_equipment_to_stockpile = { type = convoy_1 amount = -20 }
+                add_equipment_to_stockpile = { type = convoy_1 amount = -15 }
                 set_variable_to_random = { var = chaos_devil_3_last_res_amt min = 2 max = 8 integer = yes }
                 random_list = {
                     1 = {
@@ -151,7 +366,7 @@ on_actions = {
             }
             if = {
                 limit = { has_idea = chaos_devil_5 }
-                add_political_power = -15
+                add_political_power = -14
                 random_unit_leader = {
                     set_variable = { PREV.chaos_devil_5_last_leader = var:THIS }
                     random_list = {
@@ -164,11 +379,29 @@ on_actions = {
             }
             if = {
                 limit = { has_idea = chaos_devil_6 }
-                add_manpower = -2000
+                add_manpower = -1400
                 random_owned_state = {
                     upgrade_state_category = yes
                     set_variable = { PREV.chaos_devil_6_last_state = var:THIS }
                 }
+            }
+            if = {
+                limit = { has_idea = chaos_devil_7 }
+                army_experience = -4
+                air_experience = -4
+                navy_experience = -4
+                random_owned_state = {
+                    add_extra_state_shared_building_slots = 1
+                    set_variable = { PREV.chaos_devil_7_last_state = THIS }
+                }
+            }
+            if = {
+                limit = { has_idea = chaos_devil_8 }
+                if = {
+                    limit = { NOT = { has_dynamic_modifier = { modifier = chaos_devil_8_bonus_idea } } }
+                    add_dynamic_modifier = { modifier = chaos_devil_8_bonus_idea }
+                }
+                add_to_variable = { chaos_devil_8_bonus = 0.005 }
             }
         }
     }

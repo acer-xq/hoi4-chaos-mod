@@ -100,8 +100,6 @@ ideas = {
 			allowed = { always = yes }
 			modifier = {
 				custom_modifier_tooltip = chaos_devil_3_tt
-				# production_speed_buildings_factor = 0.6
-				# local_resources_factor = -1.0
 			}
 		}
 
@@ -605,6 +603,7 @@ ideas = {
 				fascism_drift = 0.02
 				industrial_capacity_factory = 0.05
 				industrial_capacity_dockyard = 0.05
+				war_support_factor = 0.1
 			}
 		}
 
@@ -690,6 +689,7 @@ ideas = {
 				production_speed_arms_factory_factor = 0.05
 				production_speed_dockyard_factor = 0.05
 				conscription_factor = 0.15
+				consumer_goods_factor = -0.1
 			}
 		}
 
@@ -773,6 +773,7 @@ ideas = {
 				industrial_capacity_factory = 0.1
 				consumer_goods_factor = -0.06
 				global_building_slots = 1
+				resource_trade_cost_bonus_per_factory = 1
 			}
 		}
 
@@ -838,6 +839,93 @@ ideas = {
 
 			modifier = {
 				weekly_manpower = 500
+			}
+		}
+
+		chaos_devil_7 = {
+			picture = chaos_devil
+			allowed = { always = yes }
+			modifier = {
+				custom_modifier_tooltip = chaos_devil_7_tt
+			}
+		}
+
+		chaos_devil_8 = {
+			picture = chaos_devil
+			allowed = { always = yes }
+			modifier = {
+				custom_modifier_tooltip = chaos_devil_8_tt
+			}
+		}
+
+		chaos_test = {
+			picture = chaos_devil
+			allowed = { always = yes }
+			modifier = {
+				air_cas_present_factor = -0.75
+				army_attack_factor = -0.9
+				army_speed_factor = -0.5
+				ground_attack_factor = -0.75
+				local_org_regain = -0.2
+				dig_in_speed_factor = 2
+				max_dig_in = 4
+			}
+		}
+
+		chaos_famine_1 = {
+			picture = raj_risk_of_famine
+			allowed = { always = yes }
+			modifier = {
+				custom_modifier_tooltip = chaos_famine_tt
+				conscription_factor = -0.12
+				consumer_goods_factor = 0.16
+				stability_factor = -0.12
+				war_support_factor = -0.12
+			}
+		}
+
+		chaos_famine_2 = {
+			picture = raj_risk_of_famine
+			allowed = { always = yes }
+			modifier = {
+				custom_modifier_tooltip = chaos_famine_tt
+				conscription_factor = -0.08
+				consumer_goods_factor = 0.10
+				stability_factor = -0.08
+				war_support_factor = -0.08
+			}
+		}
+
+		chaos_famine_3 = {
+			picture = raj_risk_of_famine
+			allowed = { always = yes }
+			modifier = {
+				custom_modifier_tooltip = chaos_famine_tt
+				conscription_factor = -0.04
+				consumer_goods_factor = 0.06
+				stability_factor = -0.04
+				war_support_factor = -0.04
+			}
+		}
+
+		chaos_indivisible = {
+			picture = FRA_undividable
+			allowed = { always = yes }
+			modifier = {
+				non_core_manpower = 0.08
+				compliance_growth = 0.05
+			}
+		}
+
+		chaos_national_industry = {
+			picture = bul_national_industry
+			allowed = { allowed = yes }
+			modifier = {
+				consumer_goods_factor = 0.05
+				production_speed_buildings_factor = 0.05
+				production_factory_efficiency_gain_factor = 0.05
+				production_factory_max_efficiency_factor = 0.05
+				global_building_slots_factor = 0.2
 			}
 		}
 	}

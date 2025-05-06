@@ -29,3 +29,15 @@ mod_chaos_1 = {
 mod_chaos_formable_nations = {
 	icon = generic_formable_nations
 }
+
+chaos_GUAY_laissez_faire_cat = {
+	icon = GFX_decision_category_gre_paying_ifc_debt
+	priority = 50
+	allowed = {
+		has_focus_tree = chaos_focus
+	}	
+
+	visible = {
+		has_completed_focus = GUAY_laissez_faire
+	}
+}

@@ -936,3 +936,68 @@ clear_air_xp = {
 	multiply_temp_variable = { x = -1 }
 	air_experience = x
 }
+
+form_dominion_north_america = {
+	hidden_effect = {
+			629 = { add_core_of = USA }
+			463 = { add_core_of = USA }
+		}
+
+		USA = {
+			every_core_state = {
+				CAN = { transfer_state = PREV }
+				add_core_of = CAN
+			}
+			hidden_effect = {
+				transfer_units_fraction= {
+					target = CAN
+					size = 1.0
+					stockpile_ratio = 1.0
+					army_ratio = 1.0
+					navy_ratio = 1.0
+					air_ratio = 1.0
+					keep_unit_leaders_trigger = {
+						always = yes
+					}
+				}
+			}
+		}
+
+			
+
+		CAN = {			
+			if = {
+				limit = {
+					NOT = { owns_state = 332 }
+					NOT = { owns_state = 331 }
+				}
+				transfer_state = 332
+				transfer_state = 331
+			}
+
+			add_ideas = {
+				chaos_dominion_na
+			}
+
+			hidden_effect = {
+				drop_cosmetic_tag = yes
+				set_cosmetic_tag = CAN_north_america_dominion
+
+				remove_ideas = {
+					CAN_great_depression_1
+					CAN_great_depression_2
+					CAN_conscription_crisis
+					CAN_conscription_crisis_mended
+				}
+				annex_country = {
+					target = USA
+					transfer_troops = yes
+				}
+			}
+		}
+
+
+		hidden_effect = {
+			CAN = { set_cosmetic_tag = CAN_north_america_dominion }
+		}
+}

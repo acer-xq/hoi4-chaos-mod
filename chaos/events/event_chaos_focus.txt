@@ -585,3 +585,71 @@ country_event = {
 		}
     }
 }
+
+country_event = {
+	id = chaos_focus.11
+    title = chaos_focus.11.t
+    desc = chaos_focus.11.d
+    picture = GFX_report_event_generic_read_write
+
+	is_triggered_only = yes
+
+	option = {
+		name = chaos_focus.11.a
+		ai_chance = {
+			factor = 1
+			modifier = {
+				has_country_leader_with_trait = underage_monarch
+				has_country_leader_with_trait = strict_austerity_adherent
+				has_country_leader_with_trait = JUNO_minister_of_social_assistance
+				add = 4
+			}
+			modifier = {
+				OR = {
+					has_country_leader_with_trait = inexperienced_imperialist
+					has_country_leader_with_trait = champion_of_peace_5
+					has_country_leader_with_trait = JUNO_unpopular
+					has_country_leader_with_trait = JUNO_sovereign_of_patagonia_2
+				}
+				add = 7
+			}
+			modifier = {
+				OR = {
+					has_country_leader_with_trait = defeatist
+					has_country_leader_with_trait = divided_interests
+					has_country_leader_with_trait = incompetent_leader
+					has_country_leader_with_trait = the_absentee_president
+				}
+				add = 16
+			}
+		}
+		retire_country_leader = yes
+		add_stability = 0.01
+	}
+	option = {
+		name = chaos_focus.11.b
+		ai_chance = {
+			factor = 2
+			modifier = {
+				OR = {
+					has_country_leader_with_trait = emergency_powers
+					has_country_leader_with_trait = father_of_the_turks_1
+					has_country_leader_with_trait = silent_workhorse
+					has_country_leader_with_trait = the_academic
+				}
+				factor = 0.1
+			}
+			modifier = {
+				OR = {
+					has_country_leader_with_trait = emperor_showa
+					has_country_leader_with_trait = national_integralist
+					has_country_leader_with_trait = kaiserin_of_the_people
+					has_country_leader_with_trait = calipha
+				}
+				factor = 0
+			}
+		}
+		add_stability = -0.05
+		add_political_power = -35
+	}
+}

@@ -3,7 +3,7 @@
 	
 	country = {
 		factor = 0
-		modifier = { tag = TIB add = 1000 }
+		modifier = { tag = ALB add = 1000 }
 	}
 	
 	reset_on_civilwar = no
@@ -11,6 +11,9 @@
 	initial_show_position = {
 		focus = chaos_army_effort
 	}
+
+	shared_focus = GUAY_laissez_faire
+	shared_focus = GUAY_land_reforms
 
 	continuous_focus_position = { x = 55 y = 1450 }
 
@@ -22,7 +25,7 @@
 		x = 1
 		y = 0
 		cost = 10
-		search_filters = {  FOCUS_FILTER_RESEARCH }
+		search_filters = {  FOCUS_FILTER_RESEARCH FOCUS_FILTER_ARMY_XP }
 		available_if_capitulated = yes
 		ai_will_do = {
 			factor = 2
@@ -33,7 +36,9 @@
 		}
 		completion_reward = {
 			custom_effect_tooltip = chaos_army_effort_tt1
+			custom_effect_tooltip = generic_skip_one_line_tt
 			custom_effect_tooltip = chaos_army_effort_tt2
+			custom_effect_tooltip = generic_skip_one_line_tt
 			custom_effect_tooltip = chaos_army_effort_tt3
 			hidden_effect = {
 				set_temp_variable_to_random = { var = r1 min = 0 max = 26 integer = yes }
@@ -128,7 +133,7 @@
 		x = 1
 		y = 1
 		relative_position_id = chaos_army_effort
-		cost = 10
+		cost = 5
 
 		search_filters = {  FOCUS_FILTER_RESEARCH }
 		
@@ -168,10 +173,22 @@
 					technology = motorised_infantry
 				}
 			}
-			add_equipment_to_stockpile = {
-				type = train_equipment_1
-				amount = 15
-				producer = ROOT
+			if = {
+				limit = {
+					has_tech = basic_train
+				}
+				add_equipment_to_stockpile = {
+					type = train_equipment_1
+					amount = 15
+					producer = ROOT
+				}
+			}
+			else = {
+				add_equipment_to_stockpile = {
+					type = train_equipment_1
+					amount = 15
+					producer = ENG
+				}
 			}
 		}
 	}
@@ -185,13 +202,14 @@
 		relative_position_id = chaos_army_effort
 		cost = 10
 
-		search_filters = {  FOCUS_FILTER_RESEARCH }
+		search_filters = {  FOCUS_FILTER_RESEARCH FOCUS_FILTER_ARMY_XP }
 		
 		available_if_capitulated = yes
 
 		completion_reward = {
 
 			custom_effect_tooltip = chaos_doctrine_effort_tt
+			custom_effect_tooltip = generic_skip_one_line_tt
 			hidden_effect = {
 				set_variable_to_random = { var = r1 min = 0 max = 31 integer = yes }
 				army_experience = var:r1
@@ -282,6 +300,7 @@
 				uses = 1
 				category = motorized_equipment
 			}
+			custom_effect_tooltip = generic_skip_one_line_tt
 
 			add_ideas = { chaos_production }
 			custom_effect_tooltip = chaos_mechanization_effort_tt1
@@ -297,7 +316,7 @@
 		relative_position_id = chaos_doctrine_effort
 		cost = 10
 
-		search_filters = {  FOCUS_FILTER_RESEARCH }
+		search_filters = {  FOCUS_FILTER_RESEARCH FOCUS_FILTER_ARMY_XP}
 		
 		available_if_capitulated = yes
 
@@ -383,6 +402,7 @@
 					}
 				}
 			}
+			custom_effect_tooltip = generic_skip_one_line_tt
 
 			add_tech_bonus = {
 				name = infantry_artillery_bonus
@@ -440,23 +460,6 @@
 		available_if_capitulated = yes
 		ai_will_do = {
 			factor = 1
-			modifier = {
-				factor = 3
-				OR = {
-					has_army_size = {
-						size > 0
-						type = mountaineers
-					}
-					has_army_size = {
-						size > 0
-						type = marine
-					}
-					has_army_size = {
-						size > 0
-						type = paratrooper
-					}
-				}
-			}
 		}
 		completion_reward = {
 			effect_tooltip = {
@@ -516,10 +519,13 @@
 				}
 			}
 		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
 			add_political_power = 150
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			add_popularity = { ideology = fascism popularity = 0.05 }
+			custom_effect_tooltip = generic_skip_one_line_tt
 
 			capital_scope = {
 				if = {
@@ -578,6 +584,7 @@
 		id = chaos_GER_anti_comitern_pact
 		icon = GFX_goal_anti_comintern_pact
 		prerequisite = { focus = chaos_GER_bulwark_against_bolshevism  }
+		search_filters = { FOCUS_FILTER_POLITICAL }
 		x = 0
 		y = 1
 		relative_position_id = chaos_GER_bulwark_against_bolshevism
@@ -585,7 +592,6 @@
 		available = {
 			is_subject = no
 			num_of_factories > 30
-			has_political_power > 250
 		}
 		bypass = {
 			SOU = {
@@ -612,7 +618,6 @@
 			}
 		}
 		completion_reward = {
-			add_political_power = -250
 			set_rule = {
 				desc = TAG_my_rule_description
 				can_create_factions = yes
@@ -623,7 +628,9 @@
 				}
 				ADJ = "[?ROOT.GetAdjective]"
 			}
+			custom_effect_tooltip = generic_skip_one_line_tt
 			SOU = { add_opinion_modifier = { target = ROOT modifier = pact_against_us } }
+			custom_effect_tooltip = generic_skip_one_line_tt
 			custom_effect_tooltip = chaos_GER_anti_comitern_pact_tt
 			set_temp_variable = { f = num_of_factories }
 			every_other_country = {
@@ -633,6 +640,7 @@
 					NOT = { tag = SOU }
 					NOT = { is_in_faction_with = SOU }
 					is_subject = no
+					NOT = { is_in_faction = yes }
 					num_of_factories > 14
 					num_of_factories < f
 				}
@@ -645,6 +653,7 @@
 		id = chaos_GER_the_great_red_menace
 		icon = GFX_focus_ger_great_red_menace
 		prerequisite = { focus = chaos_GER_anti_comitern_pact }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_WAR_SUPPORT }
 		available = {
 		}
 		cancel_if_invalid = yes
@@ -658,6 +667,8 @@
 		
 		completion_reward = {
 			add_named_threat = { threat = 1 name = GER_the_great_red_menace }
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			swap_ideas = {
 				remove_idea = GER_bulwark_against_bolshevism
 				add_idea = chaos_red_menace
@@ -672,6 +683,7 @@
 		id = chaos_GER_ussr_war_goal
 		icon = GFX_focus_GER_end_european_communism
 		prerequisite = { focus = chaos_GER_the_great_red_menace }
+		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_INDUSTRY }
 		available_if_capitulated = no
 		will_lead_to_war_with = SOV
 
@@ -701,7 +713,9 @@
 			}
 		}	
 		completion_reward = {
-			add_threat = 2
+			add_threat = 1
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			every_country = {
 				limit = {
 					has_government = communism
@@ -713,6 +727,8 @@
 					expire = 0
 				}
 			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			random_core_state = {
 				set_temp_variable = { countc = 1 }
 				set_temp_variable = { countm = 1 }
@@ -752,7 +768,7 @@
 				num_of_factories < 50
 			}
 		}
-		search_filters = { FOCUS_FILTER_ANNEXATION }
+		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_ARMY_XP }
 		completion_reward = {
 			army_experience = 10
 			random_neighbor_country = {
@@ -775,6 +791,7 @@
 		prerequisite = { focus = chaos_GER_anschluss }
 		available = { 
 			is_subject = no
+			fascism > 0.2
 		}
 		x = 2
 		y = 1
@@ -806,9 +823,46 @@
 	}
 
 	focus = {
+		id = chaos_GER_demonstration_of_military_achievements
+		icon = GFX_focus_GER_demonstration_of_military_achievements
+		prerequisite = { focus = chaos_GER_demand_memel }
+
+		x = 0
+		y = 1
+		relative_position_id = chaos_GER_demand_memel
+		cost = 5
+		available = {
+			surrender_progress < 0.1
+			num_of_military_factories > 6
+			fascism > 0.5
+		}
+
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_STABILITY}
+
+		completion_reward = {
+			set_politics = {
+				ruling_party = fascism
+				elections_allowed = no
+			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			add_political_power = 50
+			add_war_support = 0.05
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			add_country_leader_trait = GER_loyalty_of_wehrmacht
+
+
+		}
+	}
+
+	focus = {
 		id = chaos_GER_danzig_or_war
 		icon = GFX_goal_generic_demand_territory
-		prerequisite = { focus = chaos_GER_demand_memel }
+		prerequisite = { focus = chaos_GER_demonstration_of_military_achievements }
+		search_filters = { FOCUS_FILTER_ANNEXATION }
 		mutually_exclusive = { focus = chaos_GER_poland_friend }
 		will_lead_to_war_with = POL
 		available = {
@@ -825,8 +879,8 @@
 		}
 		cancel_if_invalid = no
 		x = 0
-		y = 3
-		relative_position_id = chaos_GER_demand_memel
+		y = 2
+		relative_position_id = chaos_GER_demonstration_of_military_achievements
 		cost = 10
 		ai_will_do = {
 			factor = 6
@@ -875,9 +929,10 @@
 		id = chaos_GER_czech_friend
 		icon = GFX_goal_generic_improve_relations
 		prerequisite = { focus = chaos_GER_anschluss }
+		search_filters = { FOCUS_FILTER_POLITICAL }
 		mutually_exclusive = { focus = chaos_GER_demand_sudetenland }
 		available = { 
-			has_army_manpower = { size > 124999 }
+			has_army_manpower = { size > 59999 }
 			NOT = { has_war_with = CZE }
 			CZE = {
 				exists = yes
@@ -888,7 +943,13 @@
 			}
 		}
 		bypass = {
-			CZE = { exists = no }
+			CZE = { 
+				OR = {
+					exists = no
+					is_in_faction_with = ROOT
+					is_subject_of = ROOT 
+				}
+			}
 		}
 		cancel = {
 			OR = {
@@ -963,6 +1024,7 @@
 		prerequisite = { focus = chaos_GER_anschluss }
 		mutually_exclusive = { focus = chaos_GER_czech_friend }
 		available = {
+			fascism > 0.15
 			is_subject = no
 			has_army_manpower = { size > 200000 }		
 			NOT = {
@@ -1053,6 +1115,16 @@
 				uses = 1
 				category = synth_resources
 			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			random_controlled_state = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = synthetic_refinery
+					level = 1
+					instant_build = yes
+				}
+			}
 			random_controlled_state = {
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
@@ -1068,6 +1140,7 @@
 		id = chaos_GER_end_of_czechoslovakia
 		icon = GFX_goal_generic_territory_or_war
 		prerequisite = { focus = chaos_GER_coal_liquidization }
+		prerequisite = { focus = chaos_GER_demonstration_of_military_achievements }
 		will_lead_to_war_with = CZE
 		available = { 
 			is_subject = no
@@ -1118,6 +1191,7 @@
 		id = chaos_GER_italy_ally
 		icon = GFX_goal_generic_major_alliance
 		prerequisite = { focus = chaos_GER_end_of_czechoslovakia focus = chaos_GER_czech_friend }
+		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 			NOT = { has_war_with = ITA }
 		}
@@ -1147,7 +1221,8 @@
 	focus = {
 		id = chaos_GER_poland_friend
 		icon = GFX_goal_generic_improve_relations
-		prerequisite = { focus = chaos_GER_end_of_czechoslovakia }
+		prerequisite = { focus = chaos_GER_end_of_czechoslovakia focus = chaos_GER_czech_friend }
+		search_filters = { FOCUS_FILTER_POLITICAL }
 		mutually_exclusive = { focus = chaos_GER_danzig_or_war }
 		available = {
 			NOT = { has_global_flag = sov_yes_pact }
@@ -1224,6 +1299,7 @@
 			NOT = { is_in_faction_with = FRA }
 		}
 		relative_position_id = chaos_GER_poland_friend
+		search_filters = { FOCUS_FILTER_ANNEXATION }
 		x = 1
 		y = 1
 		cost = 10
@@ -1245,12 +1321,16 @@
 		}
 		completion_reward = {
 			add_named_threat = { threat = 2.5 name = chaos_GER_war_with_france_threat }
+			custom_effect_tooltip = generic_skip_one_line_tt
+
  			create_wargoal = {
  				type = take_state_focus
  				target = FRA
  				expire = 0
  				generator = { 28 }
  			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			random_core_state = {	
 				set_temp_variable = { countc = 1 }
 				set_temp_variable = { countm = 1 }
@@ -1263,6 +1343,7 @@
 		id = chaos_GER_operation_tannenbaum
 		icon = GFX_focus_attack_switzerland
 		prerequisite = { focus = chaos_GER_war_with_france }
+		search_filters = { FOCUS_FILTER_ANNEXATION }
 		available = {
 			is_subject = no
 			NOT = { is_in_faction_with = SWI }
@@ -1332,7 +1413,7 @@
 				amount_research_slots < 4
 			}
 		}
-		search_filters = { FOCUS_FILTER_RESEARCH }
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_STABILITY FOCUS_FILTER_RESEARCH_SLOT }
 		completion_reward = {
 			add_research_slot = 1
 			add_stability = 0.05
@@ -1411,8 +1492,9 @@
 	}
 
 	focus = {
-		id = chaos_ENG_service_focus 
+		id = chaos_ENG_service_focus
 		prerequisite = { focus = chaos_ENG_steady_as_she_goes }
+		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_AIR_XP }
 		icon = GFX_goal_generic_position_armies
 		x = -4
 		y = 1
@@ -1423,6 +1505,8 @@
 			army_experience = 10
 			navy_experience = 25
 			air_experience = 25
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			add_ideas = ENG_service_overseas_idea
 		}
 	}
@@ -1672,7 +1756,7 @@
 		ai_will_do = {
 			factor = 1
 		}
-		search_filters = {FOCUS_FILTER_INDUSTRY}	
+		search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_POLITICAL}	
 		completion_reward = {
 			add_popularity = { ideology = democratic popularity = 0.05 }
 			add_ideas = british_austerity_idea
@@ -1682,6 +1766,7 @@
 	focus = {
 		id = chaos_ENG_air_rearmament_focus
 		prerequisite = { focus = chaos_ENG_general_rearmament_focus }
+		search_filters = { FOCUS_FILTER_AIR_XP }
 		icon = GFX_goal_generic_air_doctrine
 		x = 0
 		y = 1
@@ -1780,7 +1865,7 @@
 		}
 
 		available_if_capitulated = yes
-		search_filters = {FOCUS_FILTER_RESEARCH}
+		search_filters = {FOCUS_FILTER_RESEARCH FOCUS_FILTER_AIR_XP}
 		completion_reward = {
 			if = {
 				limit = {
@@ -1800,6 +1885,8 @@
 					has_dlc = "By Blood Alone"
 				}
 				air_experience = 25
+				custom_effect_tooltip = generic_skip_one_line_tt
+
 				add_tech_bonus = {
 					name = fighter_command_focus
 					bonus = 1.0
@@ -1807,6 +1894,8 @@
 					category = light_fighter
 					category = cat_heavy_fighter
 				}
+				custom_effect_tooltip = generic_skip_one_line_tt
+
 				add_doctrine_cost_reduction = {
 					name = ENG_fighter_command_focus #land_doc_bonus
 					cost_reduction = 0.5
@@ -1829,7 +1918,7 @@
 		}
 
 		available_if_capitulated = yes
-		search_filters = {FOCUS_FILTER_RESEARCH}
+		search_filters = {FOCUS_FILTER_RESEARCH FOCUS_FILTER_AIR_XP}
 		completion_reward = {
 			if = {
 				limit = {
@@ -1849,6 +1938,8 @@
 					has_dlc = "By Blood Alone"
 				}
 				air_experience = 25
+				custom_effect_tooltip = generic_skip_one_line_tt
+
 				add_tech_bonus = {
 					name = bomber_command_focus
 					bonus = 1.0
@@ -1856,6 +1947,8 @@
 					category = cat_strategic_bomber
 					category = tactical_bomber
 				}
+				custom_effect_tooltip = generic_skip_one_line_tt
+				
 				add_doctrine_cost_reduction = {
 					name = ENG_bomber_command_focus #land_doc_bonus
 					cost_reduction = 0.5
@@ -1878,7 +1971,7 @@
 		}
 
 		available_if_capitulated = yes
-		search_filters = {FOCUS_FILTER_RESEARCH}
+		search_filters = {FOCUS_FILTER_RESEARCH FOCUS_FILTER_AIR_XP}
 		completion_reward = {
 			if = {
 				limit = {
@@ -1898,6 +1991,8 @@
 					has_dlc = "By Blood Alone"
 				}
 				air_experience = 25
+				custom_effect_tooltip = generic_skip_one_line_tt
+
 				add_tech_bonus = {
 					name = coastal_command_focus
 					bonus = 1.0
@@ -1905,6 +2000,8 @@
 					category = naval_bomber
 					category = cas_bomber
 				}
+				custom_effect_tooltip = generic_skip_one_line_tt
+
 				add_doctrine_cost_reduction = {
 					name = ENG_coastal_command_focus #land_doc_bonus
 					cost_reduction = 0.5
@@ -1933,7 +2030,7 @@
 		}
 
 		available_if_capitulated = yes
-		search_filters = {FOCUS_FILTER_INDUSTRY}
+		search_filters = {}
 		completion_reward = {
 			swap_ideas = {
 				remove_idea = british_austerity_idea
@@ -1974,6 +2071,7 @@
 	focus = {
 		id = chaos_ENG_motion_of_no_confidence
 		prerequisite = { focus = chaos_ENG_steady_as_she_goes }
+		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = {
 		}
 		continue_if_invalid = yes
@@ -1994,8 +2092,9 @@
 		}
 
 		completion_reward = {
-			retire_country_leader = yes
-			add_stability = -0.10
+			country_event = chaos_focus.11
+			custom_effect_tooltip = chaos_no_confidence_tt
+			custom_effect_tooltip = CHL_skip_one_line_tt
 			custom_effect_tooltip = ENG_no_further_appeasement_tt
 			hidden_effect = {
 				set_rule = { can_declare_war_on_same_ideology = yes }
@@ -2007,23 +2106,24 @@
 	focus = {
 		id = chaos_ENG_pre_empt_spanish_alignment
 		prerequisite = { focus = chaos_ENG_motion_of_no_confidence }
+		search_filters = { FOCUS_FILTER_ANNEXATION }
 		available = {
 			is_subject = no
 			SPA = {
 				exists = yes
-				NOT = { is_in_faction_with = ENG }
-				NOT = {  }
-				NOT = { has_government = democratic }
+				NOT = { is_in_faction_with = ROOT }
 			}
 			num_divisions > 15
 			has_global_flag = scw_over
 		}
 		bypass = {
-			has_war_with = ENG
-			NOT = {
-				country_exists = SPA
+			SPA = {
+				OR = {
+					exists = no
+					has_war_with = ROOT
+					is_subject_of = ROOT
+				}
 			}
-			has_global_flag = scw_over
 		}
 		icon = GFX_goal_generic_more_territorial_claims
 		x = 0
@@ -2050,6 +2150,7 @@
 	focus = {
 		id = chaos_ENG_secure_the_oil_imports
 		prerequisite = { focus = chaos_ENG_motion_of_no_confidence }
+		search_filters = { FOCUS_FILTER_ANNEXATION }
 		available = { 
 			is_subject = no
 			num_of_factories > 49
@@ -2096,22 +2197,62 @@
 				type = puppet_wargoal_focus
 				expire = 0
 			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			add_state_claim = 489
 			add_state_claim = 307
 			add_state_claim = 291
 			add_state_claim = 413
 		}
 	}
+
+	focus = {
+		id = chaos_ENG_continental_intervention
+		prerequisite = { focus = chaos_ENG_pre_empt_spanish_alignment }
+		available = { 
+			is_subject = no
+		}
+
+		continue_if_invalid = yes
+
+		icon = GFX_goal_generic_major_war
+		x = 0
+		y = 1
+		relative_position_id = chaos_ENG_pre_empt_spanish_alignment
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			custom_effect_tooltip = chaos_ENG_continental_intervention_tt
+			every_other_country = {
+				limit = {
+					NOT = { is_in_faction_with = ROOT }
+					has_added_tension_amount > 0.1
+					num_of_factories > 50
+				}
+				ENG = {
+					create_wargoal = {
+						target = PREV
+						type = topple_government
+						expire = 0
+					}
+				}
+			}
+			hidden_effect = { news_event = { id = mtg_news.18 days = 1 } }
+		}
+	}
+
 	focus = {
 		id = chaos_ENG_imperial_conscription
-		prerequisite = { focus = chaos_ENG_pre_empt_spanish_alignment }	
+		prerequisite = { focus = chaos_ENG_continental_intervention }	
 		available = {
 
 		}
 		icon = GFX_focus_generic_commonwealth_build_infantry
 		x = 0
-		y = 2
-		relative_position_id = chaos_ENG_pre_empt_spanish_alignment
+		y = 1
+		relative_position_id = chaos_ENG_continental_intervention
 		cost = 10
 		ai_will_do = {
 			factor = 1
@@ -2134,6 +2275,7 @@
 	focus = {
 		id = chaos_ENG_crush_the_dream
 		prerequisite = { focus = chaos_ENG_imperial_conscription }
+		search_filters = { FOCUS_FILTER_ANNEXATION }
 		available = {
 			is_subject = no
 			NOT = { is_in_faction_with = USA }
@@ -2148,12 +2290,16 @@
 			factor = 1
 		}	
 		completion_reward = {
-			add_threat = 2
+			add_threat = 1
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			create_wargoal = {
 				type = puppet_wargoal_focus
 				target = USA
 				expire = 0
 			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			random_core_state = {
 				set_temp_variable = { countc = 1 }
 				set_temp_variable = { countm = 1 }
@@ -2168,7 +2314,7 @@
 	focus = {
 		id = chaos_FRA_begin_rearmament
 		icon = GFX_goal_generic_construct_mil_factory
-		x = 30
+		x = 29
 		y = 0
 		cost = 10
 		ai_will_do = {
@@ -2179,9 +2325,11 @@
 		}	
 		cancel_if_invalid = yes
 		continue_if_invalid = no
-		search_filters = { FOCUS_FILTER_INDUSTRY }
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_WAR_SUPPORT}
 		completion_reward = {
 			add_war_support = 0.025
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			set_temp_variable = { count = 2 }
 			random_owned_state = {
 				limit = {
@@ -2204,6 +2352,7 @@
 		id = chaos_FRA_defensive_focus
 		icon = GFX_goal_generic_defence
 		prerequisite = { focus = chaos_FRA_begin_rearmament }
+		search_filters = { FOCUS_FILTER_ARMY_XP }
 		mutually_exclusive = { focus = chaos_FRA_aggressive_focus }
 		x = -1
 		y = 1
@@ -2220,9 +2369,10 @@
 				advisor = {
 					slot = army_chief
 					cost = 35
-					idea_token = "[?ROOT.GetName]_offense"
+					idea_token = "[?ROOT.GetName]_defense"
 					traits = {
-						army_chief_offensive_2
+						army_chief_defensive_2
+					
 					}
 				}
 			}
@@ -2232,6 +2382,7 @@
 		id = chaos_FRA_fusiliers_marine
 		icon = GFX_goal_generic_amphibious_assault
 		prerequisite = { focus = chaos_FRA_defensive_focus }
+		search_filters = { FOCUS_FILTER_RESEARCH }
 		mutually_exclusive = { focus = chaos_FRA_firepower_kills }
 		x = 0
 		y = 1
@@ -2257,6 +2408,7 @@
 		id = chaos_FRA_fortification_focus
 		icon = GFX_goal_generic_construction2
 		prerequisite = { focus = chaos_FRA_fusiliers_marine }
+		search_filters = { FOCUS_FILTER_RESEARCH }
 		x = 0
 		y = 1
 		relative_position_id = chaos_FRA_fusiliers_marine
@@ -2300,6 +2452,7 @@
 		id = chaos_FRA_infantry_focus
 		icon = GFX_goal_generic_allies_build_infantry
 		prerequisite = { focus = chaos_FRA_firepower_kills }
+		search_filters = {FOCUS_FILTER_ARMY_XP}
 		x = 0
 		y = 1
 		relative_position_id = chaos_FRA_firepower_kills
@@ -2317,6 +2470,7 @@
 		id = chaos_FRA_aggressive_focus
 		icon = GFX_goal_generic_major_war
 		prerequisite = { focus = chaos_FRA_begin_rearmament }
+		search_filters = { FOCUS_FILTER_ARMY_XP }
 		mutually_exclusive = { focus = chaos_FRA_defensive_focus }
 		x = 1
 		y = 1
@@ -2333,9 +2487,9 @@
 				advisor = {
 					slot = army_chief
 					cost = 35
-					idea_token = "[?ROOT.GetName]_defense"
+					idea_token = "[?ROOT.GetName]_offense"
 					traits = {
-						army_chief_defensive_2
+						army_chief_offensive_2
 					}
 				}
 			}
@@ -2345,6 +2499,7 @@
 		id = chaos_FRA_motorized_focus
 		icon = GFX_goal_generic_army_motorized
 		prerequisite = { focus = chaos_FRA_aggressive_focus }
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_ARMY_XP }
 		mutually_exclusive = { focus = chaos_FRA_cas_focus }
 		x = 0
 		y = 1
@@ -2364,7 +2519,11 @@
 
 		completion_reward = {
 			army_experience = 5
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			add_ideas = FRA_motorized_focus
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			add_tech_bonus = {
 				name = FRA_mechanized_focus
 				bonus = 1.0
@@ -2377,6 +2536,7 @@
 		id = chaos_FRA_light_medium_armor
 		icon = GFX_goal_generic_army_tanks
 		prerequisite = { focus = chaos_FRA_motorized_focus }
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_ARMY_XP }
 		x = 0
 		y = 1
 		relative_position_id = chaos_FRA_motorized_focus
@@ -2395,6 +2555,8 @@
 		}
 		completion_reward = {
 			army_experience = 5
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			swap_ideas = {
 				remove_idea = FRA_motorized_focus
 				add_idea = chaos_armour_focus
@@ -2412,6 +2574,7 @@
 		id = chaos_FRA_cas_focus
 		icon = GFX_goal_generic_CAS
 	 	prerequisite = { focus = chaos_FRA_aggressive_focus }
+		search_filters = { FOCUS_FILTER_RESEARCH }
 		mutually_exclusive = { focus = chaos_FRA_motorized_focus }
 		x = 2
 		y = 1
@@ -2469,6 +2632,7 @@
 			focus = chaos_FRA_fortification_focus
 			focus = chaos_FRA_flying_artillery
 		}
+		search_filters = {FOCUS_FILTER_ARMY_XP}
 		x = 0
 		y = 1
 		relative_position_id = chaos_FRA_light_medium_armor
@@ -2487,7 +2651,11 @@
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
 			army_experience = 10
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			add_ideas = { FRA_entrepeneurship }
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			add_doctrine_cost_reduction = {
 				name = FRA_army_reform
 				cost_reduction = 0.5
@@ -2618,12 +2786,36 @@
 		}
 	}
 	focus = {
-		id = chaos_FRA_agricultural_collectivization
-		icon = GFX_focus_prc_agrarian_socialism
+		id = chaos_FRA_extra_research_slot_2
+		icon = GFX_focus_research
 		prerequisite = { focus = chaos_FRA_devalue_the_franc }
+		available = {
+			num_of_factories > 29
+		}
+		ai_will_do = {
+			factor = 5
+			modifier = {
+				factor = 9
+				amount_research_slots < 4
+			}
+		}
 		x = 0
 		y = 1
 		relative_position_id = chaos_FRA_devalue_the_franc
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_RESEARCH_SLOT }
+		completion_reward = {
+			add_research_slot = 1
+		}
+	}
+	focus = {
+		id = chaos_FRA_agricultural_collectivization
+		icon = GFX_focus_prc_agrarian_socialism
+		prerequisite = { focus = chaos_FRA_extra_research_slot_2 }
+		x = 0
+		y = 1
+		relative_position_id = chaos_FRA_extra_research_slot_2
 		cost = 5
 		ai_will_do = {
 			factor = 2
@@ -2635,71 +2827,47 @@
 		cancel_if_invalid = yes
 		continue_if_invalid = no
 		available_if_capitulated = no
-		search_filters = { FOCUS_FILTER_MANPOWER }
+		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_INDUSTRY FOCUS_FILTER_POLITICAL }
 		completion_reward = {
 			add_popularity = { ideology = communism popularity = 0.1 }
 			add_ideas = { FRA_agricultural_collectivization }
 		}
 	}
 	focus = {
-		id = chaos_FRA_extra_research_slot_2
-		icon = GFX_focus_research
-		prerequisite = {  focus = chaos_FRA_agricultural_collectivization }
-		available = {
-			num_of_factories > 49
-		}
-		ai_will_do = {
-			factor = 5
-			modifier = {
-				factor = 4
-				amount_research_slots < 4
-			}
-		}
+		id = chaos_FRA_france_undividable
+		icon = GFX_focus_chi_reach_out_to_france
 		x = 0
 		y = 1
+		
+		prerequisite = { focus = chaos_FRA_agricultural_collectivization }
 		relative_position_id = chaos_FRA_agricultural_collectivization
 		cost = 10
-		available_if_capitulated = yes
-		search_filters = { FOCUS_FILTER_RESEARCH }
-		completion_reward = {
-			add_research_slot = 1
-		}
-	}
-	focus = {
-		id = chaos_FRA_invest_in_the_colonies
-		icon = GFX_goal_generic_construct_civilian
-		prerequisite = { focus = chaos_FRA_extra_research_slot_2 }
-		x = 0
-		y = 1
-		relative_position_id = chaos_FRA_extra_research_slot_2
-		cost = 10
+
 		ai_will_do = {
 			factor = 1
 			modifier = {
-				factor = 0.01
-				num_occupied_states < 5
-			}
-			modifier = {
-				factor = 4
-				num_occupied_states < 20
-			}
-			modifier = {
-				factor = 10
-				num_occupied_states > 19
+				has_manpower < 100000
+				num_occupied_states > 1
+				add = 3
 			}
 		}
+
 		available = {
-			any_owned_state = {
-				not = { is_core_of = ROOT }
-				is_controlled_by = ROOT
-			}
+			communism > 0.2
 		}
-		available_if_capitulated = yes
-		search_filters = { FOCUS_FILTER_POLITICAL }
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		search_filters = { FOCUS_FILTER_MANPOWER }
 		completion_reward = {
+			add_ideas = chaos_indivisible
 			every_owned_state = {
 				limit = {
-					not = { is_core_of = ROOT }
+					is_controlled_by = ROOT
+					NOT = {
+						is_core_of = ROOT
+					}
 				}
 				add_compliance = 10
 			}
@@ -2709,30 +2877,36 @@
 		id = chaos_FRA_egalite_liberte_solidarite
 		icon = GFX_focus_focus_fra_liberte_egalite_solidarite
 		will_lead_to_war_with = ITA
-		prerequisite = { focus = chaos_FRA_invest_in_the_colonies }
+		prerequisite = { focus = chaos_FRA_france_undividable }
 		prerequisite = { focus = chaos_FRA_army_reform }
+		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_INDUSTRY FOCUS_FILTER_POLITICAL }
 		x = -2
 		y = 1
-		relative_position_id = chaos_FRA_invest_in_the_colonies
+		relative_position_id = chaos_FRA_france_undividable
 		cost = 10
 		ai_will_do = {
 			factor = 4
+		}
+		available = {
+			communism > 0.5
 		}
 		cancel_if_invalid = yes
 		continue_if_invalid = no
 		available_if_capitulated = no
 
 		completion_reward = {
-			add_popularity = { ideology = communism popularity = 0.05 }
-			effect_tooltip = {
-				add_ideas = FRA_egalite_liberte_solidarite
-			}
-			hidden_effect = {	
-				remove_ideas = FRA_agricultural_collectivization
-				remove_ideas = FRA_entrepeneurship
-				add_ideas = chaos_egalite
+			set_politics = {
+				ruling_party = communism
+				elections_allowed = no
 			}
 
+			custom_effect_tooltip = CHL_skip_one_line_tt
+			remove_ideas = { FRA_entrepeneurship FRA_agricultural_collectivization }
+			custom_effect_tooltip = CHL_skip_one_line_tt
+			add_ideas = chaos_egalite
+			
+
+			custom_effect_tooltip = CHL_skip_one_line_tt
 			create_wargoal = {
 				target = ITA
 				type = topple_government
@@ -2821,6 +2995,7 @@
 					amount = 7
 				}
 			}
+			custom_effect_tooltip = generic_skip_one_line_tt
 
 			random_core_state = {
 				random_list = {
@@ -3099,10 +3274,14 @@
 		}
 		cancel_if_invalid = yes
 		continue_if_invalid = no
-		search_filters = { FOCUS_FILTER_INDUSTRY }
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_POLITICAL }
 		completion_reward = {
 			add_popularity = { ideology = communism popularity = 0.05 }
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			add_timed_idea = { idea = YUG_idea_economic_aid days = 720 }
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			SOV = {
 				add_timed_idea = { idea = YUG_idea_economic_aid days = 365 }
 				add_ai_strategy = {
@@ -3150,17 +3329,19 @@
 		x = 28
 		y = 6
 		cost = 10
-		search_filters = {FOCUS_FILTER_INDUSTRY}
+		search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_AIR_XP}
 		ai_will_do = {
 			factor = 2
 		}
 		completion_reward = {
-			air_experience = 10
 			random_core_state = {
 				set_temp_variable = { countc = 1 }
 				set_temp_variable = { countm = 1 }
 				create_factories = yes
 			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			air_experience = 10
+			custom_effect_tooltip = generic_skip_one_line_tt
 			add_ideas = BUL_aircraft_repair_facilities
 		}
 	}
@@ -3230,7 +3411,7 @@
 		cost = 10
 		available = {
 			has_army_manpower = {
-				size > 100000
+				size > 80000
 			}
 		}
 		ai_will_do = {
@@ -3240,11 +3421,14 @@
 				amount_research_slots < 4
 			}
 		}
-		search_filters = {FOCUS_FILTER_RESEARCH}
+		search_filters = {FOCUS_FILTER_RESEARCH FOCUS_FILTER_ARMY_XP FOCUS_FILTER_AIR_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_RESEARCH_SLOT}
 		completion_reward = {
+			add_research_slot = 1
+			custom_effect_tooltip = generic_skip_one_line_tt
 			army_experience = 15
 			navy_experience = 15
 			air_experience = 15
+			custom_effect_tooltip = generic_skip_one_line_tt
 			add_doctrine_cost_reduction = {
 				name = BUL_vasil_levsky_national_military_university
 			    cost_reduction = 0.35
@@ -3253,7 +3437,6 @@
 				category = naval_doctrine
 				category = air_doctrine
 			}
-			add_research_slot = 1
 		}
 	}
 	focus = {
@@ -3279,10 +3462,33 @@
 			    uses = 1
 				category = land_doctrine
 			}
+			custom_effect_tooltip = generic_skip_one_line_tt
 			add_ideas = BUL_bulgarian_army_01
+			custom_effect_tooltip = generic_skip_one_line_tt
 			increase_conscription_law = yes
 		}
 	}
+
+	focus = {
+		id = chaos_BUL_utmost_optimization
+
+		prerequisite = { focus = chaos_BUL_rebuild_the_army }
+		icon = GFX_focus_generic_industry_3
+		relative_position_id = chaos_BUL_rebuild_the_army
+		x = 1
+		y = 1
+		cost = 10
+
+		available = {
+			num_of_factories > 19
+		}
+		
+		search_filters = {FOCUS_FILTER_INDUSTRY}
+		completion_reward = {
+			add_ideas = { chaos_national_industry }
+		}
+	}
+
 	focus = {
 		id = chaos_BUL_prussia_of_the_balkans
 		prerequisite = { focus = chaos_BUL_rebuild_the_army }
@@ -3301,7 +3507,7 @@
 				skill > 5
 			}
 		}
-		search_filters = {FOCUS_FILTER_MANPOWER FOCUS_FILTER_INDUSTRY}
+		search_filters = {FOCUS_FILTER_MANPOWER FOCUS_FILTER_ARMY_XP FOCUS_FILTER_AIR_XP FOCUS_FILTER_NAVY_XP}
 		completion_reward = {
 			swap_ideas = {
 				remove_idea = BUL_bulgarian_army_01
@@ -3314,8 +3520,8 @@
 	focus = {
 		id = chaos_USA_wpa
 		icon = GFX_goal_generic_production
-		x = 41
-		y = 0
+		x = 46
+		y = 5
 		cost = 10
 		ai_will_do = {
 			factor = 3
@@ -3335,6 +3541,7 @@
 		id = chaos_USA_two_ocean_navy_act
 		icon = GFX_focus_generic_navy_battleship2
 		prerequisite = { focus = chaos_USA_wpa }
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_NAVY_XP}
 		x = 0
 		y = 1
 		relative_position_id = chaos_USA_wpa
@@ -3350,8 +3557,10 @@
 		cancel_if_invalid = no
 		continue_if_invalid = yes
 		available_if_capitulated = no
-		search_filters = {FOCUS_FILTER_USA_CONGRESS}
 		completion_reward = {
+			navy_experience = 20
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			set_temp_variable = { count = 3 }
 			random_owned_controlled_state = {
 				limit = {
@@ -3409,6 +3618,11 @@
 		cost = 5
 		available_if_capitulated = yes
 		search_filters = {FOCUS_FILTER_RESEARCH}
+		available = {
+			any_controlled_state = {
+				is_coastal = yes
+			}
+		}
 		completion_reward = {
 			add_doctrine_cost_reduction = {
 				name = USA_advanced_mahanian_doctrine
@@ -3416,6 +3630,11 @@
 				uses = 1
 				category = cat_base_strike
 			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			set_technology = { early_ship_hull_heavy = 1 }
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			hidden_effect = {
 				create_equipment_variant = {
 					name = "Super Heavy Battleship"
@@ -3444,7 +3663,6 @@
 			add_equipment_production = {
 				equipment = {
 					type = ship_hull_super_heavy_1
-					creator = "USA"
 					version_name = "Super Heavy Battleship"
 				}
 				requested_factories = 1
@@ -3476,6 +3694,7 @@
 		completion_reward = {
 			every_core_state = {
 				limit = {
+					is_controlled_by = ROOT
 					is_coastal = yes
 				}
 				add_building_construction = {
@@ -3510,7 +3729,7 @@
 		relative_position_id = chaos_USA_two_ocean_navy_act
 		cost = 5
 		available_if_capitulated = yes
-		search_filters = {FOCUS_FILTER_RESEARCH}
+		search_filters = {FOCUS_FILTER_RESEARCH FOCUS_FILTER_NAVY_XP}
 		completion_reward = {
 			navy_experience = 10
 
@@ -3534,7 +3753,15 @@
 		available_if_capitulated = yes
 
 		search_filters = {FOCUS_FILTER_RESEARCH}
+		available = {
+			any_controlled_state = {
+				is_coastal = yes
+			}
+		}
 		completion_reward = {
+			set_technology = { early_ship_hull_light = 1 }
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			add_tech_bonus = {
 				name = USA_bureau_of_aeronautics
 				bonus = 1.0
@@ -3542,6 +3769,8 @@
 				category = naval_bomber
 				category = naval_air
 			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			hidden_effect = {	
 				create_equipment_variant = {
 					name = "Destroyer"
@@ -3565,7 +3794,6 @@
 			add_equipment_production = {
 				equipment = {
 					type = ship_hull_light_3
-					creator = "USA"
 					version_name = "Destroyer"
 				}
 				requested_factories = 1
@@ -3575,7 +3803,6 @@
 			add_equipment_production = {
 				equipment = {
 					type = ship_hull_light_3
-					creator = "USA"
 					version_name = "Destroyer"
 				}
 				requested_factories = 1
@@ -3585,7 +3812,6 @@
 			add_equipment_production = {
 				equipment = {
 					type = ship_hull_light_3
-					creator = "USA"
 					version_name = "Destroyer"
 				}
 				requested_factories = 1
@@ -3595,7 +3821,6 @@
 			add_equipment_production = {
 				equipment = {
 					type = ship_hull_light_3
-					creator = "USA"
 					version_name = "Destroyer"
 				}
 				requested_factories = 1
@@ -3616,10 +3841,6 @@
 			factor = 1
 		}
 		available = {
-			has_navy_size = {
-				size > 0
-				unit = carrier
-			}
 		}
 		cancel_if_invalid = yes
 		continue_if_invalid = no
@@ -3710,12 +3931,16 @@
 				uses = 2
 				category = tp_tech 
 			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			add_tech_bonus = {
 				name = USA_amphibious_operations
 				bonus = 1.0
 				uses = 2
 				category = marine_tech 
 			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			add_ideas = chaos_amphibious_operations
 		}
 	}
@@ -3723,6 +3948,7 @@
 		id = chaos_USA_war_plans_division
 		icon = GFX_goal_generic_position_armies
 		prerequisite = { focus = chaos_USA_wpa }
+		search_filters = { FOCUS_FILTER_WAR_SUPPORT }
 		x = 4
 		y = 2
 		relative_position_id = chaos_USA_wpa
@@ -3734,6 +3960,9 @@
 		continue_if_invalid = no
 		completion_reward = {
 			add_command_power = 50
+			add_war_support = 0.1
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			add_ideas = USA_intervention_in_europe
 		}
 	}
@@ -3742,6 +3971,7 @@
 		icon = GFX_focus_attack_japan
 		will_lead_to_war_with = JAP
 		prerequisite = { focus = chaos_USA_war_plans_division }
+		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_INDUSTRY }
 		continue_if_invalid = yes
 		available_if_capitulated = yes
 		x = 0
@@ -3749,11 +3979,15 @@
 		relative_position_id = chaos_USA_war_plans_division
 		cost = 10
 		completion_reward = {
-			add_threat = 2
+			add_threat = 1
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			create_wargoal = {
 				type = annex_everything
 				target = JAP
 			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			random_core_state = {
 				set_temp_variable = { countc = 1 }
 				set_temp_variable = { countm = 1 }
@@ -3766,6 +4000,7 @@
 		icon = GFX_focus_attack_britain
 		will_lead_to_war_with = ENG
 		prerequisite = { focus = chaos_USA_war_plan_orange }
+		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_INDUSTRY }
 		available = {
 		}
 		x = 0
@@ -3774,11 +4009,15 @@
 		cost = 10
 		available_if_capitulated = yes
 		completion_reward = {
-			add_threat = 2
+			add_threat = 1
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			create_wargoal = {
 				type = annex_everything
 				target = ENG
 			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			random_core_state = {
 				set_temp_variable = { countc = 1 }
 				set_temp_variable = { countm = 1 }
@@ -3792,6 +4031,7 @@
 	focus = {
 		id = chaos_CHI_three_principles_of_the_people
 		icon = GFX_goal_generic_national_unity
+		search_filters = { FOCUS_FILTER_POLITICAL }
 		x = 37
 		y = 5
 		cost = 5
@@ -3813,6 +4053,7 @@
 		id = chaos_CHI_democracy
 		icon = GFX_goal_support_democracy
 		prerequisite = { focus = chaos_CHI_three_principles_of_the_people }
+		search_filters = { FOCUS_FILTER_POLITICAL }
 		x = 0
 		y = 1
 		relative_position_id = chaos_CHI_three_principles_of_the_people
@@ -3839,6 +4080,7 @@
 		id = chaos_CHI_constitutional_reform
 		icon = GFX_goal_generic_forceful_treaty
 		prerequisite = { focus = chaos_CHI_democracy }
+		search_filters = {FOCUS_FILTER_STABILITY FOCUS_FILTER_WAR_SUPPORT}
 		x = -1
 		y = 1
 		relative_position_id = chaos_CHI_democracy
@@ -3892,6 +4134,7 @@
 		id = chaos_CHI_republicanism
 		icon = GFX_goal_generic_propaganda
 		prerequisite = { focus = chaos_CHI_constitutional_reform }
+		search_filters = { FOCUS_FILTER_POLITICAL }
 		x = -1
 		y = 1
 		relative_position_id = chaos_CHI_constitutional_reform
@@ -3919,6 +4162,7 @@
 		icon = GFX_goal_generic_major_alliance
 		prerequisite = { focus = chaos_CHI_constitutional_reform }
 		prerequisite = { focus = chaos_CHI_executive_yuan }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INDUSTRY }
 		x = 1
 		y = 1
 		relative_position_id = chaos_CHI_constitutional_reform
@@ -3940,12 +4184,14 @@
 		cancel_if_invalid = yes
 		continue_if_invalid = no
 		completion_reward = {
+			add_popularity = { ideology = democratic popularity = 0.15 }
+			custom_effect_tooltip = generic_skip_one_line_tt
 			set_politics = {
 				ruling_party = democratic
 				elections_allowed = yes
 				election_frequency = 36
 			}
-			add_popularity = { ideology = democratic popularity = 0.15 }
+			custom_effect_tooltip = generic_skip_one_line_tt
 			add_ideas = CHI_inter_party_coordination_council
 			add_ideas = chaos_stable_economy
 		}
@@ -3954,6 +4200,7 @@
 		id = chaos_CHI_judicial_yuan
 		icon = GFX_goal_generic_defence
 		prerequisite = { focus = chaos_CHI_executive_yuan }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
 		x = 1
 		y = 1
 		relative_position_id = chaos_CHI_executive_yuan
@@ -3967,7 +4214,6 @@
 		}
 		cancel_if_invalid = yes
 		continue_if_invalid = no
-		search_filters = { FOCUS_FILTER_STABILITY }
 		completion_reward = {
 			set_temp_variable = { support = ROOT.party_popularity_100@democratic }
 			divide_temp_variable = { support = 10 }
@@ -3982,6 +4228,7 @@
 		id = chaos_CHI_invite_foreign_investors 
 		icon = GFX_focus_generic_concessions
 		prerequisite = { focus = chaos_CHI_three_principles_of_the_people }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
 		x = 4
 		y = 1
 		relative_position_id = chaos_CHI_three_principles_of_the_people
@@ -4058,6 +4305,7 @@
 		id = chaos_CHI_one_china_policy
 		icon = GFX_focus_chi_one_china_policy
 		prerequisite = { focus = chaos_CHI_experimental_mechanised_unit }
+		search_filters = { FOCUS_FILTER_ANNEXATION }
 		x = 0
 		y = 1
 		relative_position_id = chaos_CHI_experimental_mechanised_unit
@@ -4095,6 +4343,13 @@
 					}
 				}
 			}
+			random_state = {
+				limit = {
+					is_core_of = CHI
+					check_variable = { var:THIS.state_population_k > 2500 }
+				}
+				add_core_of = ROOT
+			}
 		}
 	}
 
@@ -4102,21 +4357,22 @@
 	focus = {
 		id = chaos_PER_restructure_army
 		icon = GFX_focus_PER_restructure_army
-		x = 50
+		x = 39
 		y = 0
 		cost = 5
 
 		ai_will_do = {
-			factor = 1
+			factor = 2
 		}
 
 		search_filters = {
-			FOCUS_FILTER_ARMY_XP FOCUS_FILTER_INDUSTRY
+			FOCUS_FILTER_ARMY_XP FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY
 		}
 
 		completion_reward = {
 
 			army_experience = 25
+			add_stability = 0.01
 
 			custom_effect_tooltip = CHL_skip_one_line_tt
 
@@ -4204,6 +4460,7 @@
 
 		search_filters = {
 			FOCUS_FILTER_ARMY_XP
+			FOCUS_FILTER_MANPOWER
 		}
 
 		completion_reward = {
@@ -4231,7 +4488,7 @@
 		}
 
 		search_filters = {
-			FOCUS_FILTER_STABILITY
+			
 		}
 
 		completion_reward = {
@@ -4253,8 +4510,6 @@
 				else = {
 					add_stability = 0.05
 				}
-				PER_teymur_bakhtiar_operative = yes
-				PER_hassan_pakravan_operative = yes	
 			}
 			else = {
 				add_ideas = PER_savak_idea_no_lar
@@ -4293,7 +4548,7 @@
 		}
 
 		search_filters = {
-			FOCUS_FILTER_INDUSTRY
+			
 		}
 
 		completion_reward = {
@@ -4304,7 +4559,7 @@
 	 			}
 				add_building_construction = {
 					type = bunker
-					level = 2
+					level = 3
 					province = {
 						all_provinces = yes
 						limit_to_victory_point > 2
@@ -4340,14 +4595,326 @@
 			factor = 20
 		}
 
-		search_filters = {
-			FOCUS_FILTER_POLITICAL_CHARACTER
-		}
+		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_WAR_SUPPORT}
 
 		completion_reward = {
 			add_country_leader_trait = PER_savior_of_iran
 		}
 	}
+
+
+	### NETHERLANDS ###
+	focus = {
+		id = chaos_HOL_finish_the_noordoostpolder
+		available = {
+		}
+		bypass = {
+		}
+		icon = GFX_goal_generic_construction2
+		x = 23
+		y = 9
+		cost = 5
+
+		available_if_capitulated = yes
+		search_filters = {FOCUS_FILTER_INDUSTRY}
+		completion_reward = {
+			random_core_state = {
+				add_extra_state_shared_building_slots = 2
+				create_infrastructure = yes
+			}
+		}
+	}
+
+	focus = {
+		id = chaos_HOL_oranje_boven
+		prerequisite = { focus = chaos_HOL_finish_the_noordoostpolder }
+		available = {
+			
+		}
+		icon = GFX_focus_hol_oranje_boven
+		x = -3
+		y = 1
+		relative_position_id = chaos_HOL_finish_the_noordoostpolder
+		cost = 10
+
+		available_if_capitulated = yes
+		search_filters = {FOCUS_FILTER_POLITICAL}
+		completion_reward = {
+			add_ideas = HOL_oranje_boven_2
+		}
+	}
+
+	focus = {
+		id = chaos_HOL_depillarization
+		prerequisite = { focus = chaos_HOL_oranje_boven }
+		icon = GFX_goal_generic_national_unity
+		x = 0
+		y = 1
+		relative_position_id = chaos_HOL_oranje_boven
+		cost = 10
+
+		available = {
+			neutrality > 0.1
+		}
+
+		available_if_capitulated = yes
+		search_filters = {FOCUS_FILTER_STABILITY FOCUS_FILTER_MANPOWER FOCUS_FILTER_POLITICAL}
+		completion_reward = {
+			add_stability = 0.1
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.05
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			add_ideas = HOL_depillarization
+		}
+	}
+
+	focus = {
+		id = chaos_HOL_royal_arms_purchases
+		available = {
+			neutrality > 0.35
+		}
+		prerequisite = { focus = chaos_HOL_depillarization }
+		icon = GFX_goal_generic_construct_mil_factory
+		x = 0
+		y = 1
+		relative_position_id = chaos_HOL_depillarization
+		cost = 10
+
+		available_if_capitulated = yes
+		search_filters = {FOCUS_FILTER_INDUSTRY}
+		completion_reward = {
+			add_offsite_building = { type = arms_factory level = 3 }
+		}
+	}
+
+	focus = {
+		id = chaos_HOL_further_reinforce_the_ports
+		available = {
+			OR = {
+				threat > 0.1
+				has_war = yes
+			}
+		}
+		bypass = {
+		}
+		prerequisite = { focus = chaos_HOL_finish_the_noordoostpolder }
+		search_filters = {FOCUS_FILTER_WAR_SUPPORT}
+		icon = GFX_focus_generic_coastal_fort
+		x = 0
+		y = 1
+		relative_position_id = chaos_HOL_finish_the_noordoostpolder
+		cost = 5
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_war_support = 0.04
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			every_owned_state = {
+				limit = {
+					is_coastal = yes
+				}
+				add_building_construction = {
+					type = coastal_bunker
+					level = 1
+					province = {
+						limit_to_naval_base = yes
+					}
+				}
+			}
+			random_owned_state = {
+				limit = {
+					is_coastal = yes
+				}
+				add_building_construction = {
+					type = coastal_bunker
+					level = 1
+					province = {
+						limit_to_coastal = yes
+					}
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = chaos_HOL_appoint_new_supreme_commander
+		prerequisite = { focus = chaos_HOL_further_reinforce_the_ports }
+		icon = GFX_focus_generic_military_mission
+		x = 0
+		y = 1
+		relative_position_id = chaos_HOL_further_reinforce_the_ports
+		cost = 10
+
+		available_if_capitulated = yes
+		search_filters = {FOCUS_FILTER_RESEARCH FOCUS_FILTER_ARMY_XP FOCUS_FILTER_POLITICAL}
+		completion_reward = {
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.05
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			army_experience = 10
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			add_doctrine_cost_reduction = {
+				name = HOL_appoint_new_supreme_commander
+				cost_reduction = 0.5
+				uses = 2
+				category = land_doctrine
+			}
+			add_tech_bonus = {
+				name = HOL_light_tanks_for_the_colonies
+				bonus = 1.0
+				uses = 1
+				category = cat_light_armor
+			}
+		}
+	}
+
+	focus = {
+		id = chaos_HOL_philips_focus
+		prerequisite = { focus = chaos_HOL_finish_the_noordoostpolder }
+		icon = GFX_focus_hol_philips
+		x = 3
+		y = 1
+		relative_position_id = chaos_HOL_finish_the_noordoostpolder
+		cost = 10
+
+		available_if_capitulated = yes
+		search_filters = {FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY}
+		completion_reward = {
+			random_core_state = {
+				create_infrastructure = yes
+			}
+			random_core_state = {
+				create_infrastructure = yes
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			add_tech_bonus = {
+				name = HOL_philips_focus
+				bonus = 1.0
+				uses = 1
+				category = electronics
+			}
+			add_tech_bonus = {
+				name = HOL_philips_focus
+				bonus = 1.0
+				ahead_reduction = 2
+				uses = 1
+				category = electronics
+			}
+		}
+	}
+
+	focus = {
+		id = chaos_HOL_expand_the_ijmuiden_steel_mill
+		available = {
+			any_owned_state = {
+				infrastructure > 2
+			}
+		}
+		prerequisite = { focus = chaos_HOL_philips_focus }
+		icon = GFX_focus_generic_steel
+		x = 0
+		y = 1
+		relative_position_id = chaos_HOL_philips_focus
+		cost = 10
+
+		available_if_capitulated = yes
+		search_filters = {FOCUS_FILTER_INDUSTRY}
+		completion_reward = {
+			random_owned_state = {
+				limit = {
+					infrastructure > 2
+				}
+				add_resource = {
+					type = steel
+					amount = 16
+				}
+				if = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							size > 1
+							include_locked = yes
+						}
+					}
+					set_temp_variable = { count = 2 }
+					create_civs = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = chaos_HOL_the_only_man_in_the_dutch_government
+		available = {
+			neutrality > 0.5
+		}
+		prerequisite = { focus = chaos_HOL_depillarization focus = chaos_HOL_appoint_new_supreme_commander focus = chaos_HOL_expand_the_ijmuiden_steel_mill }
+		icon = GFX_focus_hol_the_only_man_in_the_dutch_government
+		x = 3
+		y = 1
+		relative_position_id = chaos_HOL_depillarization
+		cost = 10
+
+		available_if_capitulated = yes
+		search_filters = {FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL FOCUS_FILTER_WAR_SUPPORT}
+		completion_reward = {
+			set_politics = { ruling_party = neutrality elections_allowed = no }
+			custom_effect_tooltip = generic_skip_one_line_tt
+			add_country_leader_trait = wilhelmina
+			add_country_leader_trait = queen_of_the_people
+			add_country_leader_trait = disdain_for_politicians_1
+		}
+	}
+
+	focus = {
+		id = chaos_HOL_the_zuiderzee_works
+		available = {
+		}
+		prerequisite = { focus = chaos_HOL_the_only_man_in_the_dutch_government }
+		icon = GFX_focus_hol_the_zuiderzee_works
+		x = 0
+		y = 1
+		relative_position_id = chaos_HOL_the_only_man_in_the_dutch_government
+		cost = 10
+
+		available_if_capitulated = yes
+		search_filters = {FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY}
+		completion_reward = {
+			add_tech_bonus = {
+				name = HOL_the_zuiderzee_works
+				bonus = 1.0
+				ahead_reduction = 2
+				uses = 2
+				category = industry
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			set_temp_variable = { count = 1 }
+			random_controlled_state = {
+				add_extra_state_shared_building_slots = 1
+				create_infrastructure = yes
+			}
+			random_controlled_state = {
+				add_extra_state_shared_building_slots = 4
+				create_infrastructure = yes
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			add_timed_idea = { idea = HOL_zuiderzee_infrastructure_advancements days = 365 }
+			add_timed_idea = { idea = HOL_zuiderzee_industrial_advancements days = 365 }
+			hidden_effect = { news_event = { id = mtg_news.47 days = 1 } }
+		}
+	}
+
+
 
 
 	### CHAOS ###

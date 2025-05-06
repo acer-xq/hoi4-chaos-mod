@@ -16,4 +16,24 @@ leader_traits = {
             factor = 0
         }
 	}
+
+	chaos_adapting = {
+		type = corps_commander
+		trait_type = status_trait
+
+		corps_commander_modifier = {
+			terrain_trait_xp_gain_factor = 2
+		}
+
+		new_commander_weight = {
+			factor = 0
+		}
+	}
+
+	chaos_internal = {
+		type = corps_commander
+		trait_type = status_trait
+
+		new_commander_weight = { factor = 0 }
+	}
 }

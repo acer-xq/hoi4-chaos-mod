@@ -8,6 +8,15 @@ country_event = {
 	is_triggered_only = yes
 	option = {
 		name = chaos.999.a
+
+		every_country = {
+			remove_ideas = {
+				chaos_famine_1
+				chaos_famine_2
+				chaos_famine_3
+			}
+			clr_country_flag = famine_spread
+		}
 	}
 }
 
@@ -556,9 +565,10 @@ country_event = {
 		trigger = {
 			NOT = {
 				tag = ENG
+				has_war_with = ENG
 			}
 		}
-		ai_chance = { factor = 1 }
+		ai_chance = { factor = 10 }
 		set_temp_variable = { pp_min = -400 }
 		set_temp_variable = { pp_max = -75 }
 		add_random_political_power = yes
@@ -583,6 +593,14 @@ country_event = {
 		}
 		ai_chance = { factor = 1 }
 		add_political_power = 15
+	}
+	option = {
+		name = chaos.16.e
+		trigger = {
+			NOT = { tag = ENG }
+			has_war_with = ENG
+		}
+		add_war_support = 0.1
 	}
 }
 
@@ -808,7 +826,7 @@ country_event = {
 		name = chaos.23.a
 		ai_chance = { factor = 1 }
 		add_timed_idea = {
-			idea = RAJ_famine
+			idea = chaos_famine_1
 			days = 75
 		}
 	}
@@ -4599,18 +4617,18 @@ country_event = {
 		}
 		effect_tooltip = {
 			every_country = {
-				limit = { num_of_factories > 30 is_ai = yes }
+				limit = { num_of_factories > 20 is_ai = yes }
 				custom_effect_tooltip = "Add AI strategy: send_volunteers_desire"
 			}
 		}
 		hidden_effect = {
 			every_country = {
 				limit = {
-					num_of_factories > 30
+					num_of_factories > 20
 					is_ai = yes
 				}
 				every_country = { 
-					add_ai_strategy = { type = send_volunteers_desire id = PREV value = 25 }
+					add_ai_strategy = { type = send_volunteers_desire id = PREV value = 50 }
 				}
 			}
 		}
@@ -4646,7 +4664,7 @@ country_event = {
 
 	option = {
 		name = chaos.126.b
-		ai_chance = { factor = 1 }
+		ai_chance = { factor = 2 }
 		add_command_power = -50
 		add_political_power = -100
 		add_timed_idea = {
@@ -5886,72 +5904,12 @@ country_event = {
 			AND = {
 				country_exists = CAN
 				country_exists = USA
+				USA = { is_ai = yes }
 			}
 		}
 		ai_chance = { factor = 1 }
 		
-		hidden_effect = {
-			629 = { add_core_of = USA }
-			463 = { add_core_of = USA }
-		}
-
-		USA = {
-			every_core_state = {
-				CAN = { transfer_state = PREV }
-				add_core_of = CAN
-			}
-			hidden_effect = {
-				transfer_units_fraction= {
-					target = CAN
-					size = 1.0
-					stockpile_ratio = 1.0
-					army_ratio = 1.0
-					navy_ratio = 1.0
-					air_ratio = 1.0
-					keep_unit_leaders_trigger = {
-						always = yes
-					}
-				}
-			}
-		}
-
-			
-
-		CAN = {			
-			if = {
-				limit = {
-					NOT = { owns_state = 332 }
-					NOT = { owns_state = 331 }
-				}
-				transfer_state = 332
-				transfer_state = 331
-			}
-
-			add_ideas = {
-				chaos_dominion_na
-			}
-
-			hidden_effect = {
-				drop_cosmetic_tag = yes
-				set_cosmetic_tag = CAN_north_america_dominion
-
-				remove_ideas = {
-					CAN_great_depression_1
-					CAN_great_depression_2
-					CAN_conscription_crisis
-					CAN_conscription_crisis_mended
-				}
-				annex_country = {
-					target = USA
-					transfer_troops = yes
-				}
-			}
-		}
-
-
-		hidden_effect = {
-			CAN = { set_cosmetic_tag = CAN_north_america_dominion }
-		}
+		form_dominion_north_america = yes
 	}
 	option = {
 		name = chaos.142.b
@@ -5978,26 +5936,23 @@ country_event = {
 		}
 	}
 	option = {
-		name = chaos.142.b
+		name = chaos.142.c
 		trigger = {
-			AND = {
-				country_exists = USA
-				NOT = {
-					country_exists = CAN
-				}
+			OR = {
+				NOT = { country_exists = CAN }
+				USA = { NOT = { is_ai = yes } }
 			}
 		}
 		ai_chance = { factor = 1 }
 	}
 	option = {
-		name = chaos.142.b
+		name = chaos.142.e
 		trigger = {
-			AND = {
-				NOT = { country_exists = USA }
-				NOT = { country_exists = CAN }
-			}
+			country_exists = CAN
+			USA = { NOT = { is_ai = yes } }
+			tag = USA
 		}
-		ai_chance = { factor = 1 }
+		CAN = { change_tag_from = USA }
 	}
 }
 
@@ -6932,7 +6887,7 @@ country_event = {
 		name = chaos.149.a
 		ai_chance = { factor = 1 }
 		
-		random_unit_leader = {
+		random_army_leader = {
 			add_trait = {
 				trait = chaos_big_army
 			}
@@ -8785,7 +8740,13 @@ country_event = {
 			support = {}
 		}
 		set_temp_variable = { iters = 1 }
-		spawn_chaos_divisions = yes
+		random_owned_controlled_state = {
+			limit = { PREV = { has_full_control_of_state = PREV } }
+			create_unit = {
+				division = "name = \"Illegal Division\" division_template = \"Illegal Division\" start_experience_factor = 0.3" 
+				owner = PREV
+			}
+		}
 	}
 }
 
@@ -10206,6 +10167,11 @@ country_event = {
 
 	is_triggered_only = yes
 	option = {
+		trigger = {
+			any_army_leader = {
+				is_assigned = yes
+			}
+		}
 		name = chaos.222.a	
 		random_army_leader = {
 			limit = {
@@ -10214,7 +10180,207 @@ country_event = {
 			supply_units = 120
 		}
 	}
+	option = {
+		trigger = {
+			NOT = {
+				any_army_leader = {
+					is_assigned = yes
+				}
+			}
+		}
+		name = chaos.222.b
+		add_command_power = 15
+	}
 }
 
-# executing all raids at once
-# per albin bus but for everyone
+# devil deal 7 +building slots -xp
+country_event = {
+	id = chaos.223
+	title = chaos.128.t
+	desc = chaos.128.d
+
+	is_triggered_only = yes
+	option = {
+		name = chaos.223.a
+		trigger = {
+			NOT = {
+				has_idea = chaos_devil_7
+			}
+		}
+		add_ideas = chaos_devil_7
+	}
+	option = {
+		name = chaos.223.b
+		add_manpower = -1000
+	}
+}
+
+# devil deal 8
+country_event = {
+	id = chaos.224
+	title = chaos.128.t
+	desc = chaos.128.d
+
+	is_triggered_only = yes
+	option = {
+		name = chaos.224.a
+		trigger = {
+			NOT = {
+				has_idea = chaos_devil_8
+			}
+		}
+		add_ideas = chaos_devil_8
+		hidden_effect = {
+			set_variable = { chaos_devil_8_bonus = 0.005 }
+			add_dynamic_modifier = { modifier = chaos_devil_8_bonus_idea }
+		}
+	}
+	option = {
+		name = chaos.224.b
+		add_manpower = -1000
+	}
+}
+
+# a general gains adapting
+country_event = {
+	id = chaos.225
+	title = chaos.225.t
+	desc = chaos.225.d
+
+	is_triggered_only = yes
+	option = {
+		name = chaos.225.a
+		random_army_leader = {
+			add_trait = {
+				trait = chaos_adapting
+			}
+		}
+	}
+}
+
+# ww1 sim
+country_event = {
+	id = chaos.226
+	title = chaos.226.t
+	desc = chaos.226.d
+
+	is_triggered_only = yes
+	option = {
+		name = chaos.226.a
+		#add_ideas = { chaos_test }
+		every_state = {
+			add_dynamic_modifier = {
+				modifier = chaos_ww1
+				days = 70
+			}
+		}
+	}
+}
+
+# speeeeeeed
+country_event = {
+	id = chaos.227
+	title = chaos.227.t
+	desc = chaos.227.d
+
+	is_triggered_only = yes
+	option = {
+		name = chaos.227.a
+		division_template = {
+			name = "Chaos Division"
+			priority = 1
+			division_names_group = POL_INF_01
+			regiments = {
+				fighter = { x = 0 y = 0 }
+			}
+			support = {
+				engineer = { x = 0 y = 0 }
+			}
+		}
+		set_temp_variable = { iters = 1 }
+		spawn_chaos_divisions = yes
+	}
+}
+
+#fake intel div
+country_event = {
+	id = chaos.228
+	title = chaos.228.t
+	desc = chaos.228.d
+
+	is_triggered_only = yes
+	option = {
+		name = chaos.228.a
+		division_template = {
+			name = "Chaos Division"
+			priority = 1
+			division_names_group = POL_INF_01
+			regiments = {
+				fake_intel_unit = { x = 0 y = 0 }
+				fake_intel_unit = { x = 0 y = 1 }
+				fake_intel_unit = { x = 0 y = 2 }
+				fake_intel_unit = { x = 1 y = 0 }
+				fake_intel_unit = { x = 1 y = 1 }
+				fake_intel_unit = { x = 1 y = 2 }
+				fake_intel_unit = { x = 2 y = 0 }
+				fake_intel_unit = { x = 2 y = 1 }
+				fake_intel_unit = { x = 2 y = 2 }
+				fake_intel_unit = { x = 3 y = 0 }
+				fake_intel_unit = { x = 3 y = 1 }
+				fake_intel_unit = { x = 3 y = 2 }
+			}
+			support = {
+				engineer = { x = 0 y = 0 }
+			}
+		}
+		set_temp_variable = { iters = 8 }
+		spawn_chaos_divisions = yes
+	}
+}
+
+#this isnt a railway gun
+country_event = {
+	id = chaos.229
+	title = chaos.229.t
+	desc = chaos.229.d
+
+	is_triggered_only = yes
+	option = {
+		name = chaos.229.a
+		division_template = {
+			name = "Chaos Division"
+			priority = 1
+			division_names_group = POL_INF_01
+			regiments = {
+				railway_gun = { x = 0 y = 0 }
+			}
+			support = {
+				engineer = { x = 0 y = 0 }
+			}
+		}
+		set_temp_variable = { iters = 1 }
+		spawn_chaos_divisions = yes
+	}
+}
+
+#hjalmar shacht bamboozles us
+country_event = {
+	id = chaos.230
+	title = chaos.230.t
+	desc = chaos.230.d
+
+	is_triggered_only = yes
+	option = {
+		name = chaos.230.a
+		add_stability = -0.05
+		random_owned_state = {
+			limit = {
+				industrial_complex > 0	
+			}
+			remove_building = {
+				type = industrial_complex
+				level = 1
+			}
+		}
+	}
+}
