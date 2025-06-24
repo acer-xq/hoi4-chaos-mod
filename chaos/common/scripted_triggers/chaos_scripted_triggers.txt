@@ -16,11 +16,14 @@ is_owned_by_player = {
 	}
 }
 
-is_owned_by_player_or_subject = {
+is_not_owned_by_player_or_subject = {
 	OWNER = {
-		OR = {
-			is_ai = no
-			OVERLORD = { is_ai = no }
+		is_ai = yes
+		if = {
+			limit = {
+				is_subject = yes
+			}
+			OVERLORD = { is_ai = yes }
 		}
 	}
 }

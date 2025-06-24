@@ -9,6 +9,7 @@ add_ideas = {
 	disarmed_nation
 	undisturbed_isolation
 	closed_economy
+	chaos_unc
 }
 
 
@@ -36,11 +37,3 @@ set_rule = {
 country_lock_all_division_template = yes
 recruit_character = dummy
 recruit_character = dummy2
-recruit_character = dummy3
-recruit_character = dummy4
-recruit_character = dummy5
-recruit_character = dummy6
-recruit_character = dummy7
-recruit_character = dummy8
-recruit_character = dummy9
-recruit_character = dummy10

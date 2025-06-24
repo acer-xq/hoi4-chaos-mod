@@ -76,18 +76,18 @@ guiTypes = {
 			format = center
 		}
 		buttonType = {
-			name = "chaos_player_countries_disable"
+			name = "chaos_major_countries_enable"
 			position = { x = 50 y = 122 }
 			spriteType = "GFX_chaos_button3"
-			pdx_tooltip = "chaos.chaos_player_countries_disable_tt"
+			pdx_tooltip = "chaos.chaos_major_countries_enable_tt"
 			scale = 0.95
 		}
 		instantTextboxType = {
-			name = "chaos_player_countries_disable_text"
+			name = "chaos_major_countries_enable_text"
 			alwaystransparent = yes
 			position = { x = 60 y = 129 }
 			font = "hoi_18mbs"
-			text = "chaos.chaos_player_countries_disable_text"
+			text = "chaos.chaos_major_countries_enable_text"
 			maxWidth = 190
 			maxHeight = 23
 			format = center
@@ -133,8 +133,8 @@ guiTypes = {
 	#country specific window
 	containerWindowType = {
 		name = "chaos_window_country"
-		position = { x = -600 y = 280 }
-		size = { width = 300 height = 266 }
+		position = { x = -650 y = 280 }
+		size = { width = 400 height = 176 }
 		orientation = UPPER_RIGHT
 		origo = upper_left
 		
@@ -148,18 +148,30 @@ guiTypes = {
 			position = { x = 0 y = 20 }
 			font = "hoi_24header"
 			text = "chaos.country_name"
-			maxWidth = 300
+			maxWidth = 400
 			maxHeight = 30
 			format = center
+		}
+
+		# last effect title
+		instantTextboxType = {
+			name = "chaos_last_effect_text"
+			position = { x = 0 y = 50 }
+			font = "hoi_20bs"
+			text = "chaos.last_effect"
+			maxWidth = 400
+			maxHeight = 23
+			format = center
+			pdx_tooltip = "chaos.last_effect_tt"
 		}
 
 		# next event in days
 		instantTextboxType = {
 			name = "chaos_next_event_text"
-			position = { x = 0 y = 50 }
+			position = { x = 0 y = 80 }
 			font = "hoi_20bs"
 			text = "chaos.next_event_tt"
-			maxWidth = 300
+			maxWidth = 400
 			maxHeight = 23
 			format = center
 		}
@@ -167,10 +179,10 @@ guiTypes = {
 		#enabled for country controls
 		instantTextboxType = {
 			name = "chaos_country_enabled_text"
-			position = { x = 20 y = 82 }
+			position = { x = 50 y = 112 }
 			font = "hoi_18mbs"
 			text = "chaos.enabled_for_text"
-			maxWidth = 150
+			maxWidth = 200
 			maxHeight = 23
 			format = center
 			pdx_tooltip = "chaos.enabled_for_text_tt"
@@ -179,7 +191,7 @@ guiTypes = {
 			name = "chaos_country_enabled_checkbox_on"
 			spriteType = "GFX_generic_checkbox2"
 			frame = 2
-			position = { x = 200 y = 82 }
+			position = { x = 270 y = 112 }
 			pdx_tooltip = "chaos.enabled_for_text_tt"
 			scale = 1
 		}
@@ -187,34 +199,39 @@ guiTypes = {
 			name = "chaos_country_enabled_checkbox_off"
 			spriteType = "GFX_generic_checkbox2"
 			frame = 1
-			position = { x = 200 y = 82 }
+			position = { x = 270 y = 112 }
 			pdx_tooltip = "chaos.enabled_for_text_tt"
 			scale = 1
 		}
+	}
 
-		# trigger effect button
-		buttonType = {
-			name = "chaos_trigger_effect"
-			position = { x = 50 y = 132 }
-			spriteType = "GFX_chaos_button3"
-			pdx_tooltip = "chaos.chaos_trigger_effect_tt"
-			scale = 0.95
+	containerWindowType = {
+		name = "chaos_window_country_2"
+		position = { x = -650 y = 460 }
+		size = { width = 400 height = 160 }
+		orientation = UPPER_RIGHT
+		origo = upper_left
+		
+		background = {
+			name = "Background"
+			spriteType = "GFX_tiled_bg"
 		}
+
 		instantTextboxType = {
-			name = "chaos_trigger_effect_text"
-			alwaystransparent = yes
-			position = { x = 60 y = 139 }
+			name = "chaos_effect_select_effect_title"
+			position = { x = 0 y = 20 }
 			font = "hoi_18mbs"
-			text = "chaos.chaos_trigger_effect_text"
-			maxWidth = 190
-			maxHeight = 23
+			text = "chaos.chaos_trigger_effect_effect_title"
+			maxWidth = 400
+			maxHeight = 40
 			format = center
+			pdx_tooltip = "chaos.chaos_trigger_effect_effect_title_tt"
 		}
 
 		# trigger effect select
 		instantTextboxType = {
 			name = "chaos_effect_select_text"
-			position = { x = 20 y = 175 }
+			position = { x = 70 y = 45 }
 			font = "hoi_18mbs"
 			text = "chaos.effect_select_text"
 			maxWidth = 120
@@ -224,14 +241,14 @@ guiTypes = {
 		}
 		buttonType = {
 			name = "chaos_effect_select_decrease"
-			position = { x = 170 y = 171 }
+			position = { x = 220 y = 41 }
 			spriteType = "GFX_subtract_one"
 			pdx_tooltip = "chaos.decrease_max_tt"
 			scale = 1
 		}
 		instantTextboxType = {
 			name = "chaos_effect_select_value"
-			position = { x = 200 y = 173 }
+			position = { x = 250 y = 44 }
 			font = "hoi_18mbs"
 			text = "[?global.CHAOS_UI_SELECTED_EFFECT_ID]"
 			maxWidth = 38
@@ -240,20 +257,41 @@ guiTypes = {
 		}
 		buttonType = {
 			name = "chaos_effect_select_increase"
-			position = { x = 245 y = 171 }
+			position = { x = 295 y = 41 }
 			spriteType = "GFX_add_one"
 			pdx_tooltip = "chaos.increase_max_tt"
 			scale = 1
 		}
+
+		# trigger effect button
+		buttonType = {
+			name = "chaos_trigger_effect"
+			position = { x = 100 y = 72 }
+			spriteType = "GFX_chaos_button3"
+			pdx_tooltip = "chaos.chaos_trigger_effect_tt"
+			scale = 0.95
+		}
 		instantTextboxType = {
-			name = "chaos_effect_select_effect_title"
-			position = { x = 40 y = 206 }
+			name = "chaos_trigger_effect_text"
+			alwaystransparent = yes
+			position = { x = 110 y = 79 }
 			font = "hoi_18mbs"
-			text = "chaos.chaos_trigger_effect_effect_title"
-			maxWidth = 220
-			maxHeight = 40
+			text = "chaos.chaos_trigger_effect_text"
+			maxWidth = 190
+			maxHeight = 23
 			format = center
-			pdx_tooltip = "chaos.chaos_trigger_effect_effect_title_tt"
+		}
+
+
+		instantTextboxType = {
+			name = "chaos_scenario_text"
+			alwaystransparent = yes
+			position = { x = 50 y = 109 }
+			font = "hoi_16mbs"
+			text = "chaos.chaos_scenario_text"
+			maxWidth = 300
+			maxHeight = 23
+			format = center
 		}
 	}
 }

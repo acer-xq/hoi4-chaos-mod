@@ -1,0 +1,5 @@
+leader_traits = {
+    chaos_internal = {
+        random = no
+    }
+}

@@ -1,0 +1,143 @@
+add_namespace = chaos_internal.chaos
+add_namespace = chaos_internal.ragnarok
+
+country_event = {
+    id = chaos_internal.ragnarok.1
+    title = chaos_internal.ragnarok.1.t
+    desc = chaos_internal.ragnarok.1.d
+
+	is_triggered_only = yes
+    # few buffs
+
+        # many buffs
+    option = {
+        name = chaos_internal.ragnarok.1.a
+        add_to_temp_array = { e = 20 } #leader trait
+        add_to_temp_array = { e = 21 } #mao sends us material
+        add_to_temp_array = { e = 49 } #country never been better
+        add_to_temp_array = { e = 69 } #choose national spirit
+        add_to_temp_array = { e = 79 } #generals are brilliant
+        add_to_temp_array = { e = 91 } #additional manpower
+        add_to_temp_array = { e = 92 } #free divisions
+        add_to_temp_array = { e = 93 } #defensive war
+        add_to_temp_array = { e = 138 } #acquire resources
+        add_to_temp_array = { e = 149 } #command genius
+        add_to_temp_array = { e = 157 } #chaos bonus
+        add_to_temp_array = { e = 168 } #increase economy law
+        add_to_temp_array = { e = 169 } #chaos focus tree
+        add_to_temp_array = { e = 191 } #illegal division
+        add_to_temp_array = { e = 198 } #random divisions
+        add_to_temp_array = { e = 201 } #random mio size
+        add_to_temp_array = { e = 203 } #operative slot
+        add_to_temp_array = { e = 216 } #random national spirit
+        add_to_temp_array = { e = 217 } #gain stability
+        add_to_temp_array = { e = 225 } #general adapting
+        add_to_temp_array = { e = 241 } #steel refineries
+        add_to_temp_array = { e = 244 } #civs give tungsten
+        specific_chaos_events = yes
+
+        hidden_effect = {
+            country_event = {
+                id = chaos_internal.ragnarok.2
+                days = 70
+            }
+        }
+    }
+
+    # some buffs
+    option = {
+        name = chaos_internal.ragnarok.1.b
+        add_to_temp_array = { e = 21 } #mao sends us material
+        add_to_temp_array = { e = 49 } #country never been better
+        add_to_temp_array = { e = 69 } #choose national spirit
+        add_to_temp_array = { e = 79 } #generals are brilliant
+        add_to_temp_array = { e = 91 } #additional manpower
+        add_to_temp_array = { e = 93 } #defensive war
+        add_to_temp_array = { e = 138 } #acquire resources
+        add_to_temp_array = { e = 157 } #chaos bonus
+        add_to_temp_array = { e = 168 } #increase economy law
+        add_to_temp_array = { e = 169 } #chaos focus tree
+        add_to_temp_array = { e = 198 } #random divisions
+        add_to_temp_array = { e = 216 } #random national spirit
+        add_to_temp_array = { e = 217 } #gain stability
+        specific_chaos_events = yes
+
+        hidden_effect = {
+            country_event = {
+                id = chaos_internal.ragnarok.2
+                days = 70
+            }
+        }
+    }
+
+    option = {
+        name = chaos_internal.ragnarok.1.c
+        add_to_temp_array = { e = 69 } #choose national spirit
+        add_to_temp_array = { e = 91 } #additional manpower
+        add_to_temp_array = { e = 93 } #defensive war
+        add_to_temp_array = { e = 169 } #chaos focus tree
+        add_to_temp_array = { e = 198 } #random divisions
+        add_to_temp_array = { e = 216 } #random national spirit
+        specific_chaos_events = yes
+
+        hidden_effect = {
+            country_event = {
+                id = chaos_internal.ragnarok.2
+                days = 70
+            }
+        }
+    }
+
+    # debuffs
+    option = {
+        name = chaos_internal.ragnarok.1.e
+        add_to_temp_array = { e = 2 } #economic crisis
+        add_to_temp_array = { e = 23 } #famine
+        add_to_temp_array = { e = 169 } #chaos focus tree
+        add_to_temp_array = { e = 216 } #random national spirit
+        specific_chaos_events = yes
+
+        hidden_effect = {
+            country_event = {
+                id = chaos_internal.ragnarok.2
+                days = 70
+            }
+            country_event = {
+                id = chaos.199
+                days = 72
+            }
+        }
+    }
+}
+
+country_event = {
+    id = chaos_internal.ragnarok.2
+    hidden = yes
+
+	is_triggered_only = yes
+	option = {
+		name = chaos_internal.ragnarok.2.a
+        every_other_country = {
+            limit = {
+                NOT = { is_subject = yes }
+                NOT = { is_ally_with = ROOT }
+            }
+            declare_war_on = {
+                target = ROOT
+                type = annex_everything
+            }
+        }
+	}
+}
+
+country_event = {
+	id = chaos_internal.chaos.118
+	hidden = yes
+
+	is_triggered_only = yes
+	option = {
+		name = chaos_internal.chaos.118.a
+		subtract_from_variable = { var:ROOT.ws = ROOT.has_war_support }
+		add_war_support = var:ROOT.ws
+	}
+}

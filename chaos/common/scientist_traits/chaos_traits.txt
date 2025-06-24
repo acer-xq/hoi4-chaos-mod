@@ -1,0 +1,4 @@
+scientist_trait_dummy = {
+	modifier = {
+	}
+}

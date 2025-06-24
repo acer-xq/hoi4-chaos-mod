@@ -509,13 +509,20 @@
 		available = { }
 
 		ai_will_do = {
-			factor = 1
+			factor = 4
 			modifier = {
-				factor = 5
+				factor = 20
+				date < 1936.6.1
+			}
+			modifier = {
+				factor = 10
+				has_political_power < 0
+			}
+			modifier = {
+				add = 2
 				OR = {
 					has_government = fascism
 					has_government = communism
-					threat > 45
 				}
 			}
 		}
@@ -569,6 +576,10 @@
 		cost = 5
 		ai_will_do = {
 			factor = 1
+			modifier = {
+				is_ally_with = SOV
+				factor = 0
+			}
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
@@ -721,10 +732,12 @@
 					has_government = communism
 					is_on_same_continent_as_PREV = yes
 				}
-				create_wargoal = {
-					type = annex_everything
-					target = THIS
-					expire = 0
+				ROOT = {
+					create_wargoal = {
+						type = annex_everything
+						target = PREV
+						expire = 0
+					}
 				}
 			}
 			custom_effect_tooltip = generic_skip_one_line_tt
@@ -1382,6 +1395,10 @@
 		
 		ai_will_do = {
 			factor = 1
+			modifier = {
+				add = 10
+				amount_research_slots < 4
+			}
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
@@ -1436,13 +1453,7 @@
 		ai_will_do = {
 			factor = 1
 			modifier = {
-				factor = 0
-				all_state = {
-					NOT = { is_coastal = yes }
-				}
-			}
-			modifier = {
-				factor = 0.5
+				factor = 0.1
 				has_navy_size = { size < 1 }
 			}
 		}
@@ -2899,11 +2910,15 @@
 				ruling_party = communism
 				elections_allowed = no
 			}
-
 			custom_effect_tooltip = CHL_skip_one_line_tt
-			remove_ideas = { FRA_entrepeneurship FRA_agricultural_collectivization }
-			custom_effect_tooltip = CHL_skip_one_line_tt
-			add_ideas = chaos_egalite
+			custom_effect_tooltip = chaos_FRA_egalite_tt
+			effect_tooltip = {
+				add_ideas = chaos_egalite_dummy
+			}
+			hidden_effect = {
+				remove_ideas = { FRA_entrepeneurship FRA_agricultural_collectivization }
+				add_ideas = chaos_egalite
+			}
 			
 
 			custom_effect_tooltip = CHL_skip_one_line_tt
@@ -2956,6 +2971,10 @@
 			modifier = {
 				factor = 2
 				date < 1937.1.1
+			}
+			modifier = {
+				factor = 6
+				steel < 1
 			}
 		}
 		cancel_if_invalid = yes
@@ -3524,10 +3543,14 @@
 		y = 5
 		cost = 10
 		ai_will_do = {
-			factor = 3
+			factor = 4
 			modifier = {
-				factor = 8
+				factor = 4
 				has_political_power < 0
+			}
+			modifier = {
+				factor = 10
+				date < 1936.6.1
 			}
 		}
 		available_if_capitulated = yes
@@ -4116,7 +4139,7 @@
 		relative_position_id = chaos_CHI_democracy
 		cost = 10
 		ai_will_do = {
-			factor = 1
+			factor = 4
 		}
 		available = {
 			democratic > 0.4
@@ -4208,8 +4231,16 @@
 		ai_will_do = {
 			factor = 1
 			modifier = {
-				has_stability < 0.5
+				factor = 0
+				democratic < 0.3
+			}
+			modifier = {
 				factor = 5
+				democratic > 0.49
+			}
+			modifier = {
+				factor = 12
+				democratic > 0.79
 			}
 		}
 		cancel_if_invalid = yes
@@ -4294,6 +4325,10 @@
 				capital_scope = {
 					create_unit = {
 						division = "name = \"200. Mechanised Division\" division_template = \"Experimental Mechanised Division\" start_experience_factor = 1.0 force_equipment_variants = { light_tank_equipment_1 = { creator = \"GER\" } }" 
+						owner = ROOT
+					}
+					create_unit = {
+						division = "name = \"201. Mechanised Division\" division_template = \"Experimental Mechanised Division\" start_experience_factor = 1.0 force_equipment_variants = { light_tank_equipment_1 = { creator = \"GER\" } }" 
 						owner = ROOT
 					}
 				}
@@ -4400,7 +4435,11 @@
 		cost = 5
 
 		ai_will_do = {
-			factor = 1
+			factor = 2
+			modifier = {
+				factor = 3
+				ai_has_role_template = armor
+			}
 		}
 
 		completion_reward = {
@@ -4426,7 +4465,7 @@
 		}
 
 		ai_will_do = {
-			factor = 1
+			factor = 2
 		}
 
 		search_filters = {

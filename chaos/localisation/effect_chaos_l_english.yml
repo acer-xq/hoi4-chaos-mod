@@ -2,3 +2,4 @@
  load_random_focus_tree_tt:0 "Load a §4random focus tree§!."
  assign_random_trait_tt:0 "[ROOT.GetLeader] receives a §4random leader trait§!."
  spawn_divisions_tt:0 "Create §4[?iters]§! §YChaos§! unit in owned states"
+ chaos_swap_countries_tt:0 "§Y[?c1.GetNameDefCap]§! and §Y[?c2.GetNameDef]§! will swap states, cores and units."

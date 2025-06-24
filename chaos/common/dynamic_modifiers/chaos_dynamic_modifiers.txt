@@ -38,3 +38,9 @@ chaos_devil_8_bonus_idea = {
     }
 	production_factory_max_efficiency_factor = chaos_devil_8_bonus
 }
+
+chaos_extra_operative = {
+	icon = GFX_idea_CHL_cesiv
+	enable = { always = yes }
+	operative_slot = chaos_operative_slots
+}

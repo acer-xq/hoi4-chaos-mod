@@ -17,18 +17,6 @@ ideas = {
 			}
 		}
 
-		chaos_unclaimed = {
-			picture = chaos_devil
-			allowed = { always = yes }
-			modifier = {
-				conscription_factor = -1
-				industrial_capacity_factory = -10
-				production_speed_buildings_factor = -10
-				resistance_target = -10
-				surrender_limit = 1
-			}
-		}
-
 		chaos_deja_vu = {
 			picture = chaos_deja_vu-1062
 			modifier = {
@@ -656,7 +644,7 @@ ideas = {
 				coastal_bunker_effectiveness_factor = 0.1
 				bunker_max_level_terrain_limit = 1
 				coastal_bunker_max_level_terrain_limit = 1
-				special_forces_cap = 0.02
+				special_forces_cap = 0.06
 			}
 		}
 		chaos_infantry_focus = {
@@ -674,10 +662,23 @@ ideas = {
 				}
 			}
 			modifier = {
+				army_strength_factor = 0.1
+				army_infantry_attack_factor = 0.05
 				unit_infantry_design_cost_factor = -0.5
-				unit_artillery_brigade_design_cost_factor = -0.5
 			}
 		}
+
+		chaos_egalite_dummy = {
+			picture = FRA_liberte_egalite_solidarite
+			allowed = { always = yes }
+			modifier = {
+				industrial_capacity_dockyard = 0.1
+				industrial_capacity_factory = 0.1
+				army_core_attack_factor = 0.1
+				army_core_defence_factor = 0.1
+			}
+		}
+
 		chaos_egalite = {
 			picture = FRA_liberte_egalite_solidarite
 			allowed = { always = yes }
@@ -795,17 +796,6 @@ ideas = {
 			}
 		}
 
-		chaos_operative_slot = {
-			picture = CHL_cesiv
-			allowed = {}
-			allowed_civil_war = { always = yes }
-			removal_cost = -1
-
-			modifier = {
-				operative_slot = 1
-			}
-		}
-
 		chaos_no_compliance = {
 			picture = chi_war_of_resistance3
 			allowed = {}
@@ -919,13 +909,101 @@ ideas = {
 
 		chaos_national_industry = {
 			picture = bul_national_industry
-			allowed = { allowed = yes }
+			allowed = { always = yes }
 			modifier = {
 				consumer_goods_factor = 0.05
 				production_speed_buildings_factor = 0.05
 				production_factory_efficiency_gain_factor = 0.05
 				production_factory_max_efficiency_factor = 0.05
 				global_building_slots_factor = 0.2
+			}
+		}
+
+		chaos_unc = {
+			picture = chaos_devil
+			allowed = { tag = UNC }
+			modifier = {
+				custom_modifier_tooltip = chaos_unc_tt
+				hidden_modifier = {
+					resistance_target = -10
+					resistance_activity = -10
+					required_garrison_factor = -10
+					no_compliance_gain = 1
+					conscription = -10
+					industrial_capacity_factory = -10
+					industrial_capacity_dockyard = -10
+					operative_slot = -10
+					research_speed_factor = -10
+					global_building_slots = -25
+					production_speed_buildings_factor = -10
+					consumer_goods_factor = 1
+					annex_cost_factor = 10
+					puppet_cost_factor = 10
+					political_power_gain = -10
+					ai_get_ally_desire_factor = -1000
+					ai_license_acceptance = -1000
+				}
+			}
+		}
+
+		chaos_internal = {
+			modifier = { }
+		}
+
+		chaos_volunteers = {
+			picture = generic_morale_bonus
+			allowed = { always = yes }
+			
+			modifier = {
+				send_volunteer_size = 3
+				send_volunteers_tension = -1
+				send_volunteer_divisions_required = -0.75
+			}
+		}
+
+		chaos_army_focus_1 = {
+			picture = ARG_military_government
+			allowed = { always = yes }
+			
+			modifier = {
+				army_strength_factor = 0.15
+				army_morale_factor = 0.15
+				max_dig_in = 1
+				army_attack_factor = -0.05
+			}
+		}
+
+		chaos_army_focus_2 = {
+			picture = FRA_army_of_aggression_focus
+			allowed = { always = yes }
+			
+			modifier = {
+				army_armor_attack_factor = 0.12
+				army_org_factor = 0.1
+				breakthrough_factor = 0.1
+				army_defence_factor = -0.05
+			}
+		}
+
+		chaos_army_focus_3 = {
+			picture = BEL_maritime_phoenix
+			allowed = { always = yes }
+			
+			modifier = {
+				special_forces_min = 12
+				special_forces_cap = 0.1
+				army_infantry_attack_factor = 0.1
+				special_forces_attack_factor = 0.15
+				army_org_factor = -0.05
+			}
+		}
+		
+		chaos_naval_range = {
+			picture = SWI_spirit_of_helvetia_aggressive_peace
+			allowed = { always = yes }
+			
+			modifier = {
+				navy_max_range_factor = 5.0
 			}
 		}
 	}

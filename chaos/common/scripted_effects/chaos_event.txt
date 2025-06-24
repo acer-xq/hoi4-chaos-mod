@@ -15,18 +15,19 @@ specific_chaos_event = {
 	meta_effect = {
 		text = {
 			# disgusting hack to extract the event title to somewhere it can be accessed
-			UNC = {
-				set_character_name = {
-					character = dummy
-					name = chaos.[EVENT_NUM].t
+			ROOT = {
+				random_character = {
+					limit = {
+						has_trait = chaos_internal
+					}
+					set_character_name = chaos.[EVENT_NUM].t
 				}
 			}
 			country_event = { id = chaos.[EVENT_NUM] }
 		}
 		EVENT_NUM = "[?eventnum|.0]"
 	}
-	log = "[ROOT.GetName]: Calling chaos effect [?eventnum|.0] ([UNC.dummy.GetName])"
-	set_variable = { global.CHAOS_LAST_EFFECT = eventnum }
+	log = "[ROOT.GetName]: Calling chaos effect [?eventnum|.0] ([?chaos_internal_char.GetName])"
 }
 
 # args: e
@@ -288,6 +289,23 @@ random_value = {
 			1 = { set_temp_variable = { x = 228 } }
 			1 = { set_temp_variable = { x = 229 } }
 			1 = { set_temp_variable = { x = 230 } }
+			1 = { set_temp_variable = { x = 231 } }
+			1 = { set_temp_variable = { x = 232 } }
+			1 = { set_temp_variable = { x = 233 } }
+			1 = { set_temp_variable = { x = 234 } }
+			1 = { set_temp_variable = { x = 235 } }
+			1 = { set_temp_variable = { x = 236 } }
+			1 = { set_temp_variable = { x = 237 } }
+			1 = { set_temp_variable = { x = 238 } }
+			1 = { set_temp_variable = { x = 239 } }
+			1 = { set_temp_variable = { x = 240 } }
+			1 = { set_temp_variable = { x = 241 } }
+			1 = { set_temp_variable = { x = 242 } }
+			1 = { set_temp_variable = { x = 243 } }
+			1 = { set_temp_variable = { x = 244 } }
+			1 = { set_temp_variable = { x = 245 } }
+			1 = { set_temp_variable = { x = 246 } }
+			1 = { set_temp_variable = { x = 247 } }
 		}
 	}
 }

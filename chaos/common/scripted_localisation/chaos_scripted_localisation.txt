@@ -207,6 +207,38 @@ defined_text = {
 }
 
 defined_text = {
+	name = chaos_continent_name
+	text = {
+		trigger = { check_variable = { continent = 0 } }
+		localization_key = "chaos_continent_0"
+	}
+	text = {
+		trigger = { check_variable = { continent = 1 } }
+		localization_key = "chaos_continent_1"
+	}
+	text = {
+		trigger = { check_variable = { continent = 2 } }
+		localization_key = "chaos_continent_2"
+	}
+	text = {
+		trigger = { check_variable = { continent = 3 } }
+		localization_key = "chaos_continent_3"
+	}
+	text = {
+		trigger = { check_variable = { continent = 4 } }
+		localization_key = "chaos_continent_4"
+	}
+	text = {
+		trigger = { check_variable = { continent = 5 } }
+		localization_key = "chaos_continent_5"
+	}
+	text = {
+		trigger = { check_variable = { continent = 6 } }
+		localization_key = "chaos_continent_6"
+	}
+}
+
+defined_text = {
 	name = chaos_continent_adj
 	text = {
 		trigger = {

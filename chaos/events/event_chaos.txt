@@ -6,28 +6,26 @@ country_event = {
 	desc = chaos.999.d
 
 	is_triggered_only = yes
+	
+
 	option = {
 		name = chaos.999.a
-
-		every_country = {
-			remove_ideas = {
-				chaos_famine_1
-				chaos_famine_2
-				chaos_famine_3
-			}
-			clr_country_flag = famine_spread
+		modify_building_resources = {
+			building = arms_factory
+			resource = rubber
+			amount = -1
 		}
 	}
 }
 
 country_event = {
-	id = chaos.0
-	title = chaos.0.t
-	desc = chaos.0.d
+	id = chaos.998
+	title = chaos.998.t
+	desc = chaos.998.d
 
 	is_triggered_only = yes
 	option = {
-		name = chaos.0.a
+		name = chaos.998.a
 		ai_chance = { factor = 1 }
 	}
 }
@@ -208,7 +206,7 @@ country_event = {
 		}
 	}
 	option = {
-		name = chaos.6.d
+		name = chaos.6.e
 		trigger = {
 			NOT = {
 				has_government = neutrality
@@ -232,11 +230,25 @@ country_event = {
 	title = chaos.7.t
 	desc = chaos.7.d
 
+	immediate = {
+		hidden_effect = {
+			random_country = {
+				limit = {
+					NOT = { tag = UNC }
+				}
+				set_country_flag = ChaosRandom7
+			}
+		}
+	}
+
 	is_triggered_only = yes
 	option = {
 		name = chaos.7.a
 		ai_chance = { factor = 1 }
 		random_country = {
+			limit = {
+				has_country_flag = ChaosRandom7
+			}
 			add_manpower = 1000000
 			division_template = {
 				name = "Chaos Division"
@@ -252,6 +264,7 @@ country_event = {
 			}
 			set_temp_variable = { iters = 17 }
 			spawn_chaos_divisions = yes
+			clr_country_flag = ChaosRandom7
 		}
 	}
 }
@@ -446,59 +459,53 @@ country_event = {
 
 	immediate = {
 		hidden_effect = {
-			every_country = {
-				clr_country_flag = ChaosRandom1
-				clr_country_flag = ChaosRandom2
-				clr_country_flag = ChaosRandom3
-				clr_country_flag = ChaosRandom4
-			}
 			random_country = {
 				limit = {
-					NOT = { has_country_flag = ChaosRandom1 }
-					NOT = { has_country_flag = ChaosRandom2 }
-					NOT = { has_country_flag = ChaosRandom3 }
-					NOT = { has_country_flag = ChaosRandom4 }
+					NOT = { has_country_flag = ChaosRandom15_1 }
+					NOT = { has_country_flag = ChaosRandom15_2 }
+					NOT = { has_country_flag = ChaosRandom15_3 }
+					NOT = { has_country_flag = ChaosRandom15_4 }
 					is_subject = no
 					is_ai = yes
 					is_major = no
 				}
-				set_country_flag = ChaosRandom1
+				set_country_flag = ChaosRandom15_1
 			}
 			random_country = {
 				limit = {
-					NOT = { has_country_flag = ChaosRandom1 }
-					NOT = { has_country_flag = ChaosRandom2 }
-					NOT = { has_country_flag = ChaosRandom3 }
-					NOT = { has_country_flag = ChaosRandom4 }
+					NOT = { has_country_flag = ChaosRandom15_1 }
+					NOT = { has_country_flag = ChaosRandom15_2 }
+					NOT = { has_country_flag = ChaosRandom15_3 }
+					NOT = { has_country_flag = ChaosRandom15_4 }
 					is_subject = no
 					is_ai = yes
 					is_major = no
 				}
-				set_country_flag = ChaosRandom2
+				set_country_flag = ChaosRandom15_2
 			}
 			random_country = {
 				limit = {
-					NOT = { has_country_flag = ChaosRandom1 }
-					NOT = { has_country_flag = ChaosRandom2 }
-					NOT = { has_country_flag = ChaosRandom3 }
-					NOT = { has_country_flag = ChaosRandom4 }
+					NOT = { has_country_flag = ChaosRandom15_1 }
+					NOT = { has_country_flag = ChaosRandom15_2 }
+					NOT = { has_country_flag = ChaosRandom15_3 }
+					NOT = { has_country_flag = ChaosRandom15_4 }
 					is_subject = no
 					is_ai = yes
 					is_major = no
 				}
-				set_country_flag = ChaosRandom3
+				set_country_flag = ChaosRandom15_3
 			}
 			random_country = {
 				limit = {
-					NOT = { has_country_flag = ChaosRandom1 }
-					NOT = { has_country_flag = ChaosRandom2 }
-					NOT = { has_country_flag = ChaosRandom3 }
-					NOT = { has_country_flag = ChaosRandom4 }
+					NOT = { has_country_flag = ChaosRandom15_1 }
+					NOT = { has_country_flag = ChaosRandom15_2 }
+					NOT = { has_country_flag = ChaosRandom15_3 }
+					NOT = { has_country_flag = ChaosRandom15_4 }
 					is_subject = no
 					is_ai = yes
 					is_major = no
 				}
-				set_country_flag = ChaosRandom4
+				set_country_flag = ChaosRandom15_4
 			}
 		}
 	}
@@ -508,11 +515,12 @@ country_event = {
 		ai_chance = { factor = 1 }
 		random_other_country = {
 			limit = {
-				has_country_flag = ChaosRandom1
+				has_country_flag = ChaosRandom15_1
 			}
 			ROOT = {
 				puppet = PREV
 			}
+			clr_country_flag = ChaosRandom15_1
 		}
 	}
 	option = {
@@ -520,11 +528,12 @@ country_event = {
 		ai_chance = { factor = 1 }
 		random_other_country = {
 			limit = {
-				has_country_flag = ChaosRandom2
+				has_country_flag = ChaosRandom15_2
 			}
 			ROOT = {
 				puppet = PREV
 			}
+			clr_country_flag = ChaosRandom15_2
 		}
 	}
 	option = {
@@ -532,11 +541,12 @@ country_event = {
 		ai_chance = { factor = 1 }
 		random_other_country = {
 			limit = {
-				has_country_flag = ChaosRandom3
+				has_country_flag = ChaosRandom15_3
 			}
 			ROOT = {
 				puppet = PREV
 			}
+			clr_country_flag = ChaosRandom15_3
 		}
 	}
 	option = {
@@ -544,11 +554,12 @@ country_event = {
 		ai_chance = { factor = 1 }
 		random_other_country = {
 			limit = {
-				has_country_flag = ChaosRandom4
+				has_country_flag = ChaosRandom15_4
 			}
 			ROOT = {
 				puppet = PREV
 			}
+			clr_country_flag = ChaosRandom15_4
 		}
 	}
 }
@@ -848,7 +859,7 @@ country_event = {
 	}
 }
 
-# Vichy france forms
+# big naval range
 country_event = {
 	id = chaos.25
 	title = chaos.25.t
@@ -858,31 +869,10 @@ country_event = {
 	option = {
 		name = chaos.25.a
 		ai_chance = { factor = 1 }
-		trigger = {
-			FRA = {
-				is_ai = yes
-			}
-		}
-		GER = { country_event = france.14 }
-	}
-	option = {
-		name = chaos.25.b
-		trigger = {
-			FRA = {
-				is_ai = no
-			}
-		}
-		ai_chance = { factor = 1 }
-		GER = {
-			create_wargoal = {
-				type = annex_everything
-				target = FRA
-			}
-		}
-		FRA = {
-			start_civil_war = {
-				ideology = fascism
-				size = 0.2
+		every_country = {
+			add_timed_idea = {
+				idea = chaos_naval_range
+				days = 140
 			}
 		}
 	}
@@ -1083,7 +1073,7 @@ country_event = {
 	option = {
 		name = chaos.32.a
 		ai_chance = { factor = 1 }
-		set_temp_variable_to_random = { var = r min = 0.05 max = 0.25}
+		set_temp_variable_to_random = { var = r min = 0.05 max = 0.3 }
 		every_country = {
 			add_popularity = {
 				ideology = fascism
@@ -1329,69 +1319,123 @@ country_event = {
 			NOT = { tag = SOU }
 			SOU = { exists = yes }
 		}
-		ai_chance = { factor = 1 }
-		SOV = {
-			every_neighbor_country = {
-				limit = {
-					NOT = { has_war_with = SOV }
-				}
+
+		if = {
+			limit = {
+				NOT = { is_ai = yes }
+				any_neighbor_country = { tag = SOU }
+			}
+			effect_tooltip = {
 				declare_war_on = {
 					type = puppet_wargoal_focus
 					target = SOV
 				}
-				increase_to_extensive_conscription = yes
-				add_ideas = { chaos_sov_mobilisation }
-				if = {
-					limit = {
-						num_divisions < 15
-					}
-					division_template = {
-						name = "Chaos Division"
-						priority = 0
-						template_counter = 42
-						division_names_group = POL_INF_01
-						regiments = {
-							infantry = { x = 0 y = 0 }
-							infantry = { x = 0 y = 1 }
-							infantry = { x = 0 y = 2 }
-							infantry = { x = 1 y = 0 }
-							infantry = { x = 1 y = 1 }
-						}
-					}
-					set_temp_variable = { iters = 11 }
-					spawn_chaos_divisions = yes
+			}
+			add_stability = 0.1
+			add_political_power = 150
+			custom_effect_tooltip = generic_skip_one_line_tt
+		}
+
+		SOU = {
+			every_neighbor_country = {
+				limit = {
+					NOT = { has_war_with = SOV }
+					NOT = { is_ally_with  = SOV }
 				}
-				else_if = {
-					limit = { num_divisions < 30 }
+				
+				declare_war_on = {
+					type = puppet_wargoal_focus
+					target = SOV
+				}
+				custom_effect_tooltip = generic_skip_one_line_tt
+				
+
+
+				hidden_effect = {
+
+					increase_to_extensive_conscription = yes
+					add_timed_idea = {
+						idea = chaos_sov_mobilisation
+						days = 180
+					}
+				
+					if = {
+						limit = {
+							num_divisions < 15
+						}
+						division_template = {
+							name = "Chaos Division"
+							priority = 0
+							template_counter = 42
+							division_names_group = SOV_INF_01
+							regiments = {
+								infantry = { x = 0 y = 0 }
+								infantry = { x = 0 y = 1 }
+								infantry = { x = 0 y = 2 }
+								infantry = { x = 1 y = 0 }
+								infantry = { x = 1 y = 1 }
+							}
+						}
+						set_temp_variable = { iters = 11 }
+						spawn_chaos_divisions = yes
+					}
+					else_if = {
+						limit = { num_divisions < 30 }
+						division_template = {
+							name = "Chaos Division"
+							priority = 0
+							template_counter = 42
+							division_names_group = SOV_INF_01
+							regiments = {
+								infantry = { x = 0 y = 0 }
+								infantry = { x = 0 y = 1 }
+								infantry = { x = 0 y = 2 }
+								infantry = { x = 1 y = 0 }
+								infantry = { x = 1 y = 1 }
+							}
+						}
+						set_temp_variable = { iters = 5 }
+						spawn_chaos_divisions = yes
+					}
+				}
+			}
+		}
+
+		SOU = {
+			add_war_support = 0.1
+			add_political_power = 300
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			CAPITAL_SCOPE = {
+				set_temp_variable = { countc = 2 }
+				set_temp_variable = { countm = 2 }
+				create_factories = yes
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			hidden_effect = {
+				every_country = {
+					limit = {
+						is_ally_with = SOU
+						num_divisions < 20
+					}
 					division_template = {
 						name = "Chaos Division"
 						priority = 0
 						template_counter = 42
-						division_names_group = POL_INF_01
+						division_names_group = SOV_INF_01
 						regiments = {
 							infantry = { x = 0 y = 0 }
 							infantry = { x = 0 y = 1 }
 							infantry = { x = 0 y = 2 }
 							infantry = { x = 1 y = 0 }
 							infantry = { x = 1 y = 1 }
+							infantry = { x = 1 y = 2 }
 						}
 					}
 					set_temp_variable = { iters = 5 }
 					spawn_chaos_divisions = yes
 				}
-			}
-		}
-		SOV = {
-			add_political_power = 250
-			add_war_support = 0.1
-
-			random_owned_controlled_state = {
-				limit = {
-					state = 219 # moscow
-				}
-				set_temp_variable = { countc = 2 }
-				set_temp_variable = { countm = 2 }
-				create_factories = yes
 			}
 		}
 	}
@@ -1400,15 +1444,105 @@ country_event = {
 		trigger = {
 			tag = SOU
 		}
+
+		set_temp_variable = { count = 0 }
+
+		custom_effect_tooltip = chaos.40.b.tt
+		custom_effect_tooltip = generic_skip_one_line_tt
+
+		every_neighbor_country = {
+			limit = {
+				NOT = { has_war_with = SOV }
+				NOT = { is_ally_with  = SOV }
+			}
+			add_political_power = 50
+			add_stability = 0.01
+			add_to_temp_variable = { count = -1 }
+		}
+
+		hidden_effect = {
+			add_political_power = var:count
+		}
+
+	}
+	option = {
+		name = chaos.40.c
+		trigger = {
+			tag = SOU
+		}
 		ai_chance = { factor = 1 }
+
+		every_neighbor_country = {
+			limit = {
+				NOT = { has_war_with = SOV }
+				NOT = { is_ally_with  = SOV }
+			}
+
+			declare_war_on = {
+				type = puppet_wargoal_focus
+				target = ROOT
+			}
+
+			hidden_effect = {
+				increase_to_extensive_conscription = yes
+				add_timed_idea = {
+					idea = chaos_sov_mobilisation
+					days = 180
+				}
+				if = {
+					limit = {
+						num_divisions < 15
+					}
+					division_template = {
+						name = "Chaos Division"
+						priority = 0
+						template_counter = 42
+						division_names_group = SOV_INF_01
+						regiments = {
+							infantry = { x = 0 y = 0 }
+							infantry = { x = 0 y = 1 }
+							infantry = { x = 0 y = 2 }
+							infantry = { x = 1 y = 0 }
+							infantry = { x = 1 y = 1 }
+						}
+					}
+					set_temp_variable = { iters = 10 }
+					spawn_chaos_divisions = yes
+				}
+				else_if = {
+					limit = { num_divisions < 30 }
+					division_template = {
+						name = "Chaos Division"
+						priority = 0
+						template_counter = 42
+						division_names_group = SOV_INF_01
+						regiments = {
+							infantry = { x = 0 y = 0 }
+							infantry = { x = 0 y = 1 }
+							infantry = { x = 0 y = 2 }
+							infantry = { x = 1 y = 0 }
+							infantry = { x = 1 y = 1 }
+						}
+					}
+					set_temp_variable = { iters = 4 }
+					spawn_chaos_divisions = yes
+				}
+			}
+		}
+
+		custom_effect_tooltip = generic_skip_one_line_tt
 
 		add_political_power = 300
 		add_war_support = 0.2
 		add_stability = 0.25
+		custom_effect_tooltip = generic_skip_one_line_tt
+
 		increase_to_extensive_conscription = yes
+		custom_effect_tooltip = generic_skip_one_line_tt
+
 		if = {
 			limit = {
-				num_divisions < 150
+				num_divisions < 160
 			}
 			division_template = {
 				name = "Chaos Division"
@@ -1451,7 +1585,7 @@ country_event = {
 			spawn_chaos_divisions = yes
 		}
 		else_if = {
-			limit = { num_divisions < 225 }
+			limit = { num_divisions < 245 }
 			division_template = {
 				name = "Chaos Division"
 				priority = 0
@@ -1489,84 +1623,37 @@ country_event = {
 					engineer = { x = 0 y = 1 }
 				}
 			}
-			set_temp_variable = { iters = 5 }
+			set_temp_variable = { iters = 6 }
 			spawn_chaos_divisions = yes
 		}
-		random_owned_controlled_state = {
-			limit = {
-				state = 219 # moscow
-			}
+		custom_effect_tooltip = generic_skip_one_line_tt
+
+		CAPITAL_SCOPE = {
 			set_temp_variable = { countc = 4 }
 			set_temp_variable = { countm = 4 }
 			create_factories = yes
 		}
+		custom_effect_tooltip = generic_skip_one_line_tt
+
 		if = {
-			limit = { num_of_factories < 110 }
+			limit = { num_of_factories < 80 }
 			add_offsite_building = { type = arms_factory level = 16 }
 			add_offsite_building = { type = industrial_complex level = 9 }
 			add_offsite_building = { type = dockyard level = 4 }
 		}
 		else_if = {
-			limit = { num_of_factories < 200 }
+			limit = { num_of_factories < 150 }
 			add_offsite_building = { type = arms_factory level = 10 }
 			add_offsite_building = { type = industrial_complex level = 4 }
 			add_offsite_building = { type = dockyard level = 3 }
 		}
 		else_if = {
-			limit = { num_of_factories < 260 }
+			limit = { num_of_factories < 200 }
 			add_offsite_building = { type = arms_factory level = 4 }
 			add_offsite_building = { type = industrial_complex level = 1 }
 			add_offsite_building = { type = dockyard level = 1 }
 		}
-		every_neighbor_country = {
-			limit = {
-				NOT = { has_war_with = SOV }
-			}
-			declare_war_on = {
-				type = puppet_wargoal_focus
-				target = SOV
-			}
-			increase_to_extensive_conscription = yes
-			add_ideas = { chaos_sov_mobilisation }
-			if = {
-				limit = {
-					num_divisions < 15
-				}
-				division_template = {
-					name = "Chaos Division"
-					priority = 0
-					template_counter = 42
-					division_names_group = POL_INF_01
-					regiments = {
-						infantry = { x = 0 y = 0 }
-						infantry = { x = 0 y = 1 }
-						infantry = { x = 0 y = 2 }
-						infantry = { x = 1 y = 0 }
-						infantry = { x = 1 y = 1 }
-					}
-				}
-				set_temp_variable = { iters = 11 }
-				spawn_chaos_divisions = yes
-			}
-			else_if = {
-				limit = { num_divisions < 30 }
-				division_template = {
-					name = "Chaos Division"
-					priority = 0
-					template_counter = 42
-					division_names_group = POL_INF_01
-					regiments = {
-						infantry = { x = 0 y = 0 }
-						infantry = { x = 0 y = 1 }
-						infantry = { x = 0 y = 2 }
-						infantry = { x = 1 y = 0 }
-						infantry = { x = 1 y = 1 }
-					}
-				}
-				set_temp_variable = { iters = 6 }
-				spawn_chaos_divisions = yes
-			}
-		}
+		
 	}
 }
 
@@ -1636,19 +1723,147 @@ country_event = {
 	option = {
 		name = chaos.43.a
 		trigger = {
-			SOV = {
-				OR = {
-					is_ai = yes
-					tag = SOV
-				}
-			}
-			
 		}
 		ai_chance = { factor = 1 }
 		SOV = {
-			country_event = {
-				id = NSB_Soviet_fascist_civil_war.001
-				days = 10
+			if = { 
+				limit = {
+					is_faction_leader = yes
+				}
+				dismantle_faction = yes
+			}
+
+			start_civil_war = {
+				ideology = communism
+				ruling_party = fascism
+				capital = 219
+				size = 0.25
+
+				keep_political_leader = yes
+				keep_unit_leaders_trigger = {
+					has_trait = trait_SOV_monarchist_sympathizer
+				}
+			}
+
+			# copied from SOV_scripted_effects
+
+			hidden_effect = {
+				set_popularities = {
+					communism = 10
+					democratic = 10
+					fascism = 70
+					neutrality = 10
+				}
+
+				set_cosmetic_tag = SOV_PROVISIONAL
+			}
+
+			random_country = {
+				limit = {
+					original_tag = SOV
+					has_war_with = ROOT
+					has_government = communism
+				}
+				set_cosmetic_tag = stalinist_soviet_union
+				set_popularities = {
+					communism = 1
+				}
+				# Set Stalin as Leader if alive, else set Beriya
+				# recruit_character = SOV_iosif_stalin
+				IF = { 
+					limit = { SOV = { has_character = SOV_iosif_stalin }}
+					SOV = { SOV_iosif_stalin = { set_nationality = SOS } }
+					promote_character = { character = SOV_iosif_stalin  ideology = stalinism }
+				}
+				ELSE = {
+					SOV = { SOV_lavrenty_beriya = { set_nationality = SOS } }
+					promote_character = { character = SOV_lavrenty_beriya  ideology = stalinism }
+				}
+
+				# Set up "extra" template (Stalin likes his basic infantry template, no messing with it)
+				delete_unit_template_and_units = {
+					division_template = "Gvardia"
+					disband = yes
+				}
+				division_template = {
+					name = "Gvardia"
+					division_names_group = SOV_INF_01
+
+					regiments = {
+						infantry = { x = 0 y = 0 }
+						infantry = { x = 0 y = 1 }
+						infantry = { x = 0 y = 2 }
+						infantry = { x = 1 y = 0 }
+						infantry = { x = 1 y = 1 }
+						infantry = { x = 1 y = 2 }
+						infantry = { x = 2 y = 0 }
+						infantry = { x = 2 y = 1 }
+						infantry = { x = 2 y = 2 }
+					}
+					support = {
+						artillery = { x = 0 y = 0 }
+					}
+				}
+				random_owned_controlled_state = {
+					limit = { is_capital = yes }
+					create_unit = {
+						division = "division_template = \"Gvardia\" start_experience_factor = 0.1 start_equipment_factor = 1.0" owner = PREV count = 2
+					}
+				}
+				random_owned_controlled_state = {
+					create_unit = {
+						division = "name = \"1ya NKVD Pogranichnaya Diviziya\" division_template = \"NKVD Pogranichnaya Diviziya\" start_experience_factor = 0.2 start_equipment_factor = 1.0" owner = SOS
+					}
+					create_unit = {
+						division = "name = \"2ya NKVD Pogranichnaya Diviziya\" division_template = \"NKVD Pogranichnaya Diviziya\" start_experience_factor = 0.2 start_equipment_factor = 1.0" owner = SOS
+					}
+					create_unit = {
+						division = "name = \"3ya NKVD Pogranichnaya Diviziya\" division_template = \"NKVD Pogranichnaya Diviziya\" start_experience_factor = 0.2 start_equipment_factor = 1.0" owner = SOS
+					}
+					create_unit = {
+						division = "name = \"4ya NKVD Pogranichnaya Diviziya\" division_template = \"NKVD Pogranichnaya Diviziya\" start_experience_factor = 0.2 start_equipment_factor = 1.0" owner = SOS
+					}
+				}
+				load_focus_tree = { tree = soviet_focus keep_completed = yes }
+				complete_national_focus = SOV_the_path_of_marxism_leninism
+				complete_national_focus = SOV_the_centre
+				IF = {
+					limit = { SOV = { has_country_flag = SOV_the_stalin_constitution_completed_flag } }
+					complete_national_focus = SOV_the_stalin_constitution
+				}
+
+				IF = {
+					limit = { SOV = { has_country_flag = SOV_the_zinovyevite_terrorist_center_completed_flag } }
+					unlock_national_focus = SOV_the_zinovyevite_terrorist_center # effect already played out
+				}
+				IF = {
+					limit = { SOV = { has_country_flag = SOV_the_anti_soviet_trotskyist_center_completed_flag } }
+					unlock_national_focus = SOV_the_anti_soviet_trotskyist_center # effect already played out
+				}
+				IF = {
+					limit = { SOV = { has_country_flag = SOV_the_workers_dictatorship_completed_flag }}
+					complete_national_focus = SOV_the_workers_dictatorship
+				}
+				IF = {
+					limit = { SOV = { has_country_flag = SOV_the_military_conspiracy_completed_flag } }
+					unlock_national_focus = SOV_the_military_conspiracy # effect already played out
+				}
+				IF = {
+					limit = { SOV = { has_country_flag = SOV_socialism_in_one_country_completed_flag } }
+					complete_national_focus = SOV_socialism_in_one_country
+				}
+				IF = {
+					limit = { SOV = { has_country_flag = SOV_secure_the_administration_completed_flag } }
+					complete_national_focus = SOV_secure_the_administration
+				}
+				IF = {
+					limit = { SOV = { has_country_flag = SOV_the_bloc_of_rights_and_trotskyites_completed_flag } }
+					unlock_national_focus = SOV_the_bloc_of_rights_and_trotskyites # effect already played out
+				}
+				IF = {
+					limit = { SOV = { has_country_flag = SOV_behead_the_snake_completed_flag } }
+					unlock_national_focus = SOV_behead_the_snake # effect already played out
+				}
 			}
 		}
 	}
@@ -1660,7 +1875,16 @@ country_event = {
 			}
 		}
 		ai_chance = { factor = 1 }
-		add_stability = -0.2
+		SOV = {
+			add_stability = -0.08
+			add_political_power = -215
+			army_experience = 35
+			add_popularity = { ideology = communism popularity = 0.1 }
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = -10000
+			}
+		}
 	}
 }
 
@@ -1778,22 +2002,42 @@ country_event = {
 			limit = {
 				is_subject = yes
 			}
-			if = {
-				limit = {
-					is_ai = yes
+			random_list = {
+				1 = {
+					hidden_effect = {
+						increase_to_extensive_conscription = yes
+					}
+					if = {
+						limit = {
+							is_ai = yes
+						}
+						start_civil_war = {
+							ideology = communism
+							size = 0.33
+						}
+					}
+					else = {
+						start_civil_war = {
+							ideology = communism
+							size = 0.1
+						}
+					}
 				}
-				start_civil_war = {
-					ideology = communism
-					size = 0.7
-				}
-			}
-			else = {
-				hidden_effect = {
-					increase_to_extensive_conscription = yes
-				}
-				start_civil_war = {
-					ideology = communism
-					size = 0.4
+				1 = {
+					add_stability = -0.1
+					add_war_support = 0.05
+					add_political_power = -100
+					add_autonomy_ratio = { value = 0.3 localization = "Great colonial crisis" }
+					random_owned_controlled_state = {
+						limit = {
+							industrial_complex > 0
+						}
+						damage_building = {
+							type = industrial_complex
+							state = THIS
+							damage = 0.75
+						}
+					}
 				}
 			}
 		}
@@ -1818,9 +2062,17 @@ country_event = {
 				}
 				has_stability < 0.4
 			}
-			start_civil_war = {
-				ideology = democratic
-				size = 0.4
+			random_list = {
+				1 = {
+					start_civil_war = {
+						ideology = democratic
+						size = 0.4
+					}
+				}
+				1 = {
+					add_political_power = -150
+					add_war_support = -0.05
+				}
 			}
 		}
 	}
@@ -2210,31 +2462,44 @@ country_event = {
 	option = {
 		name = chaos.59.a
 		ai_chance = { factor = 1 }
-		every_country = {
-			release = UKR
-			release = BLR
-			release = MOR
-			release = ALG
-			release = TUN
-			release = EGY
-			release = TRA
-			release = BRI
-			release = VIN
-			release = CAT
-			release = ARM
-			release = ICE
-			release = PUE
-			release = CRC
-			release = NGA
-			release = BRM
-			release = SRL
-			release = KOR
-			release = KSH
-			release = TAJ
-			release = FER
-			release = AZR
-			release = KUR
-			release = PNG
+		custom_effect_tooltip = chaos.59.a.tt
+		hidden_effect = {
+			every_country = {
+				random_list = { 1 = { release = UKR } 3 = { } }
+				random_list = { 1 = { release = BLR } 3 = { } }
+				random_list = { 1 = { release = MOR } 3 = { } }
+				random_list = { 1 = { release = ALG } 3 = { } }
+				random_list = { 1 = { release = TUN } 3 = { } }
+				random_list = { 1 = { release = EGY } 3 = { } }
+				random_list = { 1 = { release = TRA } 3 = { } }
+				random_list = { 1 = { release = BRI } 3 = { } }
+				random_list = { 1 = { release = VIN } 3 = { } }
+				random_list = { 1 = { release = CAT } 3 = { } }
+				random_list = { 1 = { release = ARM } 3 = { } }
+				random_list = { 1 = { release = ICE } 3 = { } }
+				random_list = { 1 = { release = PUE } 3 = { } }
+				random_list = { 1 = { release = CRC } 3 = { } }
+				random_list = { 1 = { release = NGA } 3 = { } }
+				random_list = { 1 = { release = BRM } 3 = { } }
+				random_list = { 1 = { release = SRL } 3 = { } }
+				random_list = { 1 = { release = KOR } 3 = { } }
+				random_list = { 1 = { release = KSH } 3 = { } }
+				random_list = { 1 = { release = TAJ } 3 = { } }
+				random_list = { 1 = { release = FER } 3 = { } }
+				random_list = { 1 = { release = AZR } 3 = { } }
+				random_list = { 1 = { release = KUR } 3 = { } }
+				random_list = { 1 = { release = PNG } 3 = { } }
+				random_list = { 1 = { release = TRA } 3 = { } }
+				random_list = { 1 = { release = RJP } 3 = { } }
+				random_list = { 1 = { release = BLC } 3 = { } }
+				random_list = { 1 = { release = SIK } 3 = { } }
+				random_list = { 1 = { release = FIJ } 3 = { } }
+				random_list = { 1 = { release = MLI } 3 = { } }
+				random_list = { 1 = { release = LBV } 3 = { } }
+				random_list = { 1 = { release = SMI } 3 = { } }
+				random_list = { 1 = { release = NAV } 3 = { } }
+				random_list = { 1 = { release = PRC } 3 = { } }
+			}
 		}
 	}
 }
@@ -2245,26 +2510,37 @@ country_event = {
 	title = chaos.60.t
 	desc = chaos.60.d
 
+	immediate = {
+		hidden_effect = {
+			random_state = {
+				limit = {
+					OR = {
+						has_state_category = large_city
+						has_state_category = metropolis
+						has_state_category = megalopolis
+					}
+					is_owned_by_ai  = yes
+					NOT = {
+						owner = { tag = ROOT }
+					}
+				}
+				set_state_flag = ChaosRandom60
+			}
+		}
+	}
+
 	is_triggered_only = yes
 	option = {
 		name = chaos.60.a
 		ai_chance = { factor = 1 }
 		random_state = {
 			limit = {
-				OR = {
-					has_state_category = large_city
-					has_state_category = metropolis
-					has_state_category = megalopolis
-				}
-				is_owned_by_ai  = yes
-				NOT = {
-					owner = { tag = ROOT }
-				}
+				has_state_flag = ChaosRandom60
 			}
-
 			ROOT = {
 				transfer_state = PREV
 			}
+			clr_state_flag = ChaosRandom60
 		}
 	}
 }
@@ -3006,43 +3282,79 @@ country_event = {
 	is_triggered_only = yes
 	option = {
 		name = chaos.73.a
-		trigger = {
-			USA = {
-				is_ai = yes
+		trigger = { 
+			USA = { exists = yes }
+			LIB = { exists = yes }
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0
+				OR = {
+					USA = { is_ai = no }
+					LIB = { is_ai = no }
+				}
 			}
 		}
-		ai_chance = { factor = 1 }
-		LIB = {
-			annex_country = {
-				target = USA
-				transfer_troops = yes
-			}
-			every_owned_state = {
-				add_core_of = LIB
-			}
-		}
-		USA = {
-			every_owned_state = {
-				add_core_of = LIB
-			}
-			transfer_state = 298
-			298 = {
-				add_core_of = USA
-			}
-		}
+		set_temp_variable = { c1 = USA }
+		set_temp_variable = { c2 = LIB }
+		swap_countries = yes
 	}
 	option = {
 		name = chaos.73.b
 		trigger = {
-			USA = {
-				is_ai = no
+			USA = { exists = yes }
+			LIB = { exists = yes }
+			OR = {
+				USA = { is_ai = no }
+				LIB = { is_ai = no }
 			}
 		}
 		ai_chance = { factor = 1 }
-		LIB = {
-			create_wargoal = {
-				type = annex_everything
-				target = USA
+		custom_effect_tooltip = chaos.73.b.tt
+		hidden_effect = {
+			random_state = {
+				limit = {
+					OWNER = { original_tag = USA }
+					NOT = { impassable = yes }
+				}
+				set_temp_variable = { usa_state = this }
+				if = {
+					limit = {
+						is_core_of = USA
+					}
+					remove_core_of = USA
+					add_core_of = LIB
+				}
+			}
+			random_state = {
+				limit = {
+					OWNER = { original_tag = LIB }
+					NOT = { impassable = yes }
+				}
+				set_temp_variable = { lib_state = this }
+				if = {
+					limit = {
+						is_core_of = LIB
+					}
+					remove_core_of = LIB
+					add_core_of = USA
+				}
+			}
+			var:usa_state = {
+				transfer_state_to = LIB
+			}
+			var:lib_state = {
+				transfer_state_to = USA
+			}
+		}
+	}
+	option = {
+		name = chaos.73.c
+		trigger = {
+			OR = {
+				USA = { exists = no }
+				LIB = { exists = no }
 			}
 		}
 	}
@@ -3274,6 +3586,12 @@ country_event = {
 					add_logistics = 3
 					add_planning = 3
 				}
+				1 = {
+					add_attack = 2
+					add_defense = 2
+					add_logistics = 2
+					add_planning = 2
+				}
 			}
 		}
 	}
@@ -3414,13 +3732,13 @@ country_event = {
 				limit = { has_government = fascism }
 				start_civil_war = {
 					ideology = communism
-					size = 0.3
+					size = 0.2
 				}
 			}
 			else = {
 				start_civil_war = {
 					ideology = fascism
-					size = 0.3
+					size = 0.2
 				}
 			}
 		}
@@ -3756,7 +4074,7 @@ country_event = {
 
 	is_triggered_only = yes
 	option = {
-		name = chaos.95.b
+		name = chaos.95.a
 		trigger = {
 		}
 		ai_chance = { factor = 1 }
@@ -3963,14 +4281,14 @@ country_event = {
 		name = chaos.99.a
 		ai_chance = { factor = 1 }
 		every_unit_leader = {
-			add_attack = 5
+			add_attack = 4
 		}
 	}
 	option = {
 		name = chaos.99.b
 		ai_chance = { factor = 1 }
 		every_unit_leader = {
-			add_defense = 5
+			add_defense = 4
 		}
 	}
 	option = {
@@ -4088,18 +4406,30 @@ country_event = {
 	title = chaos.104.t
 	desc = chaos.104.d
 
+	immediate = {
+		hidden_effect = {
+			random_country = {
+				limit = {
+					is_major = no
+					is_ai = yes
+				}
+				set_country_flag = ChaosRandom104
+			}
+		}
+	}
+
 	is_triggered_only = yes
 	option = {
 		name = chaos.104.a
 		ai_chance = { factor = 1 }
 		random_country = {
 			limit = {
-				is_major = no
-				is_ai = yes
+				has_country_flag = ChaosRandom104
 			}
 			ROOT = {
 				puppet = PREV
 			}
+			clr_country_flag = ChaosRandom104
 		}
 	}
 }
@@ -4110,13 +4440,25 @@ country_event = {
 	title = chaos.105.t
 	desc = chaos.105.d
 
+	immediate = {
+		hidden_effect = {
+			random_unit_leader = {
+				set_character_flag = ChaosRandom105
+			}
+		}
+	}
+
 	is_triggered_only = yes
 	option = {
 		name = chaos.105.a
 		ai_chance = { factor = 1 }
-		set_temp_variable_to_random = { var = r1 max = 100000 }
+		set_temp_variable_to_random = { var = r1 max = 75000 }
 		random_unit_leader = {
+			limit = {
+				has_character_flag = ChaosRandom105
+			}
 			gain_xp = r1
+			clr_character_flag = ChaosRandom105
 		}
 	}
 }
@@ -4131,13 +4473,26 @@ country_event = {
 	option = {
 		name = chaos.106.a
 		add_stability = 0.05
-		ai_chance = { factor = 1 }
+		ai_chance = { 
+			factor = 0
+			modifier = {
+				add = 100
+				OR = {
+					has_focus_tree = generic_focus
+					has_focus_tree = horn_of_africa_tree
+				}
+			}
+		}
 		load_focus_tree = { tree = chaos_focus }
 	}
 	option = {
 		name = chaos.106.b
 		ai_chance = { factor = 1 }
 		add_political_power = -20
+		add_timed_idea = {
+			idea = chaos_no_focus_change
+			days = 7
+		}
 	}
 }
 
@@ -4186,26 +4541,44 @@ country_event = {
 	title = chaos.109.t
 	desc = chaos.109.d
 
+	immediate = {
+		hidden_effect = {
+			random_state = {
+				limit = {
+					NOT = { is_core_of = ROOT }
+				}
+				set_state_flag = ChaosRandom109
+			}
+		}
+	}
+
 	is_triggered_only = yes
 	option = {
 		name = chaos.109.a
 		ai_chance = { factor = 1 }
 		add_stability = 0.025
-		add_political_power = -150
+		add_political_power = -100
 		add_timed_idea = {
 			idea = chaos_pay_state
 			days = 35
 		}
 		random_state = {
 			limit = {
-				NOT = { is_owned_by = ROOT }
+				has_state_flag = ChaosRandom109
 			}
 			add_core_of = ROOT
+			clr_state_flag = ChaosRandom109
 		}
 	}
 	option = {
 		name = chaos.109.b
 		ai_chance = { factor = 1 }
+		random_state = {
+			limit = {
+				has_state_flag = ChaosRandom109
+			}
+			clr_state_flag = ChaosRandom109
+		}
 	}
 }
 
@@ -4223,6 +4596,7 @@ country_event = {
 		}
 		ai_chance = { factor = 1 }
 		every_enemy_country = {
+			limit = { NOT = { tag = UNC } }
 			white_peace = PREV
 		}
 		add_war_support = -0.05
@@ -4265,7 +4639,7 @@ country_event = {
 		ai_chance = { factor = 1 }
 		add_timed_idea = {
 			idea = chaos_no_focus_change
-			days = 70
+			days = 7
 		}
 	}
 }
@@ -4286,6 +4660,8 @@ country_event = {
 				has_idea = chaos_devil_4
 				has_idea = chaos_devil_5
 				has_idea = chaos_devil_6
+				has_idea = chaos_devil_7
+				has_idea = chaos_devil_8
 			}
 		}
 		name = chaos.112.a
@@ -4301,14 +4677,44 @@ country_event = {
 			remove_ideas = chaos_devil_4
 			remove_ideas = chaos_devil_5
 			remove_ideas = chaos_devil_6
+			remove_ideas = chaos_devil_7
+			remove_ideas = chaos_devil_8
 		}
 	}
 	option = {
 		name = chaos.112.b
+		trigger = {
+			OR = {
+				has_idea = chaos_devil_1
+				has_idea = chaos_devil_2
+				has_idea = chaos_devil_3
+				has_idea = chaos_devil_4
+				has_idea = chaos_devil_5
+				has_idea = chaos_devil_6
+				has_idea = chaos_devil_7
+				has_idea = chaos_devil_8
+			}
+		}
 		ai_chance = { factor = 1 }
-		add_political_power = 100
-		add_stability = 0.05
-		add_war_support = 0.05
+		add_political_power = 10
+	}
+	option = {
+		name = chaos.112.c
+		trigger = {
+			NOT = {
+				OR = {
+					has_idea = chaos_devil_1
+					has_idea = chaos_devil_2
+					has_idea = chaos_devil_3
+					has_idea = chaos_devil_4
+					has_idea = chaos_devil_5
+					has_idea = chaos_devil_6
+					has_idea = chaos_devil_7
+					has_idea = chaos_devil_8
+				}
+			}
+		}
+		ai_chance = { factor = 1 }
 	}
 }
 
@@ -4366,7 +4772,7 @@ country_event = {
 	is_triggered_only = yes
 	option = {
 		name = chaos.115.a
-		ai_chance = { factor = 1 }
+		ai_chance = { factor = 3 }
 		add_country_leader_trait = army_chief_reform_3
 	}
 	option = {
@@ -4387,6 +4793,12 @@ country_event = {
 	title = chaos.116.t
 	desc = chaos.116.d
 
+	immediate = {
+		random_army_leader = {
+			set_character_flag = ChaosRandom116
+		}
+	}
+
 	is_triggered_only = yes
 	option = {
 		name = chaos.116.a
@@ -4396,6 +4808,14 @@ country_event = {
 		ai_chance = { factor = 1 }
 		retire_country_leader = yes
 		add_stability = 0.15
+		hidden_effect = {
+			random_army_leader = {
+				limit = {
+					has_character_flag = ChaosRandom116
+				}
+				clr_character_flag = ChaosRandom116
+			}
+		}
 	}
 	option = {
 		name = chaos.116.b
@@ -4405,9 +4825,14 @@ country_event = {
 		ai_chance = { factor = 1 }
 		add_country_leader_trait = emergency_powers
 		add_stability = -0.15
+		custom_effect_tooltip = generic_skip_one_line_tt
 		custom_effect_tooltip = chaos.116.tt
 		random_army_leader = {
+			limit = {
+				has_character_flag = ChaosRandom116
+			}
 			remove_unit_leader = yes
+			clr_character_flag = ChaosRandom116
 		}
 	}
 	option = {
@@ -4417,6 +4842,14 @@ country_event = {
 		}
 		ai_chance = { factor = 1 }
 		add_country_leader_trait = dictator
+		hidden_effect = {
+			random_army_leader = {
+				limit = {
+					has_character_flag = ChaosRandom116
+				}
+				clr_character_flag = ChaosRandom116
+			}
+		}
 	}
 }
 
@@ -4426,19 +4859,32 @@ country_event = {
 	title = chaos.117.t
 	desc = chaos.117.d
 
+	immediate = {
+		hidden_effect = {
+			random_core_state = {
+				limit = { OWNER = { tag = ROOT } }
+				set_state_flag = ChaosRandom117
+			}
+		}
+	}
+
 	is_triggered_only = yes
 	option = {
 		name = chaos.117.a
 		ai_chance = { factor = 1 }
 		random_core_state = {
+			limit = {
+				has_state_flag = ChaosRandom117
+			}
 			ROOT = {
 				set_capital = { state = PREV }
 			}
+			clr_state_flag = ChaosRandom117
 		}
 	}
 }
 
-#50/50 nuke each state
+#33% chance to nuke each state
 country_event = {
 	id = chaos.118
 	title = chaos.118.t
@@ -4448,15 +4894,27 @@ country_event = {
 	option = {
 		name = chaos.118.a
 		ai_chance = { factor = 1 }
+		every_country = {
+			set_variable = { THIS.ws = THIS.has_war_support }
+		}
 		every_state = {
 			random = {
-				chance = 50
+				chance = 33
 				custom_effect_tooltip = "Nuclear bomb is dropped"
 				SOV = {
 					launch_nuke = {
 						state = PREV
 						use_nuke = no
 					}
+				}
+			}
+		}
+		# reset war support loss from nukes
+		hidden_effect = {
+			every_country = {
+				country_event = {
+					id = chaos_internal.chaos.118
+					hours = 8
 				}
 			}
 		}
@@ -4566,8 +5024,14 @@ country_event = {
 		name = chaos.123.a
 		ai_chance = { factor = 1 }
 		every_country = {
+			limit = {
+				NOT = { tag = UNC }
+			}
 			hidden_effect = {	
 				random_country = {
+					limit = {
+						not = { tag = UNC }
+					}
 					give_guarantee = PREV
 				}
 			}
@@ -4587,6 +5051,9 @@ country_event = {
 		name = chaos.124.a
 		ai_chance = { factor = 1 }
 		random_country = {
+			limit = {
+				NOT = { tag = UNC }
+			}
 			ROOT = {
 				set_collaboration = {
 					target = PREV
@@ -4608,11 +5075,14 @@ country_event = {
 		name = chaos.125.a
 		ai_chance = { factor = 1 }
 		every_country = {
+			limit = {
+				NOT = { tag = UNC }
+			}
 			set_rule = {
 				can_send_volunteers = yes
 			}
 			add_ideas = {
-				PRC_peoples_volunteer_army
+				chaos_volunteers
 			}
 		}
 		effect_tooltip = {
@@ -4628,7 +5098,9 @@ country_event = {
 					is_ai = yes
 				}
 				every_country = { 
-					add_ai_strategy = { type = send_volunteers_desire id = PREV value = 50 }
+					PREV = { 
+						add_ai_strategy = { type = send_volunteers_desire id = PREV value = 60 }
+					}
 				}
 			}
 		}
@@ -4641,11 +5113,22 @@ country_event = {
 	title = chaos.126.t
 	desc = chaos.126.d
 
+	immediate = {
+		hidden_effect = {
+			random_country = {
+				set_country_flag = ChaosRandom126
+			}
+		}
+	}
+
 	is_triggered_only = yes
 	option = {
 		name = chaos.126.a
 		ai_chance = { factor = 1 }
 		random_country = {
+			limit = {
+				has_country_flag = ChaosRandom126
+			}
 			ROOT = {
 				transfer_units_fraction= {
 					target = PREV
@@ -4659,6 +5142,7 @@ country_event = {
 					}
 				}
 			}
+			clr_country_flag = ChaosRandom126
 		}
 	}
 
@@ -4669,7 +5153,15 @@ country_event = {
 		add_political_power = -100
 		add_timed_idea = {
 			idea = mutiny_3
-			days = 140
+			days = 70
+		}
+		hidden_effect = {
+			random_country = {
+				limit = {
+					has_country_flag = ChaosRandom126
+				}
+			clr_country_flag = ChaosRandom126
+			}
 		}
 	}
 }
@@ -4684,25 +5176,30 @@ country_event = {
 	option = {
 		name = chaos.127.a
 		ai_chance = { factor = 1 }
-		every_country = {
+		ROOT = {
 			random_owned_controlled_state = {
 				add_resource = {
 					type = chromium
-					amount = 80
+					amount = 60
 				}
 			}
-			random_core_state = {
+			if = {
 				limit = {
-					NOT = { has_resistance = yes }
+					check_variable = { num_owned_states > 3 } 
 				}
-				add_dynamic_modifier = {
-					modifier = kurdish_agitation
+				random_core_state = {
+					limit = {
+						NOT = { has_resistance = yes }
+					}
+					add_dynamic_modifier = {
+						modifier = kurdish_agitation
+					}
+					remove_core_of = ROOT
+					force_enable_resistance = ROOT
+					start_resistance = yes
+					set_resistance = 40
+					set_compliance = 10
 				}
-				remove_core_of = ROOT
-				force_enable_resistance = ROOT
-				start_resistance = yes
-				set_resistance = 40
-				set_compliance = 10
 			}
 		}
 	}
@@ -4736,20 +5233,30 @@ country_event = {
 	title = chaos.129.t
 	desc = chaos.129.d
 
+	immediate = {
+		random_other_country = {
+			set_country_flag = ChaosRandom129
+		}
+	}
+
 	is_triggered_only = yes
 	option = {
 		name = chaos.129.a
 		trigger = {
 		}
-		add_war_support = 0.4
+		add_war_support = 0.3
 		increase_to_extensive_conscription = yes
 		random_other_country = {
+			limit = {
+				has_country_flag = ChaosRandom129
+			}
 			ROOT = {
 				create_wargoal = {
 					target = PREV
 					type = annex_everything
 				}
 			}
+			clr_country_flag = ChaosRandom129
 		}
 	}
 }
@@ -4786,133 +5293,19 @@ country_event = {
 		ai_chance = { factor = 1 }
 		hidden_effect = {
 			every_state = {
-				limit = { arms_factory > 24 }
-				remove_building = { type = arms_factory level = 25 }
-				add_building_construction = { type = industrial_complex level = 25 instant_build = yes }
-			}
-			every_state = {
-				limit = { arms_factory > 23 }
-				remove_building = { type = arms_factory level = 24 }
-				add_building_construction = { type = industrial_complex level = 24 instant_build = yes }
-			}
-			every_state = {
-				limit = { arms_factory > 22 }
-				remove_building = { type = arms_factory level = 23 }
-				add_building_construction = { type = industrial_complex level = 23 instant_build = yes }
-			}
-			every_state = {
-				limit = { arms_factory > 21 }
-				remove_building = { type = arms_factory level = 22 }
-				add_building_construction = { type = industrial_complex level = 22 instant_build = yes }
-			}
-			every_state = {
-				limit = { arms_factory > 20 }
-				remove_building = { type = arms_factory level = 21 }
-				add_building_construction = { type = industrial_complex level = 21 instant_build = yes }
-			}
-			every_state = {
-				limit = { arms_factory > 19 }
-				remove_building = { type = arms_factory level = 20 }
-				add_building_construction = { type = industrial_complex level = 20 instant_build = yes }
-			}
-			every_state = {
-				limit = { arms_factory > 18 }
-				remove_building = { type = arms_factory level = 19 }
-				add_building_construction = { type = industrial_complex level = 19 instant_build = yes }
-			}
-			every_state = {
-				limit = { arms_factory > 17 }
-				remove_building = { type = arms_factory level = 18 }
-				add_building_construction = { type = industrial_complex level = 18 instant_build = yes }
-			}
-			every_state = {
-				limit = { arms_factory > 16 }
-				remove_building = { type = arms_factory level = 17 }
-				add_building_construction = { type = industrial_complex level = 17 instant_build = yes }
-			}
-			every_state = {
-				limit = { arms_factory > 15 }
-				remove_building = { type = arms_factory level = 16 }
-				add_building_construction = { type = industrial_complex level = 16 instant_build = yes }
-			}
-			every_state = {
-				limit = { arms_factory > 14 }
-				remove_building = { type = arms_factory level = 15 }
-				add_building_construction = { type = industrial_complex level = 25 instant_build = yes }
-			}
-			every_state = {
-				limit = { arms_factory > 13 }
-				remove_building = { type = arms_factory level = 14 }
-				add_building_construction = { type = industrial_complex level = 14 instant_build = yes }
-			}
-			every_state = {
-				limit = { arms_factory > 12 }
-				remove_building = { type = arms_factory level = 13 }
-				add_building_construction = { type = industrial_complex level = 13 instant_build = yes }
-			}
-			every_state = {
-				limit = { arms_factory > 11 }
-				remove_building = { type = arms_factory level = 12 }
-				add_building_construction = { type = industrial_complex level = 12 instant_build = yes }
-			}
-			every_state = {
-				limit = { arms_factory > 10 }
-				remove_building = { type = arms_factory level = 11 }
-				add_building_construction = { type = industrial_complex level = 11 instant_build = yes }
-			}
-			every_state = {
-				limit = { arms_factory > 9 }
-				remove_building = { type = arms_factory level = 10 }
-				add_building_construction = { type = industrial_complex level = 10 instant_build = yes }
-			}
-			every_state = {
-				limit = { arms_factory > 8 }
-				remove_building = { type = arms_factory level = 9 }
-				add_building_construction = { type = industrial_complex level = 9 instant_build = yes }
-			}
-			every_state = {
-				limit = { arms_factory > 7 }
-				remove_building = { type = arms_factory level = 8 }
-				add_building_construction = { type = industrial_complex level = 8 instant_build = yes }
-			}
-			every_state = {
-				limit = { arms_factory > 6 }
-				remove_building = { type = arms_factory level = 7 }
-				add_building_construction = { type = industrial_complex level = 7 instant_build = yes }
-			}
-			every_state = {
-				limit = { arms_factory > 5 }
-				remove_building = { type = arms_factory level = 6 }
-				add_building_construction = { type = industrial_complex level = 6 instant_build = yes }
-			}
-			every_state = {
-				limit = { arms_factory > 4 }
-				remove_building = { type = arms_factory level = 5 }
-				add_building_construction = { type = industrial_complex level = 5 instant_build = yes }
-			}
-			every_state = {
-				limit = { arms_factory > 3 }
-				remove_building = { type = arms_factory level = 4 }
-				add_building_construction = { type = industrial_complex level = 4 instant_build = yes }
-			}
-			every_state = {
-				limit = { arms_factory > 2 }
-				remove_building = { type = arms_factory level = 3 }
-				add_building_construction = { type = industrial_complex level = 3 instant_build = yes }
-			}
-			every_state = {
-				limit = { arms_factory > 1 }
-				remove_building = { type = arms_factory level = 2 }
-				add_building_construction = { type = industrial_complex level = 2 instant_build = yes }
-			}
-			every_state = {
-				limit = { arms_factory > 0 }
-				remove_building = { type = arms_factory level = 1 }
-				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+				limit = {
+					arms_factory > 0
+				}
+				set_temp_variable = { civs = this.building_level@arms_factory }
+				remove_building = { type = arms_factory level = var:civs }
+				add_building_construction = { type = industrial_complex level = var:civs instant_build = yes }
 			}
 		}
 		effect_tooltip = {
 			every_state = {
+				limit = {
+					arms_factory > 0
+				}
 				remove_building = { type = arms_factory level = 1 }
 				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
 			}
@@ -4932,13 +5325,19 @@ country_event = {
 		ai_chance = { factor = 1 }
 
 		every_country = {
-			random_list = {
-				2 = { set_research_slots = 2 }
-				4 = { set_research_slots = 3 }
-				4 = { set_research_slots = 4 }
-				3 = { set_research_slots = 5 }
-				2 = { set_research_slots = 6 }
-				1 = { set_research_slots = 7 }
+			limit = {
+				NOT = { tag = UNC }
+			}
+			custom_effect_tooltip = chaos.132.a.tt
+			hidden_effect = {
+				random_list = {
+					2 = { set_research_slots = 2 }
+					4 = { set_research_slots = 3 }
+					4 = { set_research_slots = 4 }
+					3 = { set_research_slots = 5 }
+					2 = { set_research_slots = 6 }
+					1 = { set_research_slots = 7 }
+				}
 			}
 		}
 	}
@@ -4956,7 +5355,7 @@ country_event = {
 		ai_chance = { factor = 1 }
 
 		add_tech_bonus = {
-			bonus = 10.0
+			bonus = 100.0
 			uses = 1
 			category = light_air
 			category = medium_air
@@ -5073,16 +5472,19 @@ country_event = {
 		name = chaos.134.a
 		ai_chance = { factor = 1 }
 
-		every_country = {
-			random_list = {
-				2 = { set_research_slots = 2 }
-				4 = { set_research_slots = 3 }
-				4 = { set_research_slots = 4 }
-				3 = { set_research_slots = 5 }
-				2 = { set_research_slots = 6 }
-				1 = { set_research_slots = 7 }
-			}
-		}
+		add_ideas = { chaos_army_focus_1 }
+	}
+	option = {
+		name = chaos.134.b
+		ai_chance = { factor = 1 }
+
+		add_ideas = { chaos_army_focus_2 }
+	}
+	option = {
+		name = chaos.134.c
+		ai_chance = { factor = 1 }
+
+		add_ideas = { chaos_army_focus_3 }
 	}
 }
 
@@ -5211,7 +5613,7 @@ country_event = {
 						1 = { IRQ = { transfer_state = PREV } }
 						1 = { SAU = { transfer_state = PREV } }
 						1 = { KUW = { transfer_state = PREV } }
-						1 = { }
+						3 = { }
 					}
 				}
 			}
@@ -5221,7 +5623,7 @@ country_event = {
 					random_list = {
 						1 = { IRQ = { transfer_state = PREV } }
 						1 = { SAU = { transfer_state = PREV } }
-						1 = { }
+						3 = { }
 					}
 				}
 			}
@@ -5232,7 +5634,7 @@ country_event = {
 						1 = { IRQ = { transfer_state = PREV } }
 						1 = { JOR = { transfer_state = PREV } }
 						1 = { SAU = { transfer_state = PREV } }
-						1 = { }
+						3 = { }
 					}
 				}
 			}
@@ -5241,7 +5643,7 @@ country_event = {
 				random_list = {
 						1 = { SAU = { transfer_state = PREV } }
 						1 = { JOR = { transfer_state = PREV } }
-						1 = { }
+						3 = { }
 					}
 				}
 			}
@@ -5251,7 +5653,7 @@ country_event = {
 						1 = { YEM = { transfer_state = PREV } }
 						1 = { ENG = { transfer_state = PREV } }
 						1 = { SAU = { transfer_state = PREV } }
-						1 = { }
+						3 = { }
 					}
 				}
 			}
@@ -5262,7 +5664,7 @@ country_event = {
 				random_list = {
 						1 = { IRQ = { transfer_state = PREV } }
 						1 = { PER = { transfer_state = PREV } }
-						1 = { }
+						3 = { }
 					}
 				}
 			}
@@ -5272,7 +5674,7 @@ country_event = {
 						1 = { IRQ = { transfer_state = PREV } }
 						1 = { SAU = { transfer_state = PREV } }
 						1 = { KUW = { transfer_state = PREV } }
-						1 = { }
+						3 = { }
 					}
 				}
 			}
@@ -5284,7 +5686,7 @@ country_event = {
 						1 = { PER = { transfer_state = PREV } }
 						1 = { TUR = { transfer_state = PREV } }
 						1 = { KUR = { transfer_state = PREV } }
-						1 = { }
+						3 = { }
 					}
 				}
 			}
@@ -5294,7 +5696,7 @@ country_event = {
 						1 = { IRQ = { transfer_state = PREV } }
 						1 = { SYR = { transfer_state = PREV } }
 						1 = { JOR = { transfer_state = PREV } }
-						1 = { }
+						3 = { }
 					}
 				}
 			}
@@ -5304,7 +5706,7 @@ country_event = {
 						1 = { IRQ = { transfer_state = PREV } }
 						1 = { PER = { transfer_state = PREV } }
 						1 = { KUW = { transfer_state = PREV } }
-						1 = { }
+						3 = { }
 					}
 				}
 			}
@@ -5319,7 +5721,7 @@ country_event = {
 						1 = { KUW = { transfer_state = PREV } }
 						1 = { FRA = { transfer_state = PREV } }
 						1 = { PER = { transfer_state = PREV } }
-						1 = { }
+						3 = { }
 					}
 				}
 			}
@@ -5331,7 +5733,7 @@ country_event = {
 						1 = { IRQ = { transfer_state = PREV } }
 						1 = { TUR = { transfer_state = PREV } }
 						1 = { SYR = { transfer_state = PREV } }
-						1 = { }
+						3 = { }
 					}
 				}
 			}
@@ -5340,7 +5742,7 @@ country_event = {
 				random_list = {
 						1 = { SYR = { transfer_state = PREV } }
 						1 = { TUR = { transfer_state = PREV } }
-						1 = { }
+						3 = { }
 					}
 				}
 			}
@@ -5349,7 +5751,7 @@ country_event = {
 				random_list = {
 						1 = { SYR = { transfer_state = PREV } }
 						1 = { FRA = { transfer_state = PREV } }
-						1 = { }
+						3 = { }
 					}
 				}
 			}
@@ -5358,7 +5760,7 @@ country_event = {
 				random_list = {
 						1 = { SYR = { transfer_state = PREV } }
 						1 = { TUR = { transfer_state = PREV } }
-						1 = { }
+						3 = { }
 					}
 				}
 			}
@@ -5371,7 +5773,7 @@ country_event = {
 						1 = { SAU = { transfer_state = PREV } }
 						1 = { PAL = { transfer_state = PREV } }
 						1 = { JOR = { transfer_state = PREV } }
-						1 = { }
+						3 = { }
 					}
 				}
 			}
@@ -5384,7 +5786,7 @@ country_event = {
 						1 = { PER = { transfer_state = PREV } }
 						1 = { TUR = { transfer_state = PREV } }
 						1 = { KUR = { transfer_state = PREV } }
-						1 = { }
+						3 = { }
 					}
 				}
 			}
@@ -5394,7 +5796,7 @@ country_event = {
 						1 = { PER = { transfer_state = PREV } }
 						1 = { KUR = { transfer_state = PREV } }
 						1 = { AZR = { transfer_state = PREV } }
-						1 = { }
+						3 = { }
 					}
 				}
 			}
@@ -5405,7 +5807,7 @@ country_event = {
 						1 = { PER = { transfer_state = PREV } }
 						1 = { KUR = { transfer_state = PREV } }
 						1 = { AZR = { transfer_state = PREV } }
-						1 = { }
+						3 = { }
 					}
 				}
 			}
@@ -5415,7 +5817,7 @@ country_event = {
 						1 = { IRQ = { transfer_state = PREV } }
 						1 = { PER = { transfer_state = PREV } }
 						1 = { KUR = { transfer_state = PREV } }
-						1 = { }
+						3 = { }
 					}
 				}
 			}
@@ -5424,7 +5826,7 @@ country_event = {
 				random_list = {
 						1 = { IRQ = { transfer_state = PREV } }
 						1 = { PER = { transfer_state = PREV } }
-						1 = { }
+						3 = { }
 					}
 				}
 			}
@@ -5433,7 +5835,7 @@ country_event = {
 				random_list = {
 						1 = { PER = { transfer_state = PREV } }
 						1 = { ENG = { transfer_state = PREV } }
-						1 = { }
+						3 = { }
 					}
 				}
 			}
@@ -5443,7 +5845,7 @@ country_event = {
 						1 = { PER = { transfer_state = PREV } }
 						1 = { AZR = { transfer_state = PREV } }
 						1 = { KUR = { transfer_state = PREV } }
-						1 = { }
+						3 = { }
 					}
 				}
 			}
@@ -5453,7 +5855,7 @@ country_event = {
 						1 = { PER = { transfer_state = PREV } }
 						1 = { ENG = { transfer_state = PREV } }
 						1 = { FRA = { transfer_state = PREV } }
-						1 = { }
+						3 = { }
 					}
 				}
 			}
@@ -5462,7 +5864,7 @@ country_event = {
 				random_list = {
 						1 = { PER = { transfer_state = PREV } }
 						1 = { AFG = { transfer_state = PREV } }
-						1 = { }
+						3 = { }
 					}
 				}
 			}
@@ -5477,7 +5879,7 @@ country_event = {
 						1 = { PER = { transfer_state = PREV } }
 						1 = { PER = { transfer_state = PREV } }
 						1 = { QAT = { transfer_state = PREV } }
-						1 = { }
+						5 = { }
 					}
 				}
 			}
@@ -5493,7 +5895,7 @@ country_event = {
 						1 = { PER = { transfer_state = PREV } }
 						1 = { BHR = { transfer_state = PREV } }
 						1 = { QAT = { transfer_state = PREV } }
-						1 = { }
+						5 = { }
 					}
 				}
 			}
@@ -5506,7 +5908,7 @@ country_event = {
 						1 = { ENG = { transfer_state = PREV } }
 						1 = { FRA = { transfer_state = PREV } }
 						1 = { OMA = { transfer_state = PREV } }
-						1 = { }
+						3 = { }
 					}
 				}
 			}
@@ -5519,7 +5921,7 @@ country_event = {
 						1 = { ENG = { transfer_state = PREV } }
 						1 = { FRA = { transfer_state = PREV } }
 						1 = { YEM = { transfer_state = PREV } }
-						1 = { }
+						3 = { }
 					}
 				}
 			}
@@ -5529,7 +5931,7 @@ country_event = {
 						1 = { SAU = { transfer_state = PREV } }
 						1 = { RAJ = { transfer_state = PREV } }
 						1 = { YEM = { transfer_state = PREV } }
-						1 = { }
+						3 = { }
 					}
 				}
 			}
@@ -5541,7 +5943,7 @@ country_event = {
 						1 = { FRA = { transfer_state = PREV } }
 						1 = { YEM = { transfer_state = PREV } }
 						1 = { RAJ = { transfer_state = PREV } }
-						1 = { }
+						5 = { }
 					}
 				}
 			}
@@ -5554,7 +5956,7 @@ country_event = {
 						1 = { PER = { transfer_state = PREV } }
 						1 = { TUR = { transfer_state = PREV } }
 						1 = { KUR = { transfer_state = PREV } }
-						1 = { }
+						3 = { }
 					}
 				}
 			}
@@ -5565,7 +5967,7 @@ country_event = {
 						1 = { FRA = { transfer_state = PREV } }
 						1 = { TUR = { transfer_state = PREV } }
 						1 = { KUR = { transfer_state = PREV } }
-						1 = { }
+						5 = { }
 					}
 				}
 			}
@@ -5756,96 +6158,353 @@ country_event = {
 	option = {
 		name = chaos.139.a
 		ai_chance = { factor = 1 }
-
-		LIT = { set_cosmetic_tag = BAL_UNIFIED }
-		TUR = {
+		hidden_effect = {
+			LIT = { set_cosmetic_tag = BAL_UNIFIED }
+			TUR = {
+				random_list = {
+					1 = { set_cosmetic_tag = OTT_UNIFIED_communism }
+					1 = { set_cosmetic_tag = TUR_PROVISIONARY_democratic }
+					1 = { set_cosmetic_tag = TUR_GREATER_TURKEY_fascism }
+					1 = { set_cosmetic_tag = TRN_democratic }
+					1 = { drop_cosmetic_tag = yes }
+				}
+			}
+			ITA = {
+				random_list = {
+					1 = { set_cosmetic_tag = SPQR_UNIFIED }
+					1 = { set_cosmetic_tag = italo_ethiopian_empire }
+					1 = { set_cosmetic_tag = greater_italy }
+					1 = { set_cosmetic_tag = papal_states }
+					1 = { set_cosmetic_tag = ITA_socialist_republic }
+					1 = { set_cosmetic_tag = ITA_italian_empire }
+					1 = { set_cosmetic_tag = ITA_rsi }
+					1 = { set_cosmetic_tag = ITA_rds }
+					4 = { drop_cosmetic_tag = yes }
+				}
+			}
+			GRE = { 
+				random_list = {
+					1 = { set_cosmetic_tag = BYZ_UNIFIED }
+					1 = { set_cosmetic_tag = GRE_stalinist }
+					1 = { set_cosmetic_tag = GRE_GREATER_GREECE_democratic }
+					1 = { set_cosmetic_tag = GRE_dem_monarchy_neutrality }
+					1 = { drop_cosmetic_tag = yes }
+				}
+			}
+			ENG = {
+				random_list = {
+					1 = { set_cosmetic_tag = ENG_imperial_federation_india_unified }
+					1 = { set_cosmetic_tag = ENG_imperial_federation_unified }
+					1 = { set_cosmetic_tag = NSE_UNIFIED }
+					1 = { set_cosmetic_tag = AUS_true_liechtenstein }
+					1 = { drop_cosmetic_tag = yes }
+				}
+			}
+			USA = { 
+				random_list = {
+					1 = { set_cosmetic_tag = CAN_north_america_dominion }
+					1 = { set_cosmetic_tag = native_american_usa }
+					1 = { set_cosmetic_tag = USA_CSA }
+					1 = { drop_cosmetic_tag = yes }
+				}
+			}
+			SPR = {
+				random_list = {
+					1 = { set_cosmetic_tag = SPR_anarchist_spain }
+					1 = { set_cosmetic_tag = SPR_nationalist_spain }
+					1 = { set_cosmetic_tag = SPR_carlist_spain }
+					1 = { set_cosmetic_tag = SPR_republican_spain }
+					1 = { set_cosmetic_tag = SPA_directory }
+					1 = { set_cosmetic_tag = SPA_spanish_empire }
+					1 = { set_cosmetic_tag = SPB_kingdom }
+					1 = { set_cosmetic_tag = SPC_regional_defense_council_of_iberia }
+					1 = { set_cosmetic_tag = SPC_global_defense_council }
+					1 = { set_cosmetic_tag = SPC_poum }
+					3 = { drop_cosmetic_tag = yes }
+				}
+			}
+			NZL = { set_cosmetic_tag = united_polynesia }
+			YUG = {
+				random_list = {
+					1 = { set_cosmetic_tag = dalmatia }
+					1 = { set_cosmetic_tag = YUG_puppet_1 }
+					1 = { set_cosmetic_tag = YUG_puppet_2 }
+					1 = { set_cosmetic_tag = YUG_puppet_3 }
+					1 = { set_cosmetic_tag = UBF_united_balkan_federation }
+					1 = { set_cosmetic_tag = CRO_AUS_danubian_state }
+					1 = { set_cosmetic_tag = MAC_AUS_danubian_state }
+					4 = { drop_cosmetic_tag = yes }
+				}
+			}
+			BUL = {
+				random_list = {
+					1 = { set_cosmetic_tag = UBF_united_balkan_federation_democratic }
+					1 = { set_cosmetic_tag = TBE_third_bulgarian_empire_fascism }
+				}
+			}
+			POL = {
+				random_list = {
+					1 = { set_cosmetic_tag = PLC_UNIFIED_RUS }
+					1 = { set_cosmetic_tag = POL_SANATION }
+					1 = { set_cosmetic_tag = POL_PEASANT }
+					1 = { set_cosmetic_tag = POL_KINGDOM }
+					1 = { set_cosmetic_tag = POL_KINGDOM_RUS }
+					1 = { set_cosmetic_tag = PLC_UNIFIED_RUS }
+					1 = { set_cosmetic_tag = POL_ROM_UNION }
+					3 = { drop_cosmetic_tag = yes }
+				}
+			}
+			LAT = { set_cosmetic_tag = OSTLAND }
+			ETH = { 
+				random_list = {
+					1 = { set_cosmetic_tag = greater_gojjam }
+					1 = { set_cosmetic_tag = ETH_African_Union }
+					1 = { set_cosmetic_tag = empire_of_axum }
+					1 = { drop_cosmetic_tag = yes }
+				}
+			}
+			SWI = {
+				random_list = {
+					1 = { set_cosmetic_tag = SWI_helvetic_republic }
+					1 = { set_cosmetic_tag = SWI_GER_puppet_fascism }
+					1 = { set_cosmetic_tag = SWI_FRA_puppet_democratic }
+					1 = { set_cosmetic_tag = SWI_ITA_puppet_fascism }
+					1 = { set_cosmetic_tag = SWI_ENG_puppet_democratic }
+					1 = { set_cosmetic_tag = SWI_SOV_puppet_communism }
+					1 = { set_cosmetic_tag = SWI_alpine_democratic }
+					1 = { set_cosmetic_tag = SWI_alpine_communism }
+					1 = { set_cosmetic_tag = SWI_alpine_neutrality }
+					1 = { set_cosmetic_tag = SWI_alpine_democratic }
+					4 = { drop_cosmetic_tag = yes }
+				}
+			}
+			INS = {
+				random_list = {
+					1 = { set_cosmetic_tag = INS_HOL }
+					1 = { set_cosmetic_tag = MAJ_UNIFIED }
+					2 = { drop_cosmetic_tag = yes }
+				}
+			}
+			RAJ = { 
+				random_list = {
+					1 = { set_cosmetic_tag = MAJ_UNIFIED }
+					1 = { set_cosmetic_tag = RAJ_mughal_empire }
+					1 = { set_cosmetic_tag = RAJ_timurid_empire }
+					1 = { set_cosmetic_tag = RAJ_eic_tag }
+					1 = { drop_cosmetic_tag = yes }
+				}
+			}
+			SIA = { set_cosmetic_tag = RAT_UNIFIED }
+			BRA = {
+				random_list = {
+					1 = { set_cosmetic_tag = YUG_puppet_1 }
+					1 = { set_cosmetic_tag = indigenous_brazil }
+					1 = { set_cosmetic_tag = BRA_union_of_latin_american_socialist_republics_cos_tag }
+					1 = { set_cosmetic_tag = BRA_america_do_sul }
+					1 = { set_cosmetic_tag = BRA_united_states_of_south_america_cos_tag }
+					1 = { drop_cosmetic_tag = yes }
+				}
+			}
+			CHI = {
+				random_list = {
+					1 = { set_cosmetic_tag = CYP_UK }
+					1 = { set_cosmetic_tag = MAN_restored }
+					1 = { set_cosmetic_tag = RAJ_FREE }
+					1 = { set_cosmetic_tag = CHI_warlord_PRC }
+					1 = { set_cosmetic_tag = MAL_UK }
+					1 = { set_cosmetic_tag = SPC_global_defense_council }
+					3 = { drop_cosmetic_tag = yes }
+				}
+			} 
+			ARG = {
+				random_list = {
+					1 = { set_cosmetic_tag = GER_greater_german_reich }
+					1 = { set_cosmetic_tag = kingdom_of_araucania_and_patagonia }
+					1 = { set_cosmetic_tag = ARG_nationalist_union_south_america_fascism }
+					1 = { set_cosmetic_tag = ARG_military_union_south_america }
+					1 = { set_cosmetic_tag = ARG_soviet_aligned_communism }
+					1 = { set_cosmetic_tag = ARG_independent_democracy_democratic }
+					1 = { set_cosmetic_tag = ARG_fourth_reich_fascism }
+					1 = { drop_cosmetic_tag = yes }
+				}
+			}
+			TAN = {
+				random_list = {
+					1 = { set_cosmetic_tag = turkestan_united }
+					1 = { set_cosmetic_tag = siberia_unified }
+					1 = { drop_cosmetic_tag = yes }
+				}
+			}
+			SWE = { 
+				random_list = {
+					1 = { set_cosmetic_tag = SWE_nordic_defense_council }
+					1 = { set_cosmetic_tag = SWE_the_new_order }
+					1 = { set_cosmetic_tag = NSE_UNIFIED }
+					1 = { set_cosmetic_tag = SWE_nordland_ger }
+					1 = { set_cosmetic_tag = SWE_greater_nordic_reich_tag }
+					1 = { drop_cosmetic_tag = yes }
+				}
+			}
+			CHL = {
+				random_list = {
+					1 = { set_cosmetic_tag = CHL_hispanic_union }
+					1 = { set_cosmetic_tag = CHL_mapuche_state }
+					1 = { set_cosmetic_tag = kingdom_of_araucania_and_patagonia }
+					1 = { set_cosmetic_tag = CHL_new_fatherland }
+					1 = { set_cosmetic_tag = CHL_amerindian_federation }
+					1 = { drop_cosmetic_tag = yes }
+				}
+			}
+			GER = {
+				random_list = {
+					1 = { set_cosmetic_tag = reunified_germany }
+					1 = { set_cosmetic_tag = GER_german_monarchy_liberal }
+					1 = { set_cosmetic_tag = GER_german_monarchy_conservative }
+					1 = { set_cosmetic_tag = GER_german_monarchy_democratic }
+					1 = { set_cosmetic_tag = GER_strasserite_state }
+					1 = { set_cosmetic_tag = GER_communism }
+					1 = { set_cosmetic_tag = GER_peoples_republic }
+					1 = { set_cosmetic_tag = GER_german_socialist_union }
+					1 = { set_cosmetic_tag = GER_greater_proletarian_german_state }
+					1 = { set_cosmetic_tag = GER_civil_war }
+					1 = { set_cosmetic_tag = GER_provisional_gvt }
+					1 = { set_cosmetic_tag = GER_german_empire }
+					1 = { set_cosmetic_tag = GER_german_monarchy }
+					1 = { set_cosmetic_tag = GER_german_kaiserreich }
+					1 = { set_cosmetic_tag = GER_greater_german_reich }
+					6 = { drop_cosmetic_tag = yes }
+				}
+			}
+			FRA = {
+				random_list = {
+					1 = { set_cosmetic_tag = FRA_AUS_danubian_state }
+					1 = { set_cosmetic_tag = FRA_VICHY }
+					1 = { set_cosmetic_tag = FRA_ORLEANS }
+					1 = { set_cosmetic_tag = FRA_THIRD_EMPIRE }
+					1 = { set_cosmetic_tag = FRANCO_SPAIN }
+					1 = { drop_cosmetic_tag = yes }
+				}
+			}
+			BEL = {
+				random_list = {
+					1 = { set_cosmetic_tag = BEL_AUS_danubian_state }
+					1 = { set_cosmetic_tag = BEL_vnv_dominant }
+					1 = { set_cosmetic_tag = BEL_greater_netherlands }
+					1 = { set_cosmetic_tag = BEL_beligca }
+					1 = { set_cosmetic_tag = BEL_flanders }
+					1 = { set_cosmetic_tag = BEL_european_union_leader }
+					1 = { set_cosmetic_tag = BEL_reichskommissariat }
+					3 = { drop_cosmetic_tag = yes }
+				}
+			}
+			HOL = {
+				random_list = {
+					1 = { set_cosmetic_tag = BEL_greater_netherlands }
+					1 = { set_cosmetic_tag = HOL_benelux_unified }
+					1 = { set_cosmetic_tag = HOL_AUS_danubian_state }
+					1 = { drop_cosmetic_tag = yes }
+				}
+			}
+			COG = { set_cosmetic_tag = latin_africa }
+			every_country = {
+				limit = {
+					has_cosmetic_tag = antilles
+				}
+				drop_cosmetic_tag = yes
+			}
 			random_list = {
-				1 = { set_cosmetic_tag = OTT_UNIFIED_communism }
-				1 = { set_cosmetic_tag = TUR_PROVISIONARY_democratic }
-				1 = { set_cosmetic_tag = TUR_GREATER_TURKEY_fascism }
-				1 = { set_cosmetic_tag = TRN_democratic }
+				1 = { CUB = { set_cosmetic_tag = antilles } }
+				1 = { HAI = { set_cosmetic_tag = antilles } }
+				1 = { DOM = { set_cosmetic_tag = antilles } }
+			}
+			every_country = {
+				limit = {
+					has_cosmetic_tag = HUN_EMPIRE
+				}
+				drop_cosmetic_tag = yes
+			}
+			random_list = {
+				1 = { HUN = { set_cosmetic_tag = HUN_EMPIRE } }
+				1 = { AUS = { set_cosmetic_tag = HUN_EMPIRE } }
+				1 = { YUG = { set_cosmetic_tag = HUN_EMPIRE } }
+				1 = { CRO = { set_cosmetic_tag = HUN_EMPIRE } }
+				1 = { CZE = { set_cosmetic_tag = HUN_EMPIRE } }
+				1 = { SLO = { set_cosmetic_tag = HUN_EMPIRE } }
+				1 = { ROM = { set_cosmetic_tag = HUN_EMPIRE } }
+				1 = { SLV = { set_cosmetic_tag = HUN_EMPIRE } }
+				3 = {}
+			}
+			every_country = {
+				limit = {
+					has_cosmetic_tag = EUR_UNIFIED
+				}
+				drop_cosmetic_tag = yes
+			}
+			random_list = {
+				1 = { GER = { set_cosmetic_tag = EUR_UNIFIED } }
+				1 = { FRA = { set_cosmetic_tag = EUR_UNIFIED } }
+				1 = { ITA = { set_cosmetic_tag = EUR_UNIFIED } }
+				1 = { AUS = { set_cosmetic_tag = EUR_UNIFIED } }
+				1 = { HOL = { set_cosmetic_tag = EUR_UNIFIED } }
+				1 = { BEL = { set_cosmetic_tag = EUR_UNIFIED } }
+				1 = { LUX = { set_cosmetic_tag = EUR_UNIFIED } }
+				1 = { ENG = { set_cosmetic_tag = EUR_UNIFIED } }
+				1 = { CZE = { set_cosmetic_tag = EUR_UNIFIED } }
+				1 = { ENG = { set_cosmetic_tag = EUR_UNIFIED } }
+				4 = {}
+			}
+			every_country = {
+				limit = {
+					has_cosmetic_tag = ARA_UNIFIED
+				}
+				drop_cosmetic_tag = yes
+			}
+			random_list = {
+				1 = { SAU = { set_cosmetic_tag = ARA_UNIFIED } }
+				1 = { KUW = { set_cosmetic_tag = ARA_UNIFIED } }
+				1 = { SYR = { set_cosmetic_tag = ARA_UNIFIED } }
+				1 = { JOR = { set_cosmetic_tag = ARA_UNIFIED } }
+				1 = { PAL = { set_cosmetic_tag = ARA_UNIFIED } }
+				3 = {}
+			}
+			every_country = {
+				limit = {
+					has_cosmetic_tag = NDC_UNIFIED
+				}
+				drop_cosmetic_tag = yes
+			}
+			random_list = {
+				1 = { SWE = { set_cosmetic_tag = NDC_UNIFIED } }
+				1 = { NOR = { set_cosmetic_tag = NDC_UNIFIED } }
+				1 = { ICE = { set_cosmetic_tag = NDC_UNIFIED } }
+				1 = { FIN = { set_cosmetic_tag = NDC_UNIFIED } }
+				1 = { DEN = { set_cosmetic_tag = NDC_UNIFIED } }
+				1 = { EST = { set_cosmetic_tag = NDC_UNIFIED } }
+				3 = { }
+			}
+			every_country = {
+				limit = {
+					has_cosmetic_tag = SCA_UNIFIED
+				}
+				drop_cosmetic_tag = yes
+			}
+			random_list = {
+				1 = { SWE = { set_cosmetic_tag = SCA_UNIFIED } }
+				1 = { NOR = { set_cosmetic_tag = SCA_UNIFIED } }
+				1 = { ICE = { set_cosmetic_tag = SCA_UNIFIED } }
+				1 = { FIN = { set_cosmetic_tag = SCA_UNIFIED } }
+				1 = { DEN = { set_cosmetic_tag = SCA_UNIFIED } }
+				1 = { EST = { set_cosmetic_tag = SCA_UNIFIED } }
+				3 = { }
+			}
+			random_list = {
+				1 = { PRU = { set_cosmetic_tag = peru_bolivian_confederation } }
+				1 = { BOL = { set_cosmetic_tag = peru_bolivian_confederation } }
+				1 = { BOL = { set_cosmetic_tag = BOL_orelia } }
+				1 = { BOL = { set_cosmetic_tag = true_plurinational_bolivia } }
+				1 = { PER = { set_cosmetic_tag = PAR_anti_imperialism } }
 			}
 		}
-		ITA = { set_cosmetic_tag = SPQR_UNIFIED }
-		GRE = { 
-			random_list = {
-				1 = { set_cosmetic_tag = BYZ_UNIFIED }
-				1 = { set_cosmetic_tag = GRE_stalinist }
-				1 = { set_cosmetic_tag = GRE_GREATER_GREECE_democratic }
-				1 = { set_cosmetic_tag = GRE_dem_monarchy_neutrality }
-			}
-		}
-		SAU = { set_cosmetic_tag = ARA_UNIFIED }
-		MAN = { set_cosmetic_tag = MAN_restored }
-		ENG = { set_cosmetic_tag = ENG_imperial_federation_india_unified }
-		USA = { set_cosmetic_tag = CAN_north_america_dominion }
-		SPR = { set_cosmetic_tag = SPR_anarchist_spain }
-		NZL = { set_cosmetic_tag = united_polynesia }
-		YUG = { set_cosmetic_tag = dalmatia }
-		BUL = {
-			random_list = {
-				1 = { set_cosmetic_tag = UBF_united_balkan_federation_democratic }
-				1 = { set_cosmetic_tag = TBE_third_bulgarian_empire_fascism }
-			}
-		}
-		POL = { set_cosmetic_tag = PLC_UNIFIED_RUS }
-		LAT = { set_cosmetic_tag = OSTLAND }
-		ETH = { 
-			random_list = {
-				1 = { set_cosmetic_tag = greater_gojjam }
-				1 = { set_cosmetic_tag = ETH_African_Union }
-				1 = { set_cosmetic_tag = empire_of_axum }
-			}
-		}
-		SWI = { set_cosmetic_tag = SWI_helvetic_republic }
-		INS = { drop_cosmetic_tag = yes }
-		RAJ = { 
-			random_list = {
-				1 = { set_cosmetic_tag = MAJ_UNIFIED }
-				1 = { set_cosmetic_tag = RAJ_mughal_empire }
-				1 = { set_cosmetic_tag = RAJ_timurid_empire }
-				1 = { set_cosmetic_tag = RAJ_eic_tag }
-			}
-		}
-		SIA = { set_cosmetic_tag = RAT_UNIFIED }
-		BRA = { set_cosmetic_tag = YUG_puppet_1 }
-		CHI = { set_cosmetic_tag = CYP_UK }
-		ARG = { set_cosmetic_tag = GER_greater_german_reich }
-		TAN = {
-			random_list = {
-				1 = { set_cosmetic_tag = turkestan_united }
-				1 = { set_cosmetic_tag = siberia_unified }		
-			}
-		}
-		SWE = { set_cosmetic_tag = SWE_nordic_defense_council }
-		random_list = {
-			1 = { CUB = { set_cosmetic_tag = antilles } }
-			1 = { HAI = { set_cosmetic_tag = antilles } }
-			1 = { DOM = { set_cosmetic_tag = antilles } }
-		}
-		random_list = {
-			1 = { HUN = { set_cosmetic_tag = HUN_EMPIRE } }
-			1 = { AUS = { set_cosmetic_tag = HUN_EMPIRE } }
-		}
-		random_list = {
-			1 = { GER = { set_cosmetic_tag = EUR_UNIFIED } }
-			1 = { FRA = { set_cosmetic_tag = EUR_UNIFIED } }
-			1 = { ITA = { set_cosmetic_tag = EUR_UNIFIED } }
-			1 = { AUS = { set_cosmetic_tag = EUR_UNIFIED } }
-			1 = { HOL = { set_cosmetic_tag = EUR_UNIFIED } }
-			1 = { BEL = { set_cosmetic_tag = EUR_UNIFIED } }
-			1 = { LUX = { set_cosmetic_tag = EUR_UNIFIED } }
-			1 = { ENG = { set_cosmetic_tag = EUR_UNIFIED } }
-			1 = { CZE = { set_cosmetic_tag = EUR_UNIFIED } }
-		}
-		random_list = {
-			1 = { SAU = { set_cosmetic_tag = ARA_UNIFIED } }
-			1 = { KUW = { set_cosmetic_tag = ARA_UNIFIED } }
-			1 = { SYR = { set_cosmetic_tag = ARA_UNIFIED } }
-			1 = { JOR = { set_cosmetic_tag = ARA_UNIFIED } }
-			1 = { PAL = { set_cosmetic_tag = ARA_UNIFIED } }
-		}
-		COG = { set_cosmetic_tag = latin_africa }
 	}
 }
 
@@ -7069,6 +7728,7 @@ country_event = {
 		name = chaos.151.a
 		ai_chance = { factor = 1 }
 		every_other_country = {
+			limit = { NOT = { tag = UNC } }
 			ROOT = { white_peace = PREV }
 		}
 
@@ -8015,41 +8675,79 @@ country_event = {
 		name = chaos.170.a
 		ai_chance = { factor = 1 }
 
-		every_country = {
-			dismantle_faction = yes 
-		}
-
-		every_country = {
-			limit = {
-				NOT = { is_subject = yes }
+		custom_effect_tooltip = chaos.170.a.tt1
+		hidden_effect = {
+			every_country = {
+				dismantle_faction = yes 
 			}
-			random_list = {	
-				1 = {
-					meta_effect = {
-						text = {
-							random_list = {
-								2 = { create_faction = "[ADJ] Faction" }
-								2 = { create_faction = "[ADJ] Clique" }
-								2 = { create_faction = "[ADJ] Union" }
-								2 = { create_faction = "The [ADJ] Front" }
-								2 = { create_faction = "The [ADJ] Concordat" }
-								2 = { create_faction = "The [ADJ] Alliance" }
-								1 = { create_faction = "Axis" }
-								1 = { create_faction = "Allies" }
-								1 = { create_faction = "Comintern" }
-								1 = { create_faction = "Greater East Asia Co-prosperity Sphere" }
-								1 = { create_faction = "Central Powers" }
-								1 = { create_faction = "Triple Entente" }
-								1 = { create_faction = "Mutual Assistance Bloc" }
-								1 = { create_faction = "League of Nations" }
-								
-							}
-						}
-						ADJ = "[?THIS.GetAdjective]"
-					}
-					add_to_temp_array = { fl = var:THIS }
+		}
+		hidden_effect = {
+			every_country = {
+				limit = {
+					NOT = { is_subject = yes }
 				}
-				7 = {}
+				random_list = {
+					1 = {
+						meta_effect = {
+							text = {
+								random_list = {
+									4 = { create_faction = "[ADJ] Faction" }
+									4 = { create_faction = "[ADJ] Clique" }
+									4 = { create_faction = "[ADJ] Union" }
+									4 = { create_faction = "[ADJ] Bloc" }
+									4 = { create_faction = "Federation of [ADJ] States" }
+									4 = { create_faction = "The [ADJ] Front" }
+									4 = { create_faction = "The [CAP] Front" }
+									4 = { create_faction = "The [ADJ] Concordat" }
+									4 = { create_faction = "The [ADJ] Alliance" }
+									4 = { create_faction = "The [CAP] Alliance" }
+									4 = { create_faction = "The [CAP] Accord" }
+									4 = { create_faction = "[CAP] Vanguard" }
+									4 = { create_faction = "[CAP] Pact" }
+									4 = { create_faction = "Entente Cordiale [CAP]" }
+									9 = { create_faction = "[LEADER]'s Gang" }
+									4 = { create_faction = "[LEADER]'s Coalition" }
+									4 = { create_faction = "The Grand [ADJ] Concordat" }
+									4 = { create_faction = "[FLAG][FLAG][FLAG][FLAG][FLAG]" }
+									2 = { create_faction = "The [IDEOLOGY] Bloc" }
+									1 = { create_faction = "Axis" }
+									1 = { create_faction = "Allies" }
+									1 = { create_faction = "Comintern" }
+									1 = { create_faction = "Greater East-Asian Co-Prosperity Sphere" }
+									1 = { create_faction = "Central Powers" }
+									1 = { create_faction = "Triple Entente" }
+									1 = { create_faction = "Mutual Assistance Bloc" }
+									1 = { create_faction = "League of Nations" }
+									1 = { create_faction = "Latin Entente" }
+									1 = { create_faction = "Central States" }
+									1 = { create_faction = "Iron Front" }
+									1 = { create_faction = "Liberation Pact" }
+									1 = { create_faction = "The Mountain Alliance" }
+									1 = { create_faction = "The Forest Brothers" }
+									1 = { create_faction = "Union of Eurasian Soviets" }
+									1 = { create_faction = "Islamic Brotherhood" }
+									1 = { create_faction = "Latin Bloc" }
+									1 = { create_faction = "International Bureau of Revolutionary Socialist Unity" }
+									1 = { create_faction = "Anti-Fascist Bloc" }
+									1 = { create_faction = "4th International" }
+									1 = { create_faction = "Reichspakt" }
+									1 = { create_faction = "Organisation of American States" }
+									1 = { create_faction = "Southwest Pacific Initiative" }
+									1 = { create_faction = "Allies 2" }
+									1 = { create_faction = "Your Faction Name Here" }
+									
+								}
+							}
+							ADJ = "[?THIS.GetAdjective]"
+							CAP = "[?THIS.Capital.GetCapitalVictoryPointName]"
+							LEADER = "[?THIS.GetLeader]"
+							FLAG = "[?THIS.GetFlag]"
+							IDEOLOGY = "[?THIS.country_leader.GetIdeologyGroup]"
+						}
+						add_to_temp_array = { fl = var:THIS }
+					}
+					7 = {}
+				}
 			}
 		}
 
@@ -8058,16 +8756,19 @@ country_event = {
 				NOT = { is_subject = yes }
 				NOT = { is_in_faction = yes }
 			}
-			random_list = {
-				5 = {
+			custom_effect_tooltip = chaos.170.a.tt2
+			hidden_effect = {
+				random_list = {
+					5 = {
 
-				}
-				5 = {
-					random_scope_in_array = {
-						array = fl
-						# break = break
-						limit = {}
-						add_to_faction = PREV
+					}
+					5 = {
+						random_scope_in_array = {
+							array = fl
+							# break = break
+							limit = {}
+							add_to_faction = PREV
+						}
 					}
 				}
 			}
@@ -8193,18 +8894,29 @@ country_event = {
 	desc = chaos.175.d
 
 	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			random_state = {
+				limit = {
+					OWNER = {
+						is_ai = yes
+						NOT = { tag = ROOT }
+						check_variable = { var:num_owned_states > 1 }
+					}
+				}
+				set_state_flag = ChaosRandom175
+			}
+		}
+	}
 	option = {
 		name = chaos.175.a
 		ai_chance = { factor = 1 }
 		random_state = {
 			limit = {
-				OWNER = {
-					is_ai = yes
-					NOT = { tag = ROOT }
-					check_variable = { var:num_owned_states > 1 }
-				}
+				has_state_flag = ChaosRandom175
 			}
 			transfer_state_to = ROOT
+			clr_state_flag = ChaosRandom175
 		}
 	}
 }
@@ -8589,6 +9301,7 @@ country_event = {
 			limit = {
 				check_variable = { var:num_owned_states < 1 }
 				NOT = { is_dynamic_country = yes }
+				NOT = { tag = UNC }
 			}
 			custom_effect_tooltip = chaos.185.a.tt
 			hidden_effect = {
@@ -8604,7 +9317,7 @@ country_event = {
 							add_core_of = PREV
 						}
 					}
-					6 = {}
+					20 = {}
 				}
 			}
 		}
@@ -8618,9 +9331,21 @@ country_event = {
 	desc = chaos.186.d
 
 	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			random_state = {
+				set_state_flag = ChaosRandom186
+			}
+		}
+	}
+
 	option = {
 		name = chaos.186.a
 		random_state = {
+			limit = {
+				has_state_flag = ChaosRandom186
+			}
 			if = {
 				limit = { is_coastal = yes }
 				set_temp_variable = { countc = 3 }
@@ -8632,6 +9357,7 @@ country_event = {
 				set_temp_variable = { countm = 4 }
 			}
 			create_factories = yes
+			clr_state_flag = ChaosRandom186
 		}
 	}
 }
@@ -9179,7 +9905,22 @@ country_event = {
 
 	option = {
 		name = chaos.203.a
-		add_ideas = chaos_operative_slot
+		custom_effect_tooltip = chaos.203.a.tt
+		hidden_effect = {
+			add_to_variable = { chaos_operative_slots = 1 }
+			if = {
+				limit = {
+					NOT = {
+						has_dynamic_modifier = {
+							modifier = chaos_extra_operative
+						}
+					}
+				}
+				add_dynamic_modifier = {
+					modifier = chaos_extra_operative
+				} 
+			}
+		}
 	}
 }
 
@@ -9378,9 +10119,30 @@ country_event = {
 
 	option = {
 		name = chaos.209.a
-		PRC.PRC_mao_zedong = {
-			set_character_name = "Lmao Zedong"
+		trigger = {
+			any_country = {
+				has_character = PRC_mao_zedong
+			}
 		}
+		random_country = {
+			limit = {
+				has_character = PRC_mao_zedong
+			}
+			PRC_mao_zedong = {
+				set_character_name = "Lmao Zedong"
+			}
+		}
+	}
+	option = {
+		name = chaos.209.b
+		trigger = {
+			NOT = {
+				any_country = {
+					has_character = PRC_mao_zedong
+				}
+			}
+		}
+		add_political_power = -5
 	}
 }
 
@@ -9805,15 +10567,26 @@ country_event = {
 
 	is_triggered_only = yes
 
+	immediate = {
+		hidden_effect = {
+			random_country = {
+				set_country_flag = ChaosRandom214
+			}
+		}
+	}
+
 	option = {
 		name = chaos.214.a
-		random_other_country = {
+		random_country = {
+			limit = {
+				has_country_flag = ChaosRandom214
+			}
 			effect_tooltip = {
 				every_owned_state = {
 					custom_effect_tooltip = chaos.214.a.tt
 				}
 			}
-			this = {
+			hidden_effect = {
 				random_owned_controlled_state = {
 					set_temp_variable = { res_min = 5 }
 					set_temp_variable = { res_max = 12 }
@@ -9902,14 +10675,15 @@ country_event = {
 						set_temp_variable = { res_max = 31 }
 						set_temp_variable = { iters = 2 }
 						add_random_resource = yes
-					}
+				}
 				}
 			}
+			clr_country_flag = ChaosRandom214
 		}
 	}
 }
 
-# buy stability
+# buy war support
 country_event = {
 	id = chaos.215
 	title = chaos.215.t
@@ -9921,7 +10695,7 @@ country_event = {
 		name = chaos.215.a
 		ai_chance = { factor = 1 }
 		add_political_power = -10
-		add_stability = 0.05
+		add_war_support = 0.05
 	}
 
 	option = {
@@ -9934,7 +10708,7 @@ country_event = {
 			}
 		}
 		add_political_power = -50
-		add_stability = 0.1
+		add_war_support = 0.1
 	}
 
 	option = {
@@ -9947,7 +10721,7 @@ country_event = {
 			}
 		}
 		add_political_power = -120
-		add_stability = 0.2
+		add_war_support = 0.2
 	}
 
 	option = {
@@ -9960,7 +10734,7 @@ country_event = {
 			}
 		}
 		add_political_power = -300
-		add_stability = 0.45
+		add_war_support = 0.45
 	}
 }
 
@@ -10048,11 +10822,14 @@ country_event = {
 	title = chaos.220.t
 	desc = chaos.220.d
 
+	immediate = {
+		set_variable_to_random = { var = x min = 1 max = 100 integer = yes }
+	}
+
 	is_triggered_only = yes
 
 	option = {
 		name = chaos.220.a
-		set_variable_to_random = { var = x min = 1 max = 100 integer = yes }
 		add_equipment_to_stockpile = {
 			type = convoy
 			amount = var:x
@@ -10215,7 +10992,7 @@ country_event = {
 	}
 }
 
-# devil deal 8
+# devil deal 8 +production efficiency cap -cp
 country_event = {
 	id = chaos.224
 	title = chaos.128.t
@@ -10248,12 +11025,25 @@ country_event = {
 	desc = chaos.225.d
 
 	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			random_army_leader = {
+				set_character_flag = ChaosRandom225
+			}
+		}
+	}
+
 	option = {
 		name = chaos.225.a
 		random_army_leader = {
+			limit = {
+				has_character_flag = ChaosRandom225
+			}
 			add_trait = {
 				trait = chaos_adapting
 			}
+			clr_character_flag = ChaosRandom225
 		}
 	}
 }
@@ -10381,6 +11171,749 @@ country_event = {
 				type = industrial_complex
 				level = 1
 			}
+		}
+	}
+}
+
+#unification of europe
+country_event = {
+	id = chaos.231
+	title = chaos.231.t
+	desc = chaos.231.d
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			clear_temp_array = cs
+			set_temp_variable = { continent = 0 }
+			select_country_from_continent = yes
+		}
+	}
+
+	option = {
+		trigger = {
+			any_state = {
+				is_on_continent = europe
+				is_capital = yes
+				owner = {
+					PREV = {
+						is_core_of = PREV
+					}
+				}
+			}
+		}
+		name = chaos.231.a
+		clear_temp_array = cs
+		set_temp_variable = { continent = 0 }
+		unify_continent = yes
+		hidden_effect = {
+			increase_to_extensive_conscription = yes
+		}
+	}
+	option = {
+		trigger = {
+			NOT = {
+				any_state = {
+					is_on_continent = europe
+					is_capital = yes
+					owner = {
+						PREV = {
+							is_core_of = PREV
+						}
+					}
+				}
+			}
+		}
+		name = chaos.231.b
+	}
+}
+
+#unification of north america
+country_event = {
+	id = chaos.232
+	title = chaos.232.t
+	desc = chaos.232.d
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			clear_temp_array = cs
+			set_temp_variable = { continent = 1 }
+			select_country_from_continent = yes
+		}
+	}
+
+	option = {
+		trigger = {
+			any_state = {
+				is_on_continent = north_america
+				is_capital = yes
+				owner = {
+					PREV = {
+						is_core_of = PREV
+					}
+				}
+			}
+		}
+		name = chaos.232.a
+		clear_temp_array = cs
+		set_temp_variable = { continent = 1 }
+		unify_continent = yes
+		hidden_effect = {
+			increase_to_extensive_conscription = yes
+		}
+	}
+	option = {
+		trigger = {
+			NOT = {
+				any_state = {
+					is_on_continent = north_america
+					is_capital = yes
+					owner = {
+						PREV = {
+							is_core_of = PREV
+						}
+					}
+				}
+			}
+		}
+		name = chaos.232.b
+	}
+}
+
+#unification of south america
+country_event = {
+	id = chaos.233
+	title = chaos.233.t
+	desc = chaos.233.d
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			clear_temp_array = cs
+			set_temp_variable = { continent = 2 }
+			select_country_from_continent = yes
+		}
+	}
+
+	option = {
+		trigger = {
+			any_state = {
+				is_on_continent = south_america
+				is_capital = yes
+				owner = {
+					PREV = {
+						is_core_of = PREV
+					}
+				}
+			}
+		}
+		name = chaos.232.a
+		clear_temp_array = cs
+		set_temp_variable = { continent = 2 }
+		unify_continent = yes
+		hidden_effect = {
+			increase_to_extensive_conscription = yes
+		}
+	}
+	option = {
+		trigger = {
+			NOT = {
+				any_state = {
+					is_on_continent = south_america
+					is_capital = yes
+					owner = {
+						PREV = {
+							is_core_of = PREV
+						}
+					}
+				}
+			}
+		}
+		name = chaos.233.b
+	}
+}
+
+#unification of oceania
+country_event = {
+	id = chaos.234
+	title = chaos.234.t
+	desc = chaos.234.d
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			clear_temp_array = cs
+			set_temp_variable = { continent = 3 }
+			select_country_from_continent = yes
+		}
+	}
+
+	option = {
+		trigger = {
+			any_state = {
+				is_on_continent = australia
+				is_capital = yes
+				owner = {
+					PREV = {
+						is_core_of = PREV
+					}
+				}
+			}
+		}
+		name = chaos.234.a
+		clear_temp_array = cs
+		set_temp_variable = { continent = 3 }
+		unify_continent = yes
+		hidden_effect = {
+			increase_to_extensive_conscription = yes
+		}
+	}
+	option = {
+		trigger = {
+			NOT = {
+				any_state = {
+					is_on_continent = australia
+					is_capital = yes
+					owner = {
+						PREV = {
+							is_core_of = PREV
+						}
+					}
+				}
+			}
+		}
+		name = chaos.234.b
+	}
+}
+
+#unification of africa
+country_event = {
+	id = chaos.235
+	title = chaos.235.t
+	desc = chaos.235.d
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			clear_temp_array = cs
+			set_temp_variable = { continent = 4 }
+			select_country_from_continent = yes
+		}
+	}
+
+	option = {
+		trigger = {
+			any_state = {
+				is_on_continent = africa
+				is_capital = yes
+				owner = {
+					PREV = {
+						is_core_of = PREV
+					}
+				}
+			}
+		}
+		name = chaos.235.a
+		clear_temp_array = cs
+		set_temp_variable = { continent = 4 }
+		unify_continent = yes
+		hidden_effect = {
+			increase_to_extensive_conscription = yes
+		}
+	}
+	option = {
+		trigger = {
+			NOT = {
+				any_state = {
+					is_on_continent = africa
+					is_capital = yes
+					owner = {
+						PREV = {
+							is_core_of = PREV
+						}
+					}
+				}
+			}
+		}
+		name = chaos.235.b
+	}
+}
+
+#unification of asia
+country_event = {
+	id = chaos.236
+	title = chaos.236.t
+	desc = chaos.236.d
+
+	is_triggered_only = yes
+		immediate = {
+		hidden_effect = {
+			clear_temp_array = cs
+			set_temp_variable = { continent = 5 }
+			select_country_from_continent = yes
+		}
+	}
+
+	option = {
+		trigger = {
+			any_state = {
+				is_on_continent = asia
+				is_capital = yes
+				owner = {
+					PREV = {
+						is_core_of = PREV
+					}
+				}
+			}
+		}
+		name = chaos.236.a
+		clear_temp_array = cs
+		set_temp_variable = { continent = 5 }
+		unify_continent = yes
+		hidden_effect = {
+			increase_to_extensive_conscription = yes
+		}
+	}
+	option = {
+		trigger = {
+			NOT = {
+				any_state = {
+					is_on_continent = asia
+					is_capital = yes
+					owner = {
+						PREV = {
+							is_core_of = PREV
+						}
+					}
+				}
+			}
+		}
+		name = chaos.236.b
+	}
+}
+
+#unification of the middle east
+country_event = {
+	id = chaos.237
+	title = chaos.237.t
+	desc = chaos.237.d
+
+	is_triggered_only = yes
+		immediate = {
+		hidden_effect = {
+			clear_temp_array = cs
+			set_temp_variable = { continent = 6 }
+			select_country_from_continent = yes
+		}
+	}
+
+	option = {
+		trigger = {
+			any_state = {
+				is_on_continent = middle_east
+				is_capital = yes
+				owner = {
+					PREV = {
+						is_core_of = PREV
+					}
+				}
+			}
+		}
+		name = chaos.237.a
+		clear_temp_array = cs
+		set_temp_variable = { continent = 6 }
+		unify_continent = yes
+		hidden_effect = {
+			increase_to_extensive_conscription = yes
+		}
+	}
+	option = {
+		trigger = {
+			NOT = {
+				any_state = {
+					is_on_continent = middle_east
+					is_capital = yes
+					owner = {
+						PREV = {
+							is_core_of = PREV
+						}
+					}
+				}
+			}
+		}
+		name = chaos.237.b
+	}
+}
+
+#random state becomes unclaimed
+country_event = {
+	id = chaos.238
+	title = chaos.238.t
+	desc = chaos.238.d
+
+	is_triggered_only = yes
+	option = {
+		name = chaos.238.a
+		custom_effect_tooltip = chaos.238.a.tt
+		hidden_effect = {
+			random_state = {
+				limit = {
+					OWNER = {
+						check_variable = { num_owned_states > 1 }
+					}
+				}
+				set_temp_variable = { o = OWNER }
+				transfer_state_to = UNC
+			}
+			every_country = {
+				limit = {
+					OR = {
+						any_neighbor_country = { tag = UNC }
+						tag = var:o
+					}
+					NOT = { has_war_with = UNC }
+				}
+				declare_war_on = {
+					target = UNC
+					type = annex_everything
+				}
+			}
+		}
+	}
+}
+
+#purge a random advisor
+country_event = {
+	id = chaos.239
+	title = chaos.239.t
+	desc = chaos.239.d
+
+	immediate = {
+		hidden_effect = {
+			every_character = {
+				clr_character_flag = ChaosRandom1
+				clr_character_flag = ChaosRandom2
+				clr_character_flag = ChaosRandom3
+			}
+			random_character = {
+				limit = {
+					NOT = { has_character_flag = ChaosRandom1 }
+					NOT = { has_character_flag = ChaosRandom2 }
+					NOT = { has_character_flag = ChaosRandom3 }
+					is_advisor = yes
+					NOT = { can_be_country_leader = yes }
+				}
+				set_character_flag = ChaosRandom1
+			}
+			random_character = {
+				limit = {
+					NOT = { has_character_flag = ChaosRandom1 }
+					NOT = { has_character_flag = ChaosRandom2 }
+					NOT = { has_character_flag = ChaosRandom3 }
+					is_advisor = yes
+					NOT = { can_be_country_leader = yes }
+				}
+				set_character_flag = ChaosRandom2
+			}
+			random_character = {
+				limit = {
+					NOT = { has_character_flag = ChaosRandom1 }
+					NOT = { has_character_flag = ChaosRandom2 }
+					NOT = { has_character_flag = ChaosRandom3 }
+					is_advisor = yes
+					NOT = { can_be_country_leader = yes }
+				}
+				set_character_flag = ChaosRandom3
+			}
+		}
+	}
+
+	is_triggered_only = yes
+	option = {
+		name = chaos.239.a
+
+		custom_effect_tooltip = chaos.239.tt
+		ROOT = {
+			character_list_tooltip = {
+				limit = {
+					has_character_flag = ChaosRandom1
+				}
+			}
+		}
+		hidden_effect = {
+			random_character = {
+				limit = {
+					has_character_flag = ChaosRandom1
+				}
+				retire = yes
+			}
+		}
+	}
+	option = {
+		name = chaos.239.b
+		custom_effect_tooltip = chaos.239.tt
+		ROOT = {
+			character_list_tooltip = {
+				limit = {
+					has_character_flag = ChaosRandom2
+				}
+			}
+		}
+		hidden_effect = {
+			random_character = {
+				limit = {
+					has_character_flag = ChaosRandom2
+				}
+				retire = yes
+			}
+		}
+	}
+	option = {
+		name = chaos.239.c
+		custom_effect_tooltip = chaos.239.tt
+		ROOT = {
+			character_list_tooltip = {
+				limit = {
+					has_character_flag = ChaosRandom3
+				}
+			}
+		}
+		hidden_effect = {
+			random_character = {
+				limit = {
+					has_character_flag = ChaosRandom3
+				}
+				retire = yes
+			}
+		}
+	}
+}
+
+# all countries have 5 research slots
+country_event = {
+	id = chaos.240
+	title = chaos.240.t
+	desc = chaos.240.d
+
+	is_triggered_only = yes
+	option = {
+		name = chaos.240.a
+		ai_chance = { factor = 1 }
+		every_country = {
+			set_research_slots = 5
+		}
+	}
+}
+
+
+# refineries give 2 steel
+country_event = {
+	id = chaos.241
+	title = chaos.241.t
+	desc = chaos.241.d
+
+	is_triggered_only = yes
+	option = {
+		name = chaos.241.a
+		ai_chance = { factor = 1 }
+		every_country = {
+			modify_building_resources = {
+				building = synthetic_refinery
+				resource = steel
+				amount = 2
+			}
+		}
+	}
+}
+
+
+# refineries give 2 aluminium
+country_event = {
+	id = chaos.242
+	title = chaos.242.t
+	desc = chaos.242.d
+
+	is_triggered_only = yes
+	option = {
+		name = chaos.242.a
+		ai_chance = { factor = 1 }
+		every_country = {
+			modify_building_resources = {
+				building = synthetic_refinery
+				resource = aluminium
+				amount = 2
+			}
+		}
+	}
+}
+
+# refineries give 2 oil
+country_event = {
+	id = chaos.243
+	title = chaos.243.t
+	desc = chaos.243.d
+
+	is_triggered_only = yes
+	option = {
+		name = chaos.243.a
+		ai_chance = { factor = 1 }
+		every_country = {
+			modify_building_resources = {
+				building = synthetic_refinery
+				resource = oil
+				amount = 2
+			}
+		}
+	}
+}
+
+# civs give 1 tungsten
+country_event = {
+	id = chaos.244
+	title = chaos.244.t
+	desc = chaos.244.d
+
+	is_triggered_only = yes
+	option = {
+		name = chaos.244.a
+		ai_chance = { factor = 1 }
+		every_country = {
+			modify_building_resources = {
+				building = industrial_complex
+				resource = tungsten
+				amount = 1
+			}
+		}
+	}
+}
+
+# mils give 1 chromium
+country_event = {
+	id = chaos.245
+	title = chaos.245.t
+	desc = chaos.245.d
+
+	is_triggered_only = yes
+	option = {
+		name = chaos.245.a
+		ai_chance = { factor = 1 }
+		every_country = {
+			modify_building_resources = {
+				building = arms_factory
+				resource = chromium
+				amount = 1
+			}
+		}
+	}
+}
+
+# infra gives random resource
+country_event = {
+	id = chaos.246
+	title = chaos.246.t
+	desc = chaos.246.d
+
+	immediate = {
+		set_variable_to_random = { var = x min = 1 max = 2 integer = yes }
+	}
+
+	is_triggered_only = yes
+	option = {
+		name = chaos.246.a
+		ai_chance = { factor = 1 }	
+		every_country = {
+			meta_effect = {
+				text = {
+					random_list = {
+						1 = {
+							modify_building_resources = {
+								building = infrastructure
+								resource = steel
+								amount = [X]
+							}
+						}
+						1 = {
+							modify_building_resources = {
+								building = infrastructure
+								resource = aluminium
+								amount = [X]
+							}
+						}
+						1 = {
+							modify_building_resources = {
+								building = infrastructure
+								resource = tungsten
+								amount = [X]
+							}
+						}
+						1 = {
+							modify_building_resources = {
+								building = infrastructure
+								resource = chromium
+								amount = [X]
+							}
+						}
+						1 = {
+							modify_building_resources = {
+								building = infrastructure
+								resource = oil
+								amount = [X]
+							}
+						}
+						1 = {
+							modify_building_resources = {
+								building = infrastructure
+								resource = rubber
+								amount = [X]
+							}
+						}
+					}
+				}
+				X = "[?ROOT.x]"
+
+			}
+		}
+	}
+}
+
+# chad
+country_event = {
+	id = chaos.247
+	title = chaos.247.t
+	desc = chaos.247.d
+
+	immediate = {
+		hidden_effect = {
+			random_state = {
+				limit = {
+					OWNER = {
+						is_ai = yes
+						check_variable = { var:num_owned_states > 4 }
+						PREV = { NOT = { is_core_of = PREV } }
+					}
+				}
+				set_state_flag = ChaosRandom247
+			}
+		}
+	}
+
+	is_triggered_only = yes
+	option = {
+		name = chaos.247.a
+		ai_chance = { factor = 1 }
+		random_state = {
+			limit = {
+				has_state_flag = ChaosRandom247
+			}
+			transfer_state_to = CHA
+			hidden_effect = {
+				set_temp_variable = { countc = 3 }
+				set_temp_variable = { countm = 3 }
+				create_factories = yes
+			}
+			clr_state_flag = ChaosRandom247
 		}
 	}
 }

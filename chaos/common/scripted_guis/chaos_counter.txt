@@ -80,16 +80,44 @@ scripted_gui = {
                         }
                     }
                     subtract_from_variable = { global.CHAOS_EVENT_COUNTER_MAX = 5 }
-                    every_country = {   
-                        limit = {
-                            has_variable = chaos_event_counter
-                            check_variable = { chaos_event_counter > -1 }
+                }
+                else = {
+                    set_variable = { global.CHAOS_EVENT_COUNTER_MAX = 1 }
+                }
+                every_country = {   
+                    limit = {
+                        has_variable = chaos_event_counter
+                        check_variable = { chaos_event_counter > -1 }
+                    }
+                    clamp_variable = {
+                        var = chaos_event_counter
+                        min = 1
+                        max = global.CHAOS_EVENT_COUNTER_MAX
+                    }
+                }
+            }
+
+            chaos_decrease_max_control_click = {
+                if = {
+                    limit = {
+                        check_variable = {
+                            global.CHAOS_EVENT_COUNTER_MAX > 50
                         }
-                        clamp_variable = {
-                            var = chaos_event_counter
-                            min = 1
-                            max = global.CHAOS_EVENT_COUNTER_MAX
-                        }
+                    }
+                    subtract_from_variable = { global.CHAOS_EVENT_COUNTER_MAX = 50 }
+                }
+                else = {
+                    set_variable = { global.CHAOS_EVENT_COUNTER_MAX = 1 }
+                }
+                every_country = {   
+                    limit = {
+                        has_variable = chaos_event_counter
+                        check_variable = { chaos_event_counter > -1 }
+                    }
+                    clamp_variable = {
+                        var = chaos_event_counter
+                        min = 1
+                        max = global.CHAOS_EVENT_COUNTER_MAX
                     }
                 }
             }
@@ -102,9 +130,23 @@ scripted_gui = {
                 add_to_variable = { global.CHAOS_EVENT_COUNTER_MAX = 5 }
             }
 
+            chaos_increase_max_control_click = {
+                add_to_variable = { global.CHAOS_EVENT_COUNTER_MAX = 50 }
+            }
+
             chaos_player_countries_enable_click = {
                 every_country = {
 					limit = { is_ai = no }
+                    enable_chaos = yes
+                }
+            }
+
+            chaos_major_countries_enable_click = {
+                every_country = {
+                    limit = {
+                        is_major = yes
+                        NOT = { tag = UNC }
+                    }
                     enable_chaos = yes
                 }
             }
@@ -118,6 +160,9 @@ scripted_gui = {
 
             chaos_all_countries_enable_click = {
                 every_country = {
+                    limit = {
+                        NOT = { tag = UNC }
+                    }
                     enable_chaos = yes
                 }
             }
@@ -146,13 +191,36 @@ scripted_gui = {
             chaos_country_enabled_checkbox_on_click = {
                 disable_chaos = yes
             }
+        }
 
+        triggers = {
+            chaos_country_enabled_checkbox_on_visible = {
+                chaos_enabled = yes
+            }
+            chaos_country_enabled_checkbox_off_visible = {
+                NOT = { chaos_enabled = yes }
+            }
+        }
+    }
+
+    chaos_window_country_2 = {
+        context_type = selected_country_context
+        window_name = chaos_window_country_2
+           
+		visible = {
+			has_global_flag = chaos_window_open
+		}
+        
+        effects = {
             chaos_effect_select_increase_click = {
                 if = {
                     limit = {
                         check_variable = { global.CHAOS_UI_SELECTED_EFFECT_ID < global.CHAOS_NUM_EFFECTS }
                     }
                     add_to_variable = { global.CHAOS_UI_SELECTED_EFFECT_ID = 1 }
+                }
+                else = {
+                    set_variable = { global.CHAOS_UI_SELECTED_EFFECT_ID = global.CHAOS_NUM_EFFECTS }
                 }
                 set_temp_variable = { eventnum = global.CHAOS_UI_SELECTED_EFFECT_ID }
                 extract_selected_effect_title = yes
@@ -167,6 +235,25 @@ scripted_gui = {
                     }
                     add_to_variable = { global.CHAOS_UI_SELECTED_EFFECT_ID = 5 }
                 }
+                else = {
+                    set_variable = { global.CHAOS_UI_SELECTED_EFFECT_ID = global.CHAOS_NUM_EFFECTS }
+                }
+                set_temp_variable = { eventnum = global.CHAOS_UI_SELECTED_EFFECT_ID }
+                extract_selected_effect_title = yes
+            }
+
+            chaos_effect_select_increase_control_click = {
+                if = {
+                    limit = {
+                        set_temp_variable = { x = global.CHAOS_NUM_EFFECTS }
+                        subtract_from_temp_variable = { x = 50 }
+                        check_variable = { global.CHAOS_UI_SELECTED_EFFECT_ID < x }
+                    }
+                    add_to_variable = { global.CHAOS_UI_SELECTED_EFFECT_ID = 50 }
+                }
+                else = {
+                    set_variable = { global.CHAOS_UI_SELECTED_EFFECT_ID = global.CHAOS_NUM_EFFECTS }
+                }
                 set_temp_variable = { eventnum = global.CHAOS_UI_SELECTED_EFFECT_ID }
                 extract_selected_effect_title = yes
             }
@@ -177,6 +264,9 @@ scripted_gui = {
                         check_variable = { global.CHAOS_UI_SELECTED_EFFECT_ID > 1 }
                     }
                     subtract_from_variable = { global.CHAOS_UI_SELECTED_EFFECT_ID = 1 }
+                }
+                else = {
+                    set_variable = { global.CHAOS_UI_SELECTED_EFFECT_ID = 1 }
                 }
                 set_temp_variable = { eventnum = global.CHAOS_UI_SELECTED_EFFECT_ID }
                 extract_selected_effect_title = yes
@@ -189,6 +279,23 @@ scripted_gui = {
                     }
                     subtract_from_variable = { global.CHAOS_UI_SELECTED_EFFECT_ID = 5 }
                 }
+                else = {
+                    set_variable = { global.CHAOS_UI_SELECTED_EFFECT_ID = 1 }
+                }
+                set_temp_variable = { eventnum = global.CHAOS_UI_SELECTED_EFFECT_ID }
+                extract_selected_effect_title = yes
+            }
+
+            chaos_effect_select_decrease_control_click = {
+                if = {
+                    limit = {
+                        check_variable = { global.CHAOS_UI_SELECTED_EFFECT_ID > 50 }
+                    }
+                    subtract_from_variable = { global.CHAOS_UI_SELECTED_EFFECT_ID = 50 }
+                }
+                else = {
+                    set_variable = { global.CHAOS_UI_SELECTED_EFFECT_ID = 1 }
+                }
                 set_temp_variable = { eventnum = global.CHAOS_UI_SELECTED_EFFECT_ID }
                 extract_selected_effect_title = yes
             }
@@ -196,15 +303,6 @@ scripted_gui = {
             chaos_trigger_effect_click = {
                 set_variable = { eventnum = global.CHAOS_UI_SELECTED_EFFECT_ID }
                 specific_chaos_event = yes
-            }
-        }
-
-        triggers = {
-            chaos_country_enabled_checkbox_on_visible = {
-                chaos_enabled = yes
-            }
-            chaos_country_enabled_checkbox_off_visible = {
-                NOT = { chaos_enabled = yes }
             }
         }
     }
